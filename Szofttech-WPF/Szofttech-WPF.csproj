@@ -62,7 +62,6 @@
     <Compile Include="DataPackage\ChatData.cs" />
     <Compile Include="DataPackage\ConnectionData.cs" />
     <Compile Include="DataPackage\Data.cs" />
-    <Compile Include="DataPackage\DataConverter.cs" />
     <Compile Include="DataPackage\GameEndedData.cs" />
     <Compile Include="DataPackage\PlaceShipsData.cs" />
     <Compile Include="DataPackage\ShotData.cs" />
@@ -73,8 +72,14 @@
     <Compile Include="Logic\GameLogic.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Utils\Settings.cs" />
-    <Compile Include="View\NewGameWindow.xaml.cs">
-      <DependentUpon>NewGameWindow.xaml</DependentUpon>
+    <Compile Include="View\JoinGameSurface.xaml.cs">
+      <DependentUpon>JoinGameSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NewGameSurface.xaml.cs">
+      <DependentUpon>NewGameSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -88,7 +93,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\NewGameWindow.xaml">
+    <Page Include="View\JoinGameSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NewGameSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,6 +135,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="EventArgs\" />
     <Folder Include="Model\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
