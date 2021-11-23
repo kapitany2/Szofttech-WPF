@@ -8,8 +8,8 @@ namespace Szofttech_WPF.DataPackage
 {
     public abstract class Data
     {
-        protected int clientID;
-        protected int recipientID;
+        public int clientID;
+        public int recipientID;
 
         public Data(int clientID)
         {
