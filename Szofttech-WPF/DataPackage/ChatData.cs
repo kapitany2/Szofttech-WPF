@@ -8,7 +8,6 @@ namespace Szofttech_WPF.DataPackage
 {
     public class ChatData : Data
     {
-
         string message;
 
         public ChatData(int clientID, string message) : base(clientID)
@@ -20,6 +19,5 @@ namespace Szofttech_WPF.DataPackage
         {
             return message;
         }
-
     }
 }

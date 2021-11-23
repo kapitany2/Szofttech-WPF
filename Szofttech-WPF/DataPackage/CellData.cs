@@ -9,10 +9,9 @@ namespace Szofttech_WPF.DataPackage
 {
     public class CellData : Data
     {
-
-        int i;
-        int j;
-        CellStatus status;
+        public int i { get; private set; }
+        public int j { get; private set; }
+        public CellStatus status { get; private set; }
 
         public CellData(int clientID, int i, int j) : base(clientID)
         {
@@ -27,25 +26,9 @@ namespace Szofttech_WPF.DataPackage
             this.status = status;
         }
 
-        public int getI()
-        {
-            return i;
-        }
-
-        public int getJ()
-        {
-            return j;
-        }
-
         public void setStatus(CellStatus status)
         {
             this.status = status;
         }
-
-        public CellStatus getStatus()
-        {
-            return status;
-        }
-
     }
 }

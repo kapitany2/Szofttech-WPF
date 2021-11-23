@@ -8,25 +8,23 @@ namespace Szofttech_WPF.DataPackage
 {
     public class ShotData : Data
     {
-
-        int i;
-        int j;
+        public int I { get; private set; }
+        public int J { get; private set; }
 
         public ShotData(int clientID, int i, int j) : base(clientID)
         {
-            this.i = i;
-            this.j = j;
+            this.I = i;
+            this.J = j;
         }
 
         public int getI()
         {
-            return i;
+            return I;
         }
 
         public int getJ()
         {
-            return j;
+            return J;
         }
-
     }
 }

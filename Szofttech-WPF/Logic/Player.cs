@@ -8,7 +8,6 @@ namespace Szofttech_WPF.Logic
 {
     public class Player
     {
-
         public int Identifier { get; set; }
         public bool isReady = false;
         public Board Board { get; set; }

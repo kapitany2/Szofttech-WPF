@@ -8,7 +8,6 @@ namespace Szofttech_WPF.DataPackage
 {
     public class GameEndedData : Data
     {
-
         GameEndedStatus status;
 
         public GameEndedData(GameEndedStatus status, int recipientID) : base(-1)
