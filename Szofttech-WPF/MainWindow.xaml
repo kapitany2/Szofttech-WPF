@@ -15,7 +15,7 @@
             <RowDefinition Height="150"/>
             <RowDefinition Height="425"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="header" Grid.Row="0" Width="800" Height="25" Margin="0" PreviewMouseLeftButtonDown="drawWindow" Background="White"/>
+        <TextBlock x:Name="header" Grid.Row="0" Width="800" Height="25" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
         <Label x:Name="title" Grid.Row="1" Margin="19,0,21,10" FontSize="35" Content="Battleship Game" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="60" Width="260"/>
 
         <Grid Name="contentGrid" Grid.Row="2">
