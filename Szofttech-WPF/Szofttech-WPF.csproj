@@ -62,6 +62,7 @@
     <Compile Include="DataPackage\ChatData.cs" />
     <Compile Include="DataPackage\ConnectionData.cs" />
     <Compile Include="DataPackage\Data.cs" />
+    <Compile Include="DataPackage\DataConverter.cs" />
     <Compile Include="DataPackage\GameEndedData.cs" />
     <Compile Include="DataPackage\PlaceShipsData.cs" />
     <Compile Include="DataPackage\ShotData.cs" />
