@@ -79,9 +79,9 @@ namespace Szofttech_WPF.Network
 
         public static void AddServer(ServerAddress sAddress)
         {
-            foreach (ServerAddress item in serverList)
+            for (int i = 0; i < serverList.Count; ++i)
             {
-                if(sAddress.Name == item.Name)
+                if(sAddress.Name == serverList[i].Name)
                 {
                     throw new Exception("SZERVER NÉV MÁR LÉTEZIK!");
                 }
@@ -92,22 +92,22 @@ namespace Szofttech_WPF.Network
         {
             if(name != newAddress.Name)
             {
-                foreach (ServerAddress item in serverList)
+                for (int i = 0; i < serverList.Count; ++i)
                 {
-                    if(newAddress.Name == item.Name)
+                    if(newAddress.Name == serverList[i].Name)
                     {
                         throw new Exception("SZERVER NÉV MÁR LÉTEZIK!");
                     }
                 }
             }
 
-            foreach (ServerAddress item in serverList)
+            for (int i = 0; i < serverList.Count; ++i)
             {
-                if(name == item.Name)
+                if(name == serverList[i].Name)
                 {
-                    item.Name = newAddress.Name;
-                    item.IP = newAddress.IP;
-                    item.Port = newAddress.Port;
+                    serverList[i].Name = newAddress.Name;
+                    serverList[i].IP = newAddress.IP;
+                    serverList[i].Port = newAddress.Port;
                     WriteSavedServersToFile();
                     break;
                 }

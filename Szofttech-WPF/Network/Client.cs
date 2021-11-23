@@ -8,6 +8,9 @@ namespace Szofttech_WPF.Network
 {
     public class Client
     {
+        public Client()
+        {
 
+        }
     }
 }

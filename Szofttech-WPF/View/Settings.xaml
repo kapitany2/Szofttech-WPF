@@ -11,8 +11,8 @@
             <SolidColorBrush Color="#3269a8"/>
         </Grid.Background>
 
-        <Label x:Name="lblPort" FontSize="20" Content="Port:" Margin="0, 0, 80, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox x:Name="txtBlckPort" Margin="130, 0, 0, 0" Width="150" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="lblPort" FontSize="20" Content="Port:" Margin="0, 0, 110, 0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox x:Name="txtBlckPort" Margin="100, 0, 0, 0" Width="150" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
     </Grid>
 </UserControl>

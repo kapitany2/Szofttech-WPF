@@ -73,14 +73,38 @@
     <Compile Include="Logic\GameLogic.cs" />
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Utils\Settings.cs" />
+    <Compile Include="View\BoardSurfacexaml.xaml.cs">
+      <DependentUpon>BoardSurfacexaml.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CellSurface.xaml.cs">
+      <DependentUpon>CellSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChatSurface.xaml.cs">
+      <DependentUpon>ChatSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EnemyBoardSurface.xaml.cs">
+      <DependentUpon>EnemyBoardSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InfoPanelSurface.xaml.cs">
+      <DependentUpon>InfoPanelSurface.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\JoinGameSurface.xaml.cs">
       <DependentUpon>JoinGameSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuSurface.xaml.cs">
+      <DependentUpon>MenuSurface.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NewGameSurface.xaml.cs">
       <DependentUpon>NewGameSurface.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PlayerBoard.xaml.cs">
+      <DependentUpon>PlayerBoard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShipSelecter.xaml.cs">
+      <DependentUpon>ShipSelecter.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -94,7 +118,31 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\BoardSurfacexaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CellSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChatSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EnemyBoardSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InfoPanelSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\JoinGameSurface.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuSurface.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,7 +150,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PlayerBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShipSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
