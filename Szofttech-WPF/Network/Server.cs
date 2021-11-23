@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.Logic;
 using Szofttech_WPF.Utils;
 
@@ -19,7 +20,7 @@ namespace Szofttech_WPF.Network
         private GameLogic gameLogic = null;
         private Socket sSocket = null;
 
-        public void getMessageToQueue(string message, int ID)
+        public void addMessageToQueue(string message, int ID)
         {
             if (ID != 1)
                 queueArray[ID].Add(message);
@@ -40,15 +41,24 @@ namespace Szofttech_WPF.Network
             }
             gameLogic = new GameLogic();
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, Settings.getPort());
+            
 
             Thread threadQueuePoll = new Thread(() => {
                 while (!close)
                 {
                     Thread.Sleep(10);
-                    Console.WriteLine("threadQueuePoll");
-                    Close();
-                }
-                
+                    while (gameLogic.messageQueue.Count != 0)
+                    {
+                        string BroadcastMessage = gameLogic.messageQueue[0];
+                        gameLogic.messageQueue.RemoveAt(gameLogic.messageQueue.Count - 1);
+                        if (BroadcastMessage != null)
+                        {
+                            Data decoded = DataConverter.decode(BroadcastMessage);
+                            int recipient = decoded.getRecipientID();
+                            addMessageToQueue(BroadcastMessage, recipient);
+                        }
+                    }
+                } 
             });
             threadQueuePoll.Start();
         }
