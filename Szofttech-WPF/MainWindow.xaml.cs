@@ -49,16 +49,6 @@ namespace Szofttech_WPF
         private void bttnSettings_Click(object sender, RoutedEventArgs e)
         {
             title.Visibility = Visibility.Hidden;
-            Button backToMenu = new Button()
-            {
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(10),
-                Width = 116,
-                Height = 40,
-                Content = "Back to Menu"
-            };
-            //ez még nem jó
         }
     }
 }
