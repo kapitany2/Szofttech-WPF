@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.Network
 {
@@ -37,6 +39,7 @@ namespace Szofttech_WPF.Network
                 queueArray[i] = new List<string>();
             }
             gameLogic = new GameLogic();
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, Settings.getPort());
 
             Thread threadQueuePoll = new Thread(() => {
                 while (!close)
