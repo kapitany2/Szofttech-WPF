@@ -41,7 +41,8 @@ namespace Szofttech_WPF.Network
             Thread threadQueuePoll = new Thread(() => {
                 while (!close)
                 {
-                    Console.WriteLine("Faszcibàlo");
+                    Thread.Sleep(10);
+                    Console.WriteLine("threadQueuePoll");
                     Close();
                 }
                 
