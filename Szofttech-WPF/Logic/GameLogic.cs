@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Szofttech_WPF.Network
+namespace Szofttech_WPF.Logic
 {
-    public class Client
+    public class GameLogic
     {
 
     }
