@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Szofttech_WPF.Logic
 {
-    class Board
+    public class Board
     {
         private static Coordinate[] relativeCoords = {
         new Coordinate(-1, -1),
@@ -22,7 +22,7 @@ namespace Szofttech_WPF.Logic
         new Coordinate(1, 1)
         };
 
-        private CellStatus[,] cellstatus = new CellStatus[10, 10];
+        public CellStatus[,] cellstatus = new CellStatus[10, 10];
 
         /// <summary>
         /// Üres táblát hoz létre.
