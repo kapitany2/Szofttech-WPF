@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows;
 
 namespace Szofttech_WPF.Logic
 {
@@ -93,12 +88,11 @@ namespace Szofttech_WPF.Logic
 
         public override string ToString()
         {
-            String a = "";
+            string a = "";
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    //a += cellstatus[j][i].toString().charAt(0) == 'S' ? 1 + " " : 0 + " ";
                     a += cellstatus[j, i].ToString()[0] == 'S' ? "▓ " : "░ ";
                 }
                 a += "\n";
@@ -108,7 +102,6 @@ namespace Szofttech_WPF.Logic
 
         public static Board RandomBoard()
         {
-            //System.out.println("\n\n\n");
             Random rnd = new Random();
             Board board = new Board();
             int[] shipSizes = { 4, 3, 2, 1 };
@@ -124,10 +117,8 @@ namespace Szofttech_WPF.Logic
 
             for (int i = 0; i < shipSizes.Length; i++)
             {
-                //System.out.println("##############\nShip size: " + shipSizes[i]);
                 for (int dbI = 0; dbI < shipPieces[i]; dbI++)
                 {
-                    //System.out.println("Darab: " + dbI);
                     List<int> availableCellsIntegers = new List<int>();
                     for (int s = 0; s < availableCells.Count; s++)
                     {
@@ -140,7 +131,6 @@ namespace Szofttech_WPF.Logic
                     do
                     {
                         int rndnum = rnd.Next(availableCellsIntegers.Count);
-                        //System.out.println("size: " + availableCellsIntegers.size() + "\trndnum: " + rndnum);
                         int sgd = availableCellsIntegers[rndnum];
 
                         cellI = availableCells[sgd].X;
@@ -173,26 +163,22 @@ namespace Szofttech_WPF.Logic
 
         private static bool isEmptyPlace(CellStatus[,] cell, int ccelli, int ccellj, int selectedShipSize, bool shipPlaceHorizontal)
         {
-            //System.out.println("#######################");
             if (shipPlaceHorizontal)
             {
                 if (ccelli + selectedShipSize - 1 <= 9)
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
-                        //System.out.println("");
                         foreach (var relativeCoord in relativeCoords)
                         {
                             int cellI = ccelli + relativeCoord.Y;
                             int cellJ = ccellj + relativeCoord.X;
 
                             cellI += i;
-                            //System.out.println("H_ CellI:" + cellI + " cellJ:" + cellJ);
                             if (cellI >= 0 && cellI <= 9 && cellJ >= 0 && cellJ <= 9)
                             {
                                 if (cell[cellI, cellJ] == CellStatus.Ship)
                                 {
-                                    //System.out.println("H_ Invalid place: " + cellI + " - " + cellJ);
                                     return false;
                                 }
                             }
@@ -201,29 +187,25 @@ namespace Szofttech_WPF.Logic
                 }
                 else
                 {
-                    //System.out.println("H_ Hahó ez kiesne");
                     return false;
                 }
             }
             else
-            {//Vertical
+            {
                 if (ccellj + selectedShipSize - 1 <= 9)
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
-                        //System.out.println("V_ ");
                         foreach (Coordinate relativeCoord in relativeCoords)
                         {
                             int cellI = ccelli + relativeCoord.Y;
                             int cellJ = ccellj + relativeCoord.X;
 
                             cellJ += i;
-                            //System.out.println("V_ CellI:" + cellI + " cellJ:" + cellJ);
                             if (cellI >= 0 && cellI <= 9 && cellJ >= 0 && cellJ <= 9)
                             {
                                 if (cell[cellI, cellJ] != CellStatus.Empty)
                                 {
-                                    //System.out.println("V_ Invalid place: " + cellI + " - " + cellJ);
                                     return false;
                                 }
                             }
@@ -232,7 +214,6 @@ namespace Szofttech_WPF.Logic
                 }
                 else
                 {
-                    //System.out.println("V_ Hahó ez kiesne");
                     return false;
                 }
             }
@@ -254,7 +235,6 @@ namespace Szofttech_WPF.Logic
             return false;
         }
 
-        //Egy hajó részének koordinátáját megadva kiszámolja az összes olyan koordinátát, ahol az a hajó van.
         private List<Coordinate> ShipCoords(int i, int j)
         {
             List<Coordinate> shipsCoords = new List<Coordinate>();
@@ -266,7 +246,6 @@ namespace Szofttech_WPF.Logic
             new Coordinate(0, -1),
             new Coordinate(0, 1)
         };
-            //eldöntés melyik irányban kell ellenőriznie
             bool horizontal = false;
             foreach (Coordinate point in relativeCoordsHorizontal)
             {
@@ -282,13 +261,10 @@ namespace Szofttech_WPF.Logic
                 }
             }
 
-            //hajó koordináták hozzáadása a listához
             shipsCoords.Add(new Coordinate(i, j));
 
-            //Eddig jó a kód
             if (horizontal)
             {
-                //System.out.println("HORIZONTAL SHIP");
                 CellStatus cs;
                 int x, y;
                 bool existShip;
@@ -305,30 +281,21 @@ namespace Szofttech_WPF.Logic
                         if (x >= 0 && x < 10 && y >= 0 && y < 10)
                         {
                             cs = cellstatus[x, y];
-                            //System.out.print("Ellenőrzés: " + cellstatus[x][y]);
                             if (cs == CellStatus.Ship || cs == CellStatus.ShipHit || cs == CellStatus.ShipSunk)
                             {
-                                //System.out.println(" ez jó");
                                 Coordinate p = new Coordinate(x, y);
                                 if (!shipsCoords.Contains(p))
                                 {
-                                    //System.out.println(" és hozzáadtuk.");
                                     shipsCoords.Add(p);
-                                }
-                                else
-                                {
-                                    //System.out.println(" de már létezik");
                                 }
                             }
                             else
                             {
-                                //System.out.println(" nem jó");
                                 existShip = false;
                             }
                         }
                         else
                         {
-                            //System.out.println(" nem jó");
                             existShip = false;
                         }
                     } while (existShip);
@@ -336,7 +303,6 @@ namespace Szofttech_WPF.Logic
             }
             else
             {
-                //System.out.println("VERTICAL SHIP");
                 CellStatus cs;
                 int x, y;
                 bool existShip;
@@ -353,40 +319,26 @@ namespace Szofttech_WPF.Logic
                         if (x >= 0 && x < 10 && y >= 0 && y < 10)
                         {
                             cs = cellstatus[x, y];
-                            //System.out.print("Ellenőrzés: " + cellstatus[x][y]);
                             if (cs == CellStatus.Ship || cs == CellStatus.ShipHit || cs == CellStatus.ShipSunk)
                             {
-                                //System.out.println(" ez jó");
                                 Coordinate p = new Coordinate(x, y);
                                 if (!shipsCoords.Contains(p))
                                 {
-                                    //System.out.println(" és hozzáadtuk.");
                                     shipsCoords.Add(p);
-                                }
-                                else
-                                {
-                                    //System.out.println(" de már létezik");
                                 }
                             }
                             else
                             {
-                                //System.out.println(" nem jó");
                                 existShip = false;
                             }
                         }
                         else
                         {
-                            //System.out.println(" nem jó");
                             existShip = false;
                         }
                     } while (existShip);
                 }
             }
-            //        System.out.println("######### EGÉSZ HAJÓ:");
-            //        for (Point shipsCoord : shipsCoords) {
-            //            System.out.println("I: " + shipsCoord.x + " J: " + shipsCoord.y);
-            //        }
-            //        System.out.println("######## END");
             return shipsCoords;
         }
 
@@ -416,7 +368,7 @@ namespace Szofttech_WPF.Logic
                     int y = shipCoord.Y + relativeCoord.Y;
                     if (x >= 0 && x < 10 && y >= 0 && y < 10)
                     {
-                        if (cellstatus[x,y] == CellStatus.Empty)
+                        if (cellstatus[x, y] == CellStatus.Empty)
                         {
                             Coordinate p = new Coordinate(x, y);
                             if (!nearShipPoints.Contains(p))
@@ -427,13 +379,7 @@ namespace Szofttech_WPF.Logic
                     }
                 }
             }
-            //        System.out.println("######### HAJÓ KÖRÜLÖTTI COORD:");
-            //        for (Point nearShipPoint : nearShipPoints) {
-            //            System.out.println("I: " + nearShipPoint.x + " J: " + nearShipPoint.y);
-            //        }
-            //        System.out.println("######## END");
             return nearShipPoints;
         }
-
     }
 }

@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.DataPackage
 {
     public class DataConverter
     {
-
         public static Data decode(string message)
         {
             Data data;
@@ -100,5 +95,4 @@ namespace Szofttech_WPF.DataPackage
             return encoded;
         }
     }
-
 }
