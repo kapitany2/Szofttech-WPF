@@ -37,7 +37,7 @@ namespace Szofttech_WPF
 
         private void bttnExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Environment.Exit(0);
         }
 
         private void drawWindow(object sender, MouseButtonEventArgs e)
