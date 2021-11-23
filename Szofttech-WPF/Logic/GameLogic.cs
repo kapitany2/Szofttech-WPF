@@ -27,7 +27,7 @@ namespace Szofttech_WPF.Logic
 
         public void processMessage(Data data)
         {
-            switch (data.getClass().getSimpleName())
+            switch (data.GetType().Name)
             {
                 case "ChatData":
                     data.setRecipientID(0);
@@ -47,7 +47,7 @@ namespace Szofttech_WPF.Logic
                     break;
                 default:
                     Console.WriteLine("########## ISMERETLEN OSZTÁLY #########");
-                    Console.WriteLine("Nincs implementálva a GameLogicban az alábbi osztály: " + data.getClass().getSimpleName());
+                    Console.WriteLine("Nincs implementálva a GameLogicban az alábbi osztály: " + data.GetType().Name);
                     throw new Exception("Not implemented");
             }
         }
