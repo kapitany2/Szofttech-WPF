@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szofttech_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-        
-    </Grid>
+		<Grid.Background>
+			<SolidColorBrush Color="#3269a8"/>
+		</Grid.Background>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="3*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="3*"/>
+			<RowDefinition Height="3*"/>
+		</Grid.RowDefinitions>
+
+		<Label x:Name="title" Grid.Column="1" Grid.Row="0" Margin="0, 0, 0, 10" FontSize="25" Content="Battleship Game" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+		<Button x:Name="bttnNewGame" Grid.Column="1" Grid.Row="1" Margin="0, 40, 0, 0" Content="New Game" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+		<Button x:Name="bttnJoinGame" Grid.Column="1" Grid.Row="1" Margin="83,80,84,110" Content="Join Game" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Button x:Name="bttnSettings" Grid.Column="1" Grid.Row="1" Margin="83,120,84,69" Content="Settings" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Button x:Name="bttnExit" Grid.Column="1" Grid.Row="1" Margin="83,0,84,29" Content="Exit" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+	</Grid>
 </Window>
