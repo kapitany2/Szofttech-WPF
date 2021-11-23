@@ -8,13 +8,19 @@ namespace Szofttech_WPF.DataPackage
 {
     public class GameEndedData : Data
     {
-        public GameEndedStatus status { get; private set; }
+        GameEndedStatus status;
 
         public GameEndedData(GameEndedStatus status, int recipientID) : base(-1)
         {
             this.status = status;
             base.recipientID = recipientID;
         }
+
+        public GameEndedStatus getStatus()
+        {
+            return status;
+        }
+
     }
     public enum GameEndedStatus
     {

@@ -29,5 +29,36 @@ namespace Szofttech_WPF
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
         }
+
+        private void bttnNewGame_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bttnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void drawWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
+        }
+
+        private void bttnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            title.Visibility = Visibility.Hidden;
+            Button backToMenu = new Button()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(10),
+                Width = 116,
+                Height = 40,
+                Content = "Back to Menu"
+            };
+            //ez még nem jó
+        }
     }
 }
