@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Szofttech_WPF.Network
 {
-    class Client
+    public class Client
     {
+
     }
 }

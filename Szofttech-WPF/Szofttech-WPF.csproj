@@ -58,6 +58,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataPackage\CellData.cs" />
+    <Compile Include="DataPackage\ChatData.cs" />
+    <Compile Include="DataPackage\ConnectionData.cs" />
+    <Compile Include="DataPackage\Data.cs" />
+    <Compile Include="DataPackage\GameEndedData.cs" />
+    <Compile Include="DataPackage\PlaceShipsData.cs" />
+    <Compile Include="DataPackage\ShotData.cs" />
+    <Compile Include="DataPackage\TurnData.cs" />
+    <Compile Include="Logic\Board.cs" />
+    <Compile Include="Logic\CellStatus.cs" />
+    <Compile Include="Logic\Coordinate.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Logic\Player.cs" />
     <Compile Include="Utils\Settings.cs" />
     <Compile Include="View\NewGameWindow.xaml.cs">
       <DependentUpon>NewGameWindow.xaml</DependentUpon>
