@@ -7,24 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
-		<Grid.Background>
-			<SolidColorBrush Color="#3269a8"/>
-		</Grid.Background>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="3*"/>
-			<ColumnDefinition Width="3*"/>
-			<ColumnDefinition Width="3*"/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="2*"/>
-			<RowDefinition Height="3*"/>
-			<RowDefinition Height="3*"/>
-		</Grid.RowDefinitions>
+        <Grid.Background>
+            <SolidColorBrush Color="#3269a8"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="425"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="header" Grid.Row="0" Width="800" Height="25" Margin="0" PreviewMouseLeftButtonDown="drawWindow" Background="White"/>
+        <Label x:Name="title" Grid.Row="1" Margin="19,0,21,10" FontSize="35" Content="Battleship Game" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="60" Width="260"/>
 
-		<Label x:Name="title" Grid.Column="1" Grid.Row="0" Margin="0, 0, 0, 10" FontSize="25" Content="Battleship Game" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-		<Button x:Name="bttnNewGame" Grid.Column="1" Grid.Row="1" Margin="0, 40, 0, 0" Content="New Game" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-		<Button x:Name="bttnJoinGame" Grid.Column="1" Grid.Row="1" Margin="83,80,84,110" Content="Join Game" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		<Button x:Name="bttnSettings" Grid.Column="1" Grid.Row="1" Margin="83,120,84,69" Content="Settings" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		<Button x:Name="bttnExit" Grid.Column="1" Grid.Row="1" Margin="83,0,84,29" Content="Exit" Width="100" Height="35" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-	</Grid>
+        <Grid Name="contentGrid" Grid.Row="2">
+            <Button x:Name="bttnNewGame" Margin="0, 50, 0, 0" FontSize="19" VerticalContentAlignment="Center" Content="New Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top" Click="bttnNewGame_Click"/>
+            <Button x:Name="bttnJoinGame" Margin="0, 110, 0, 0" FontSize="19" VerticalContentAlignment="Center" Content="Join Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="bttnSettings" Margin="0, 20, 0, 70" FontSize="19" Content="Settings" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="bttnSettings_Click"/>
+            <Button x:Name="bttnExit" Margin="0, 70, 0, 0" FontSize="19" Content="Exit" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Click="bttnExit_Click"/>
+        </Grid>
+        
+    </Grid>
 </Window>

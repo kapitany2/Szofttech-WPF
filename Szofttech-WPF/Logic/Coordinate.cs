@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Szofttech_WPF.Logic
 {
-    class Coordinate
+    public class Coordinate
     {
         public int X { get; private set; }
         public int Y { get; private set; }
