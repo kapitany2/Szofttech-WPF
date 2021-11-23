@@ -40,8 +40,11 @@ namespace Szofttech_WPF.Network
                 queueArray[i] = new List<string>();
             }
             gameLogic = new GameLogic();
-            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, Settings.getPort());
-            
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
+            sSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            sSocket.Bind(localEndPoint);
+            sSocket.Listen(3);
+
 
             Thread threadQueuePoll = new Thread(() => {
                 while (!close)
@@ -50,7 +53,7 @@ namespace Szofttech_WPF.Network
                     while (gameLogic.messageQueue.Count != 0)
                     {
                         string BroadcastMessage = gameLogic.messageQueue[0];
-                        gameLogic.messageQueue.RemoveAt(gameLogic.messageQueue.Count - 1);
+                        gameLogic.messageQueue.RemoveAt(0);
                         if (BroadcastMessage != null)
                         {
                             Data decoded = DataConverter.decode(BroadcastMessage);
@@ -61,6 +64,96 @@ namespace Szofttech_WPF.Network
                 } 
             });
             threadQueuePoll.Start();
+
+            for (int i = 0; i < 3; ++i)
+                ServeClient();
+        }
+
+        private void ServeClient()
+        {
+            Thread thread = new Thread(() =>
+            {
+                while (!close)
+                {
+                    BEGIN:
+                    Socket socket = sSocket.Accept();
+
+                    byte[] buffer = new byte[1024];
+                    string inMsg = null;
+
+                    while (true)
+                    {
+                        int numByte = socket.Receive(buffer);
+
+                        inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+
+                        if (inMsg.IndexOf("<EOF>") > -1)
+                        {
+                            if (inMsg != "CLIENT")
+                            {
+                                inMsg = inMsg.Replace("<EOF>", "");
+                                socket.Close();
+                                goto BEGIN;
+                            }
+                            break;
+                        }
+                    }
+
+                    int ID = clientID++;
+                    int otherQueueID = (ID == 0) ? 1 : 0;
+                    int ownQueueID = (ID == 0) ? 0 : 1;
+                    addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
+
+                    byte[] message = Encoding.ASCII.GetBytes(ID.ToString());
+                    socket.Send(message);
+
+                    Thread threadReader = new Thread(() =>
+                    {
+                        while (!close)
+                        {
+                            Thread.Sleep(10);
+                            try
+                            {
+                                while (true)
+                                {
+                                    int numByte = socket.Receive(buffer);
+                                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+
+                                    if (inMsg.IndexOf("<EOF>") > -1)
+                                    {
+                                        inMsg = inMsg.Replace("<EOF>", "");
+                                        break;
+                                    }
+                                }
+                                if (inMsg == "$DisconnectData$$-1")
+                                {
+                                    int recipient = (ID == 0) ? 1 : 0;
+                                    inMsg = "-1$ChatData$The other player has left the game.$" + recipient;
+                                }
+                                gameLogic.processMessage(DataConverter.decode(inMsg));
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                        }
+                    });
+                    threadReader.Start();
+
+                    while (!close)
+                    {
+                        Thread.Sleep(10);
+                        while (queueArray[ownQueueID].Count != 0)
+                        {
+                            string queueMsg = queueArray[ownQueueID][0];
+                            queueArray[ownQueueID].RemoveAt(0);
+                            byte[] bytes = Encoding.ASCII.GetBytes(queueMsg);
+                            socket.Send(bytes);
+                        }
+                    }
+                }                
+            });
+            thread.Start();
         }
     }
 }
