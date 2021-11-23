@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for ShipSelecter.xaml
+    /// Interaction logic for GameGUI.xaml
     /// </summary>
-    public partial class ShipSelecter : UserControl
+    public partial class GameGUI : UserControl
     {
-        public ShipSelecter()
+        public GameGUI()
         {
             InitializeComponent();
         }

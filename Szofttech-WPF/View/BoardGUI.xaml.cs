@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for MenuSurface.xaml
+    /// Interaction logic for BoardGUI.xaml
     /// </summary>
-    public partial class MenuSurface : UserControl
+    public partial class BoardGUI : UserControl
     {
-        public MenuSurface()
+        public BoardGUI()
         {
             InitializeComponent();
         }

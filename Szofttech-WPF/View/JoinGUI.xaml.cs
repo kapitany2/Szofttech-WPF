@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for ChatSurface.xaml
+    /// Interaction logic for JoinGUI.xaml
     /// </summary>
-    public partial class ChatSurface : UserControl
+    public partial class JoinGUI : UserControl
     {
-        public ChatSurface()
+        public JoinGUI()
         {
             InitializeComponent();
         }
