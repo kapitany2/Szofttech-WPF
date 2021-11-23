@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF
@@ -26,6 +27,7 @@ namespace Szofttech_WPF
             InitializeComponent();
             Settings settings = Settings.getInstance();
             Console.WriteLine(Settings.port);
+            Server server = new Server(25564);
         }
     }
 }

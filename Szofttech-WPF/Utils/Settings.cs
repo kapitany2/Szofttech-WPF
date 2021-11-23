@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Szofttech_WPF.Utils
 {
-    class Settings
+    public class Settings
     {
         private static Settings instance = new Settings();
         public static int port = 25564;
