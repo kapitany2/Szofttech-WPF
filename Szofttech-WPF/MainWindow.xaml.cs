@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF
 {
@@ -23,6 +24,8 @@ namespace Szofttech_WPF
         public MainWindow()
         {
             InitializeComponent();
+            Settings settings = Settings.getInstance();
+            Console.WriteLine(Settings.port);
         }
     }
 }
