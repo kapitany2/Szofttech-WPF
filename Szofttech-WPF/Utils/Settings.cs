@@ -13,6 +13,8 @@ namespace Szofttech_WPF.Utils
         private static int lineCount = 0;
         private static readonly char sep = Path.DirectorySeparatorChar;
 
+        private Settings() { }
+
         public static Settings getInstance()
         {
             Read();

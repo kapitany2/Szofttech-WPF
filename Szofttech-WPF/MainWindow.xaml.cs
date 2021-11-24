@@ -35,8 +35,8 @@ namespace Szofttech_WPF
             {
                 Console.WriteLine("gomb megnyomva");
                 var c = windowGrid.Children.Cast<UIElement>().Where(a => Grid.GetRow(a) == 1 && a.Visibility == Visibility.Visible).OfType<IExitableGUI>().FirstOrDefault();
-                Console.WriteLine(c);
-                c.CloseGUI();
+                if (c != null)
+                    c.CloseGUI();
             };
 
             menu = new MenuGUI();
@@ -109,7 +109,7 @@ namespace Szofttech_WPF
 
         private void TESZTVILI()
         {
-            
+
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
         }
