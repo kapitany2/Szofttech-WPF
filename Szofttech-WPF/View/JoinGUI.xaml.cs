@@ -12,17 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Interfaces;
 
 namespace Szofttech_WPF.View
 {
     /// <summary>
     /// Interaction logic for JoinGUI.xaml
     /// </summary>
-    public partial class JoinGUI : UserControl
+    public partial class JoinGUI : UserControl, IExitableGUI
     {
         public JoinGUI()
         {
             InitializeComponent();
+        }
+
+        public void CloseGUI()
+        {
+            this.Visibility = Visibility.Hidden;
         }
     }
 }
