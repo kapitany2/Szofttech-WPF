@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Szofttech_WPF.Interfaces;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.View
 {
@@ -29,6 +30,18 @@ namespace Szofttech_WPF.View
         public void CloseGUI()
         {
             this.Visibility = Visibility.Hidden;
+        }
+
+        private void txtBlckPort_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                if (int.TryParse(((TextBox)sender).Text, out int port))
+                    Settings.setPort(port);
+                else
+                    Settings.setPort(25564);
+                Settings.Save();
+            }
         }
     }
 }
