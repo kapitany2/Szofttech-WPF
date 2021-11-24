@@ -69,7 +69,7 @@ namespace Szofttech_WPF.Utils
             }
         }
 
-        private static void Save()
+        public static void Save()
         {
             string dir = Directory.GetCurrentDirectory();
             StreamWriter file = new StreamWriter(dir + $"{sep}settings.cfg");
@@ -88,6 +88,11 @@ namespace Szofttech_WPF.Utils
         public static int getPort()
         {
             return port;
+        }
+
+        public static void setPort(int _port)
+        {
+            port = _port;
         }
     }
 }

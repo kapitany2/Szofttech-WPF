@@ -13,8 +13,11 @@
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label x:Name="lblPort" FontSize="20" Content="Port:"/>
-            <TextBox x:Name="txtBlckPort" Margin="50, 0, 0, 0" Width="150" Height="25"/>
+            <TextBox x:Name="txtBlckPort" Margin="50, 0, 0, 0" Width="150" Height="25" KeyUp="txtBlckPort_KeyUp"/>
         </Grid>
+        
+        
+        
         
     </Grid>
 </UserControl>
