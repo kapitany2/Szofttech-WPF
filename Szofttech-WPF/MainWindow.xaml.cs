@@ -31,6 +31,7 @@ namespace Szofttech_WPF
         {
             InitializeComponent();
             Settings settings = Settings.getInstance();
+            ServerManager sManager = ServerManager.getInstance();
             TESZTVILI();
 
             backButton.Click += (send, args) =>
@@ -147,6 +148,7 @@ namespace Szofttech_WPF
 
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
+            ServerManager.AddServer(new ServerAddress("Teszt cucc", "127.0.0.1", 25564));
         }
     }
 }
