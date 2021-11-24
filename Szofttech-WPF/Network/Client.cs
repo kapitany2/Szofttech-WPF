@@ -26,7 +26,11 @@ namespace Szofttech_WPF.Network
             this.ip = ip;
             this.port = port;
 
-            run();
+            Thread thread = new Thread(() =>
+            {
+                run();
+            });
+            thread.Start();
         }
 
         public bool isTimeout()

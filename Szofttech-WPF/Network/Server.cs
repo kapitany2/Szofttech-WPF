@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -154,6 +153,52 @@ namespace Szofttech_WPF.Network
                 }                
             });
             thread.Start();
+        }
+
+        public static bool isServerAvailable(string ip, int port)
+        {
+            bool isAvailable = false;
+
+            try
+            {
+                Socket socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+                IAsyncResult result = socket.BeginConnect(IPAddress.Parse(ip), port, null, null);
+                bool success = result.AsyncWaitHandle.WaitOne(1000, true);
+
+                if (socket.Connected)
+                {
+                    socket.EndConnect(result);
+                    socket.Close();
+                    isAvailable = true;
+                }
+                else
+                {
+                    // NOTE, MUST CLOSE THE SOCKET
+
+                    socket.Close();
+                    isAvailable = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                isAvailable = false;
+            }          
+
+            return isAvailable;
+        }
+
+        public static string getLocalIP()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "NO IP FOUND";
         }
     }
 }
