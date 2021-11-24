@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
 using Szofttech_WPF.View;
@@ -31,14 +32,24 @@ namespace Szofttech_WPF
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
 
+            backButton.Click += (send, args) =>
+            {
+                Console.WriteLine("gomb megnyomva");
+                var c = windowGrid.Children.Cast<UIElement>().Where(a => Grid.GetRow(a) == 1 && a.Visibility == Visibility.Visible).OfType<IExitableGUI>().FirstOrDefault();
+                Console.WriteLine(c);
+                c.CloseGUI();
+            };
+
             menu = new MenuGUI();
             menu.IsVisibleChanged += (send, args) =>
             {
                 exitButton.Visibility = menu.IsVisible ? Visibility.Hidden : Visibility.Visible;
+                backButton.Visibility = menu.IsVisible ? Visibility.Hidden : Visibility.Visible;
             };
             menu.bttnNewGame.Click += (send, args) =>
             {
                 menu.Visibility = Visibility.Hidden;
+                CreateGameGUI(null);
             };
             menu.bttnJoinGame.Click += (send, args) =>
             {
@@ -83,6 +94,7 @@ namespace Szofttech_WPF
                 }
             };
             windowGrid.Children.Add(gameGUI);
+            Grid.SetRow(gameGUI, 1);
         }
 
         private void drawWindow(object sender, MouseButtonEventArgs e)
@@ -91,7 +103,7 @@ namespace Szofttech_WPF
                 DragMove();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void exitButton_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
         }
