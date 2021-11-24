@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for NewGameSurface.xaml
+    /// Interaction logic for CellGUI.xaml
     /// </summary>
-    public partial class NewGameSurface : UserControl
+    public partial class CellGUI : UserControl
     {
-        public NewGameSurface()
+        public CellGUI()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for JoinGameSurface.xaml
+    /// Interaction logic for MenuGUI.xaml
     /// </summary>
-    public partial class JoinGameSurface : UserControl
+    public partial class MenuGUI : UserControl
     {
-        public JoinGameSurface()
+        public MenuGUI()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for InfoPanelSurface.xaml
+    /// Interaction logic for PlayerBoardGUI.xaml
     /// </summary>
-    public partial class InfoPanelSurface : UserControl
+    public partial class PlayerBoardGUI : UserControl
     {
-        public InfoPanelSurface()
+        public PlayerBoardGUI()
         {
             InitializeComponent();
         }

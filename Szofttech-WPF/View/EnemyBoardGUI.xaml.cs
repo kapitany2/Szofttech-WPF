@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for EnemyBoardSurface.xaml
+    /// Interaction logic for EnemyBoardGUI.xaml
     /// </summary>
-    public partial class EnemyBoardSurface : UserControl
+    public partial class EnemyBoardGUI : UserControl
     {
-        public EnemyBoardSurface()
+        public EnemyBoardGUI()
         {
             InitializeComponent();
         }

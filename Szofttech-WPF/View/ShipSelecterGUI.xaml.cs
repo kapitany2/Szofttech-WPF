@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for CellSurface.xaml
+    /// Interaction logic for ShipSelecterGUI.xaml
     /// </summary>
-    public partial class CellSurface : UserControl
+    public partial class ShipSelecterGUI : UserControl
     {
-        public CellSurface()
+        public ShipSelecterGUI()
         {
             InitializeComponent();
         }

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Szofttech_WPF.View
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for SettingsGUI.xaml
     /// </summary>
-    public partial class Settings : UserControl
+    public partial class SettingsGUI : UserControl
     {
-        public Settings()
+        public SettingsGUI()
         {
             InitializeComponent();
         }
