@@ -30,11 +30,13 @@ namespace Szofttech_WPF.View
         public GameGUI()
         {
             InitializeComponent();
+            
         }
 
         public void CloseGUI()
         {
             Console.WriteLine("MOST AKKOR KILÉPNÉK");
+            this.Visibility = Visibility.Hidden;
         }
     }
 }
