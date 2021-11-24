@@ -72,6 +72,8 @@
     <Compile Include="Logic\Coordinate.cs" />
     <Compile Include="Logic\GameLogic.cs" />
     <Compile Include="Logic\Player.cs" />
+    <Compile Include="Network\ServerAddress.cs" />
+    <Compile Include="Network\ServerManager.cs" />
     <Compile Include="Utils\Settings.cs" />
     <Compile Include="View\BoardGUI.xaml.cs">
       <DependentUpon>BoardGUI.xaml</DependentUpon>

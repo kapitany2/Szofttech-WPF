@@ -89,9 +89,9 @@ namespace Szofttech_WPF.Network
 
                         if (inMsg.IndexOf("<EOF>") > -1)
                         {
+                            inMsg = inMsg.Replace("<EOF>", "");
                             if (inMsg != "CLIENT")
-                            {
-                                inMsg = inMsg.Replace("<EOF>", "");
+                            { 
                                 socket.Close();
                                 goto BEGIN;
                             }
