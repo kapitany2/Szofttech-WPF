@@ -11,19 +11,22 @@ namespace Szofttech_WPF.View
     /// </summary>
     public partial class GameGUI : UserControl, IExitableGUI
     {
-        private Board playerBoard, enemyBoard;
         private ShipSelecterGUI selecter;
         private InfoPanelGUI infoPanel;
 
         public GameGUI()
         {
             InitializeComponent();
-            playerBoard = new Board();
-            enemyBoard = new Board();
 
-            PlayerBoardGUI playerBoardGUI = new PlayerBoardGUI(playerBoard);
+            PlayerBoardGUI playerBoardGUI = new PlayerBoardGUI();
             window.Children.Add(playerBoardGUI);
-            
+            Grid.SetRow(playerBoardGUI, 3);
+            Grid.SetColumn(playerBoardGUI, 1);
+            EnemyBoardGUI enemyBoardGUI = new EnemyBoardGUI();
+            window.Children.Add(enemyBoardGUI);
+            Grid.SetRow(enemyBoardGUI, 3);
+            Grid.SetColumn(enemyBoardGUI, 5);
+
         }
 
         public void CloseGUI()
