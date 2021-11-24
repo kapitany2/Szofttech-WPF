@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="180"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="300"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
@@ -18,12 +19,11 @@
             <ColumnDefinition Width="25"/>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
 
-        <!--<Border Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="10" />-->
     </Grid>
 </UserControl>
