@@ -21,10 +21,10 @@
                 <Image Source="Resources/back.png" Height="19"/>
             </StackPanel>
         </Button>
-        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="exitButton_Click" Background="#3269a8" BorderThickness="0">
-            <StackPanel>
-                <Image Source="Resources/x.png" Height="19"/>
-            </StackPanel>
+        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
+            <Button.Background>
+                <ImageBrush ImageSource="Resources/x.png"/>
+            </Button.Background>
         </Button>
     </Grid>
 </Window>
