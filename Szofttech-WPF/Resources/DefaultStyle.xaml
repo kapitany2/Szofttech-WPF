@@ -2,11 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Szofttech_WPF">
 
-    <!--<ImageBrush x:Key="exitButton_MouseOver" ImageSource="../Resources/x_red.png"/>
+    <ImageBrush x:Key="exitButton_MouseOver" ImageSource="../Resources/x_red.png"/>
     <Style x:Key="exitButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="exitButton" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"/>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="exitButton" Value="{StaticResource exitButton_MouseOver}"/>
@@ -15,6 +16,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
 
 </ResourceDictionary>
