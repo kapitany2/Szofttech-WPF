@@ -16,7 +16,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="header" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
-        <Button x:Name="backButton" HorizontalAlignment="Left" Width="40" Height="25" Visibility="Hidden" Background="#3269a8" BorderThickness="0">
+        <Button x:Name="backButton" HorizontalAlignment="Left" Width="40" Height="25" Visibility="Hidden" Background="#3269a8" BorderThickness="0" >
+            <StackPanel>
+                <Image Source="Resources/back.png"/>
+            </StackPanel>
         </Button>
         <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="exitButton_Click" Background="#3269a8" BorderThickness="0">
             <StackPanel>
