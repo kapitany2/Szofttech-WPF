@@ -29,8 +29,7 @@ namespace Szofttech_WPF
         {
             InitializeComponent();
             Settings settings = Settings.getInstance();
-            Console.WriteLine(Settings.port);
-            Server server = new Server(25564);
+            TESZTVILI();
 
             backButton.Click += (send, args) =>
             {
@@ -106,6 +105,13 @@ namespace Szofttech_WPF
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void TESZTVILI()
+        {
+            
+            Console.WriteLine(Settings.port);
+            Server server = new Server(25564);
         }
     }
 }
