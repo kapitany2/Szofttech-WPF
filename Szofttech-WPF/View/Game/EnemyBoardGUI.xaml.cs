@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -22,7 +11,7 @@ namespace Szofttech_WPF.View.Game
     public partial class EnemyBoardGUI : BoardGUI
     {
         private bool canTip;
-        public EnemyBoardGUI(Board board) : base(board)
+        public EnemyBoardGUI()
         {
             InitializeComponent();
             Init();
@@ -33,16 +22,17 @@ namespace Szofttech_WPF.View.Game
             canTip = true;
 
             cells = new CellGUI[board.getNLength(), board.getNLength()];
+
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
-            Console.WriteLine("hossza: " + board.getNLength());
             for (int i = 0; i < board.getNLength(); i++)
             {
-                Console.WriteLine("i: " + (i * szelesseg));
+                window.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
                 for (int j = 0; j < board.getNLength(); j++)
                 {
+                    window.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                     CellGUI seged = new CellGUI(i, j);
-                    //seged.Width = seged.Height = szelesseg;
-                    seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
+                    seged.Width = seged.Height = szelesseg;
+                    //seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
                     {
                         if (IsEnabled && canTip)
@@ -59,6 +49,8 @@ namespace Szofttech_WPF.View.Game
                     cells[i, j] = seged;
                     seged.setCell(board.getCellstatus()[i, j]);
                     window.Children.Add(seged);
+                    Grid.SetRow(seged, i);
+                    Grid.SetColumn(seged, j);
                 }
             }
         }
