@@ -67,6 +67,7 @@
     <Compile Include="DataPackage\PlaceShipsData.cs" />
     <Compile Include="DataPackage\ShotData.cs" />
     <Compile Include="DataPackage\TurnData.cs" />
+    <Compile Include="Interfaces\IExitableGUI.cs" />
     <Compile Include="Logic\Board.cs" />
     <Compile Include="Logic\CellStatus.cs" />
     <Compile Include="Logic\Coordinate.cs" />
