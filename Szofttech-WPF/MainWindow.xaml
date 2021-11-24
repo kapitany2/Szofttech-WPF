@@ -16,7 +16,11 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="header" Grid.Row="0" Width="800" Height="25" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
-        <Button HorizontalAlignment="Right" Width="25" FontSize="20" HorizontalContentAlignment="Center" Click="Button_Click"/>
+        <Button HorizontalAlignment="Right" Width="40" Height="25" Click="Button_Click" Background="#3269a8" BorderThickness="0">
+            <StackPanel>
+                <Image Source="Resources/x.png" Height="19"/>
+            </StackPanel>
+        </Button>
 
     </Grid>
 </Window>
