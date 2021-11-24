@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="header" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
-        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="Button_Click" Background="#3269a8" BorderThickness="0">
+        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="Button_Click" Background="#3269a8" BorderThickness="0" Style="{StaticResource exitButton}">
             <StackPanel>
                 <Image Source="Resources/x.png" Height="19"/>
             </StackPanel>
