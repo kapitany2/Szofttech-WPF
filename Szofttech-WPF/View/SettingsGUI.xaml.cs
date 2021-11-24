@@ -12,17 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Interfaces;
 
 namespace Szofttech_WPF.View
 {
     /// <summary>
     /// Interaction logic for SettingsGUI.xaml
     /// </summary>
-    public partial class SettingsGUI : UserControl
+    public partial class SettingsGUI : UserControl, IExitableGUI
     {
         public SettingsGUI()
         {
             InitializeComponent();
+        }
+
+        public void CloseGUI()
+        {
+            this.Visibility = Visibility.Hidden;
         }
     }
 }
