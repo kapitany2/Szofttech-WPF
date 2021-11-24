@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Szofttech_WPF">
 
-    <ImageBrush x:Key="exitButton_MouseOver" ImageSource="../Resources/x_red.png"/>
+    <ImageBrush x:Key="exitButton_MouseOver" ImageSource="../Resources/x_red.png" Stretch="None"/>
     <Style x:Key="exitButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>

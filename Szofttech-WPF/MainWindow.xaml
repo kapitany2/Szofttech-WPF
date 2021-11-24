@@ -11,17 +11,17 @@
             <SolidColorBrush Color="#3269a8"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="header" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
-        <Button x:Name="backButton" HorizontalAlignment="Left" Width="25" Height="25" Visibility="Hidden" Background="#3269a8" BorderThickness="0" >
+        <Button x:Name="backButton" HorizontalAlignment="Left" Width="40" Height="40" Visibility="Hidden" Background="#3269a8" BorderThickness="0" >
             <StackPanel>
-                <Image Source="Resources/back.png" Height="19"/>
+                <Image Source="Resources/back.png"/>
             </StackPanel>
         </Button>
-        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="25" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
+        <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="40" Visibility="Visible" Click="exitButton_Click" Style="{StaticResource exitButton}" >
             <Button.Background>
                 <ImageBrush ImageSource="Resources/x.png" Stretch="None" />
             </Button.Background>
