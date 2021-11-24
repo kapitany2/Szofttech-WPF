@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Szofttech_WPF.View
+namespace Szofttech_WPF.View.Game
 {
     /// <summary>
     /// Interaction logic for PlayerBoardGUI.xaml
     /// </summary>
-    public partial class PlayerBoardGUI : BoardGUI
+    public partial class PlayerBoardGUI : UserControl
     {
         public PlayerBoardGUI()
         {

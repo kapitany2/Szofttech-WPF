@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Szofttech_WPF.View
+namespace Szofttech_WPF.View.Join
 {
     /// <summary>
-    /// Interaction logic for InfoPanelGUI.xaml
+    /// Interaction logic for AddEditServer.xaml
     /// </summary>
-    public partial class InfoPanelGUI : UserControl
+    public partial class AddEditServer : UserControl
     {
-        public InfoPanelGUI()
+        public AddEditServer()
         {
             InitializeComponent();
         }

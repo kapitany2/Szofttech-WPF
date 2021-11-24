@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Szofttech_WPF.View
+namespace Szofttech_WPF.View.Game
 {
     /// <summary>
-    /// Interaction logic for EnemyBoardGUI.xaml
+    /// Interaction logic for InfoPanelGUI.xaml
     /// </summary>
-    public partial class EnemyBoardGUI : BoardGUI
+    public partial class InfoPanelGUI : UserControl
     {
-        public EnemyBoardGUI()
+        public InfoPanelGUI()
         {
             InitializeComponent();
         }

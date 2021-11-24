@@ -75,37 +75,46 @@
     <Compile Include="Network\ServerAddress.cs" />
     <Compile Include="Network\ServerManager.cs" />
     <Compile Include="Utils\Settings.cs" />
-    <Compile Include="View\CellGUI.xaml.cs">
-      <DependentUpon>CellGUI.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ChatGUI.xaml.cs">
       <DependentUpon>ChatGUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EnemyBoardGUI.xaml.cs">
-      <DependentUpon>EnemyBoardGUI.xaml</DependentUpon>
+    <Compile Include="View\Game\CellGUI.xaml.cs">
+      <DependentUpon>CellGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\GameGUI.xaml.cs">
       <DependentUpon>GameGUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\InfoPanelGUI.xaml.cs">
+    <Compile Include="View\Game\EnemyBoardGUI.xaml.cs">
+      <DependentUpon>EnemyBoardGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\InfoPanelGUI.xaml.cs">
       <DependentUpon>InfoPanelGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\PlayerBoardGUI.xaml.cs">
+      <DependentUpon>PlayerBoardGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\ShipInfoPanelGUI.xaml.cs">
+      <DependentUpon>ShipInfoPanelGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\ShipSelecterGUI.xaml.cs">
+      <DependentUpon>ShipSelecterGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\JoinGUI.xaml.cs">
       <DependentUpon>JoinGUI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Join\AddEditServer.xaml.cs">
+      <DependentUpon>AddEditServer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Join\ServerListItem.xaml.cs">
+      <DependentUpon>ServerListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MenuGUI.xaml.cs">
       <DependentUpon>MenuGUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\PlayerBoardGUI.xaml.cs">
-      <DependentUpon>PlayerBoardGUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsGUI.xaml.cs">
       <DependentUpon>SettingsGUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ShipSelecterGUI.xaml.cs">
-      <DependentUpon>ShipSelecterGUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\BoardGUI.cs" />
+    <Compile Include="View\Game\BoardGUI.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,15 +131,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\CellGUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ChatGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EnemyBoardGUI.xaml">
+    <Page Include="View\Game\CellGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,7 +143,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\InfoPanelGUI.xaml">
+    <Page Include="View\Game\EnemyBoardGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\InfoPanelGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\PlayerBoardGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\ShipInfoPanelGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\ShipSelecterGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,19 +167,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Join\AddEditServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Join\ServerListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MenuGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PlayerBoardGUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\SettingsGUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ShipSelecterGUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
