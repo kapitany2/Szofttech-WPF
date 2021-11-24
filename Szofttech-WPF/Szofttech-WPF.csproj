@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8031C3BC-2D7A-4143-B070-DF865D9A1DAF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Szofttech_WPF</RootNamespace>
     <AssemblyName>Szofttech-WPF</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,6 +58,64 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataPackage\CellData.cs" />
+    <Compile Include="DataPackage\ChatData.cs" />
+    <Compile Include="DataPackage\ConnectionData.cs" />
+    <Compile Include="DataPackage\Data.cs" />
+    <Compile Include="DataPackage\DataConverter.cs" />
+    <Compile Include="DataPackage\GameEndedData.cs" />
+    <Compile Include="DataPackage\PlaceShipsData.cs" />
+    <Compile Include="DataPackage\ShotData.cs" />
+    <Compile Include="DataPackage\TurnData.cs" />
+    <Compile Include="Interfaces\IExitableGUI.cs" />
+    <Compile Include="Logic\Board.cs" />
+    <Compile Include="Logic\CellStatus.cs" />
+    <Compile Include="Logic\Coordinate.cs" />
+    <Compile Include="Logic\GameLogic.cs" />
+    <Compile Include="Logic\Player.cs" />
+    <Compile Include="Network\ServerAddress.cs" />
+    <Compile Include="Network\ServerManager.cs" />
+    <Compile Include="Utils\Settings.cs" />
+    <Compile Include="View\ChatGUI.xaml.cs">
+      <DependentUpon>ChatGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\CellGUI.xaml.cs">
+      <DependentUpon>CellGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GameGUI.xaml.cs">
+      <DependentUpon>GameGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\EnemyBoardGUI.xaml.cs">
+      <DependentUpon>EnemyBoardGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\InfoPanelGUI.xaml.cs">
+      <DependentUpon>InfoPanelGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\PlayerBoardGUI.xaml.cs">
+      <DependentUpon>PlayerBoardGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\ShipInfoPanelGUI.xaml.cs">
+      <DependentUpon>ShipInfoPanelGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\ShipSelecterGUI.xaml.cs">
+      <DependentUpon>ShipSelecterGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\JoinGUI.xaml.cs">
+      <DependentUpon>JoinGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Join\AddEditServer.xaml.cs">
+      <DependentUpon>AddEditServer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Join\ServerListItem.xaml.cs">
+      <DependentUpon>ServerListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuGUI.xaml.cs">
+      <DependentUpon>MenuGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsGUI.xaml.cs">
+      <DependentUpon>SettingsGUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Game\BoardGUI.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,8 +128,66 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\DefaultStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChatGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\CellGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GameGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\EnemyBoardGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\InfoPanelGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\PlayerBoardGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\ShipInfoPanelGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Game\ShipSelecterGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JoinGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Join\AddEditServer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Join\ServerListItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsGUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,6 +212,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventArgs\" />
+    <Folder Include="Model\" />
+    <Folder Include="ViewModel\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\x.png" />
+    <Resource Include="Resources\x_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
