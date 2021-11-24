@@ -18,7 +18,7 @@ namespace Szofttech_WPF.View.Game
     /// <summary>
     /// Interaction logic for PlayerBoardGUI.xaml
     /// </summary>
-    public partial class PlayerBoardGUI : UserControl
+    public partial class PlayerBoardGUI : BoardGUI
     {
         public PlayerBoardGUI()
         {

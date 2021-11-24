@@ -18,7 +18,7 @@ namespace Szofttech_WPF.View.Game
     /// <summary>
     /// Interaction logic for EnemyBoardGUI.xaml
     /// </summary>
-    public partial class EnemyBoardGUI : UserControl
+    public partial class EnemyBoardGUI : BoardGUI
     {
         public EnemyBoardGUI()
         {
