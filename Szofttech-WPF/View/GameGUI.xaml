@@ -8,7 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid x:Name="window">
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="155"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="300"/>
