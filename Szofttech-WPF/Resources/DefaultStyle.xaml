@@ -7,7 +7,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="exitButton" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="true"/>
+                    <Border x:Name="exitButton" BorderThickness="0" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="exitButton" Value="{StaticResource exitButton_MouseOver}"/>
