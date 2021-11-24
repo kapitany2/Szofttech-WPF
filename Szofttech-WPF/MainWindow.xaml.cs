@@ -23,6 +23,7 @@ namespace Szofttech_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MenuGUI menu;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,10 +31,60 @@ namespace Szofttech_WPF
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
 
-            MenuGUI menu = new MenuGUI();
+            menu = new MenuGUI();
+            menu.IsVisibleChanged += (send, args) =>
+            {
+                exitButton.Visibility = menu.IsVisible ? Visibility.Hidden : Visibility.Visible;
+            };
+            menu.bttnNewGame.Click += (send, args) =>
+            {
+                menu.Visibility = Visibility.Hidden;
+            };
+            menu.bttnJoinGame.Click += (send, args) =>
+            {
+
+                menu.Visibility = Visibility.Hidden;
+            };
+            menu.bttnSettings.Click += (send, args) =>
+            {
+
+                menu.Visibility = Visibility.Hidden;
+            };
+            menu.bttnExit.Click += (send, args) =>
+            {
+                Environment.Exit(0);
+            };
             windowGrid.Children.Add(menu);
             Grid.SetRow(menu, 1);
         }
+
+        private void CreateGameGUI(ServerAddress sa)
+        {
+            GameGUI gameGUI;
+            if (sa != null)
+            {
+                //gameGUI = new GameGUI(sa.IP, sa.Port);
+                gameGUI = new GameGUI();
+            }
+            else
+            {
+                gameGUI = new GameGUI();
+            }
+            gameGUI.IsVisibleChanged += (send, args) =>
+            {
+                if (gameGUI.IsVisible)
+                {
+                    menu.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    menu.Visibility = Visibility.Visible;
+                    windowGrid.Children.Remove(gameGUI);
+                }
+            };
+            windowGrid.Children.Add(gameGUI);
+        }
+
         private void drawWindow(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
