@@ -21,7 +21,5 @@
                 <Image Source="Resources/x.png" Height="19"/>
             </StackPanel>
         </Button>
-
-
     </Grid>
 </Window>
