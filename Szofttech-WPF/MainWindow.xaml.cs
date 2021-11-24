@@ -29,26 +29,15 @@ namespace Szofttech_WPF
             Console.WriteLine(Settings.port);
             Server server = new Server(25564);
         }
-
-        private void bttnNewGame_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void bttnExit_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
         private void drawWindow(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
         }
 
-        private void bttnSettings_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            title.Visibility = Visibility.Hidden;
+            Environment.Exit(0);
         }
     }
 }
