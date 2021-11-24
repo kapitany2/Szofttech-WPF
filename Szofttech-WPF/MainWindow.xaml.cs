@@ -24,7 +24,9 @@ namespace Szofttech_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MenuGUI menu;
+        private MenuGUI menuGUI;
+        private JoinGUI joinGUI;
+        private SettingsGUI settingsGUI;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,39 +35,66 @@ namespace Szofttech_WPF
 
             backButton.Click += (send, args) =>
             {
-                Console.WriteLine("gomb megnyomva");
                 var c = windowGrid.Children.Cast<UIElement>().Where(a => Grid.GetRow(a) == 1 && a.Visibility == Visibility.Visible).OfType<IExitableGUI>().FirstOrDefault();
+
                 if (c != null)
                     c.CloseGUI();
+                else
+                    Console.WriteLine("nem tudtam bezárni, mivel null-t kaptam.");
             };
 
-            menu = new MenuGUI();
-            menu.IsVisibleChanged += (send, args) =>
+            #region joinGUI init
+            joinGUI = new JoinGUI();
+            joinGUI.Visibility = Visibility.Hidden;
+            joinGUI.IsVisibleChanged += (send, args) =>
             {
-                exitButton.Visibility = menu.IsVisible ? Visibility.Hidden : Visibility.Visible;
-                backButton.Visibility = menu.IsVisible ? Visibility.Hidden : Visibility.Visible;
+                setHeaderBarButtons(joinGUI.IsVisible ? Visibility.Hidden : Visibility.Visible);
+                menuGUI.Visibility = joinGUI.IsVisible ? Visibility.Hidden : Visibility.Visible;
             };
-            menu.bttnNewGame.Click += (send, args) =>
+            windowGrid.Children.Add(joinGUI);
+            Grid.SetRow(joinGUI, 1);
+            #endregion
+
+            #region settingsGUI init
+            settingsGUI = new SettingsGUI();
+            settingsGUI.Visibility = Visibility.Hidden;
+            settingsGUI.IsVisibleChanged += (send, args) =>
             {
-                menu.Visibility = Visibility.Hidden;
+                setHeaderBarButtons(settingsGUI.IsVisible ? Visibility.Hidden : Visibility.Visible);
+                menuGUI.Visibility = settingsGUI.IsVisible ? Visibility.Hidden : Visibility.Visible;
+            };
+            windowGrid.Children.Add(settingsGUI);
+            Grid.SetRow(settingsGUI, 1);
+            #endregion
+
+            #region Menu init
+            menuGUI = new MenuGUI();
+            menuGUI.IsVisibleChanged += (send, args) =>
+            {
+                setHeaderBarButtons(menuGUI.IsVisible ? Visibility.Hidden : Visibility.Visible);
+            };
+            menuGUI.bttnNewGame.Click += (send, args) =>
+            {
+                menuGUI.Visibility = Visibility.Hidden;
                 CreateGameGUI(null);
             };
-            menu.bttnJoinGame.Click += (send, args) =>
+            menuGUI.bttnJoinGame.Click += (send, args) =>
             {
-
-                menu.Visibility = Visibility.Hidden;
+                joinGUI.Visibility = Visibility.Visible;
+                menuGUI.Visibility = Visibility.Hidden;
             };
-            menu.bttnSettings.Click += (send, args) =>
+            menuGUI.bttnSettings.Click += (send, args) =>
             {
-
-                menu.Visibility = Visibility.Hidden;
+                settingsGUI.Visibility = Visibility.Visible;
+                menuGUI.Visibility = Visibility.Hidden;
             };
-            menu.bttnExit.Click += (send, args) =>
+            menuGUI.bttnExit.Click += (send, args) =>
             {
                 Environment.Exit(0);
             };
-            windowGrid.Children.Add(menu);
-            Grid.SetRow(menu, 1);
+            windowGrid.Children.Add(menuGUI);
+            Grid.SetRow(menuGUI, 1);
+            #endregion
         }
 
         private void CreateGameGUI(ServerAddress sa)
@@ -84,16 +113,22 @@ namespace Szofttech_WPF
             {
                 if (gameGUI.IsVisible)
                 {
-                    menu.Visibility = Visibility.Hidden;
+                    menuGUI.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    menu.Visibility = Visibility.Visible;
+                    menuGUI.Visibility = Visibility.Visible;
                     windowGrid.Children.Remove(gameGUI);
                 }
             };
             windowGrid.Children.Add(gameGUI);
             Grid.SetRow(gameGUI, 1);
+        }
+
+        private void setHeaderBarButtons(Visibility visibility)
+        {
+            exitButton.Visibility = visibility;
+            backButton.Visibility = visibility;
         }
 
         private void drawWindow(object sender, MouseButtonEventArgs e)
