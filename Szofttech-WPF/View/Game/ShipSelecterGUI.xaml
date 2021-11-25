@@ -6,15 +6,20 @@
              xmlns:local="clr-namespace:Szofttech_WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="window">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="140"/>
         </Grid.RowDefinitions>
-
-        <Button x:Name="buttonHorizontal" Content="Horizontal" Width="105" Height="40" HorizontalAlignment="Left" Margin="80, 0, 0, 0" />
-        <Button x:Name="buttonClearBoard" Content="ClearBoard" Width="105" Height="40" HorizontalAlignment="Left" Margin="235, 0, 0, 0" />
-        <Button x:Name="buttonRandomizeShips" Content="Randomize Ships" Width="105" Height="40" HorizontalAlignment="Center" Margin="80, 0, 0, 0" />
-        <Button x:Name="buttonDone" Content="Done" Width="105" Height="40" HorizontalAlignment="Right" Margin="0, 0, 50, 0" IsEnabled="False"/>
+        <Button x:Name="buttonHorizontal" Grid.ColumnSpan="4" Content="Horizontal" Width="105" Height="40" HorizontalAlignment="Left" Margin="80, 0, 0, 0" />
+        <Button x:Name="buttonClearBoard" Grid.ColumnSpan="4" Content="Clear Board" Width="105" Height="40" HorizontalAlignment="Left" Margin="235, 0, 0, 0" />
+        <Button x:Name="buttonRandomizeShips" Grid.ColumnSpan="4" Content="Randomize Ships" Width="105" Height="40" HorizontalAlignment="Center" Margin="80, 0, 0, 0" />
+        <Button x:Name="buttonDone" Grid.ColumnSpan="4" Content="Done" Width="105" Height="40" HorizontalAlignment="Right" Margin="0, 0, 50, 0" IsEnabled="False"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition SharedSizeGroup="A"></ColumnDefinition>
+            <ColumnDefinition SharedSizeGroup="A"></ColumnDefinition>
+            <ColumnDefinition SharedSizeGroup="A"></ColumnDefinition>
+            <ColumnDefinition SharedSizeGroup="A"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
     </Grid>
 </UserControl>
