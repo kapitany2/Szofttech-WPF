@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Szofttech_WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="120">
-    <Grid>
+    <Grid x:Name="window">
         <Border BorderThickness="1" BorderBrush="Black" />
     </Grid>
 </UserControl>
