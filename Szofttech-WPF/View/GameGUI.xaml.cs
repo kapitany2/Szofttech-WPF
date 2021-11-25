@@ -27,6 +27,13 @@ namespace Szofttech_WPF.View
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
 
+            selecter = new ShipSelecterGUI();
+            window.Children.Add(selecter);
+            Grid.SetRow(selecter, 1);
+            Grid.SetRowSpan(selecter, 3);
+            Grid.SetColumn(selecter, 1);
+            Grid.SetColumnSpan(selecter, 5);
+
         }
 
         public void CloseGUI()
