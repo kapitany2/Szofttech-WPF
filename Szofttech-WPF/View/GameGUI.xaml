@@ -9,7 +9,7 @@
     <Grid x:Name="window">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="155"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="300"/>
             <RowDefinition Height="25"/>
