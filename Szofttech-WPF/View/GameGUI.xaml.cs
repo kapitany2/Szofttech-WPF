@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Logic;
 using Szofttech_WPF.View.Game;
@@ -23,14 +11,29 @@ namespace Szofttech_WPF.View
     /// </summary>
     public partial class GameGUI : UserControl, IExitableGUI
     {
-        private Board playerBoard, enemyBoard;
         private ShipSelecterGUI selecter;
         private InfoPanelGUI infoPanel;
 
         public GameGUI()
         {
             InitializeComponent();
-            
+
+            PlayerBoardGUI playerBoardGUI = new PlayerBoardGUI();
+            window.Children.Add(playerBoardGUI);
+            Grid.SetRow(playerBoardGUI, 3);
+            Grid.SetColumn(playerBoardGUI, 1);
+            EnemyBoardGUI enemyBoardGUI = new EnemyBoardGUI();
+            window.Children.Add(enemyBoardGUI);
+            Grid.SetRow(enemyBoardGUI, 3);
+            Grid.SetColumn(enemyBoardGUI, 5);
+
+            selecter = new ShipSelecterGUI();
+            window.Children.Add(selecter);
+            Grid.SetRow(selecter, 1);
+            Grid.SetRowSpan(selecter, 3);
+            Grid.SetColumn(selecter, 1);
+            Grid.SetColumnSpan(selecter, 5);
+
         }
 
         public void CloseGUI()
