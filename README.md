@@ -1,0 +1,1 @@
+Szoftverfejlesztési technológiák beadandó feladata
