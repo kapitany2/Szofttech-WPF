@@ -9,9 +9,9 @@ namespace Szofttech_WPF.View
     {
         public Board board { get; protected set; }
         protected CellGUI[,] cells;
-        public BoardGUI(Board board)
+        public BoardGUI()
         {
-            this.board = board;
+            board = new Board();
             Width = Height = 300;
             Background = new SolidColorBrush(Colors.Gray);
         }

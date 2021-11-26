@@ -61,9 +61,9 @@ namespace Szofttech_WPF.View.Game
             int G = bck.G;
             int B = bck.B;
 
-            R = R + darkeningLevel < 256 ? 255 : R + darkeningLevel;
-            G = G + darkeningLevel < 256 ? 255 : G + darkeningLevel;
-            B = B + darkeningLevel < 256 ? 255 : B + darkeningLevel;
+            R = R + darkeningLevel > 255 ? 255 : R + darkeningLevel;
+            G = G + darkeningLevel > 255 ? 255 : G + darkeningLevel;
+            B = B + darkeningLevel > 255 ? 255 : B + darkeningLevel;
             Color color = Color.FromRgb(byte.Parse(R + ""), byte.Parse(G + ""), byte.Parse(B + ""));
             Background = new SolidColorBrush(color);
         }

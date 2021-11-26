@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -26,7 +27,7 @@ namespace Szofttech_WPF.View.Game
             new Point(1, 1)
         };
 
-        public PlayerBoardGUI(Board board) : base(board)
+        public PlayerBoardGUI()
         {
             InitializeComponent();
             Init();
@@ -38,16 +39,16 @@ namespace Szofttech_WPF.View.Game
             selectedShipSize = 4;
             selectedCells = new List<CellGUI>();
             cells = new CellGUI[board.getNLength(), board.getNLength()];
+
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
-            Console.WriteLine("hossza: " + board.getNLength());
             for (int i = 0; i < board.getNLength(); i++)
             {
-                Console.WriteLine("i: " + (i * szelesseg));
+                window.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
                 for (int j = 0; j < board.getNLength(); j++)
                 {
+                    window.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                     CellGUI seged = new CellGUI(i, j);
-                    //seged.Width = seged.Height = szelesseg;
-                    seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
+                    seged.Width = seged.Height = szelesseg;
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
                     {
                         if (IsEnabled)
@@ -67,6 +68,8 @@ namespace Szofttech_WPF.View.Game
                     cells[i, j] = seged;
                     seged.setCell(board.getCellstatus()[i, j]);
                     window.Children.Add(seged);
+                    Grid.SetRow(seged, i);
+                    Grid.SetColumn(seged, j);
                 }
             }
         }
@@ -267,7 +270,7 @@ namespace Szofttech_WPF.View.Game
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    cells[i,j].setCell(board.getCellstatus()[i,j]);
+                    cells[i, j].setCell(board.getCellstatus()[i, j]);
                 }
             }
             selectedCells.Clear();

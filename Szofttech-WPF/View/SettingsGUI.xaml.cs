@@ -42,7 +42,7 @@ namespace Szofttech_WPF.View
                 else
                     Settings.setPort(25564);
                 Settings.Save();
-                lblSaved.Visibility = Visibility.Visible;
+                response.Visibility = Visibility.Visible;
                 Timer timer = new Timer();
                 timer.Interval = 1500;
                 timer.Elapsed += (source, args) =>
@@ -50,7 +50,7 @@ namespace Szofttech_WPF.View
                     timer.Stop();
                     Dispatcher.Invoke(() =>
                     {
-                        lblSaved.Visibility = Visibility.Hidden;
+                        response.Visibility = Visibility.Hidden;
                     });
                 };
                 timer.Start();
