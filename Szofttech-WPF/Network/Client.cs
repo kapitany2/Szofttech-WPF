@@ -159,17 +159,25 @@ namespace Szofttech_WPF.Network
         {
             byte[] buffer = new byte[1024];
             string inMsg = null;
-            while (true)
+            try
             {
-                int numByte = socket.Receive(buffer);
-                inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
-
-                if (inMsg.IndexOf("<EOF>") > -1)
+                while (true)
                 {
-                    inMsg = inMsg.Replace("<EOF>", "");
-                    break;
+                    int numByte = socket.Receive(buffer);
+                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+
+                    if (inMsg.IndexOf("<EOF>") > -1)
+                    {
+                        inMsg = inMsg.Replace("<EOF>", "");
+                        break;
+                    }
                 }
             }
+            catch
+            {
+                Console.WriteLine("Szerver elpusztult amíg a kliens rajta volt. Ez nem egy hiba.");
+            }
+            
             Console.WriteLine(inMsg);
             return inMsg;
         }

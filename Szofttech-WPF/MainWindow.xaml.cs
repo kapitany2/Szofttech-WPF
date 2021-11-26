@@ -136,7 +136,7 @@ namespace Szofttech_WPF
 
         private void TESZTVILI()
         {
-            Console.WriteLine("Current port as read from file: " + Settings.port);
+            Console.WriteLine("Jelenlegi beállított port: " + Settings.port);
             //Server server = new Server(25564);
             //Client client = new Client("192.168.1.130", 25564);
             //Client client2 = new Client("192.168.1.130", 25564);
