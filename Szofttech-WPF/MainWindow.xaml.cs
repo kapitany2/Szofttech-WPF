@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -135,9 +136,12 @@ namespace Szofttech_WPF
 
         private void TESZTVILI()
         {
-
-            Console.WriteLine(Settings.port);
-            Server server = new Server(25564);
+            Console.WriteLine("Jelenlegi beállított port: " + Settings.port);
+            //Server server = new Server(25564);
+            //Client client = new Client("192.168.1.130", 25564);
+            //Client client2 = new Client("192.168.1.130", 25564);
+            //Console.WriteLine(Server.isServerAvailable("192.168.1.130", 25564));
+            //client.sendMessage("0$ChatData$Hahodebugmivan$1");
         }
     }
 }
