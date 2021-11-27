@@ -138,6 +138,7 @@ namespace Szofttech_WPF
         private void TESZTVILI()
         {
             Console.WriteLine("Jelenlegi beállított port: " + Settings.port);
+            Console.WriteLine("Lokális IP: " + Server.getLocalIP());
             //Server server = new Server(25564);
             //Client client = new Client(IPAddress.Loopback.ToString(), 25564); // Saját gépre így mész fel
             //Client client2 = new Client("192.168.1.130", 25564); // Más gépére IP szerint mész fel
