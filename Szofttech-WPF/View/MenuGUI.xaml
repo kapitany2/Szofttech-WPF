@@ -6,16 +6,14 @@
              xmlns:local="clr-namespace:Szofttech_WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.Background>
             <SolidColorBrush Color="#3269a8"/>
         </Grid.Background>
         <Label x:Name="title" Grid.Row="1" Margin="0,50,0,0" FontSize="35" Content="Battleship Game" HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" Width="260"/>
-        <Grid Name="contentGrid" Grid.Row="2">
-            <Button x:Name="bttnNewGame" Margin="0, 0, 0, 180" FontSize="19" VerticalContentAlignment="Center" Content="New Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name="bttnJoinGame" Margin="0, 0, 0, 50" FontSize="19" VerticalContentAlignment="Center" Content="Join Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name="bttnSettings" Margin="0, 80, 0, 0" FontSize="19" Content="Settings" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button x:Name="bttnExit" Margin="0, 210, 0, 0" FontSize="19" Content="Exit" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
-        </Grid>
+        <Button x:Name="bttnNewGame" Margin="0, 0, 0, 180" FontSize="19" VerticalContentAlignment="Center" Content="New Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="bttnJoinGame" Margin="0, 0, 0, 50" FontSize="19" VerticalContentAlignment="Center" Content="Join Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="bttnSettings" Margin="0, 80, 0, 0" FontSize="19" Content="Settings" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="bttnExit" Margin="0, 210, 0, 0" FontSize="19" Content="Exit" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
 </UserControl>
