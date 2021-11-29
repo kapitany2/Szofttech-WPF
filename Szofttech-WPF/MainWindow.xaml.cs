@@ -26,6 +26,7 @@ namespace Szofttech_WPF
             Settings settings = Settings.getInstance();
             TESZTVILI();
 
+
             backButton.Click += (send, args) =>
             {
                 var c = windowGrid.Children.Cast<UIElement>().Where(a => Grid.GetRow(a) == 1 && a.Visibility == Visibility.Visible).OfType<IExitableGUI>().FirstOrDefault();
