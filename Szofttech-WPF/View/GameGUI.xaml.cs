@@ -23,16 +23,16 @@ namespace Szofttech_WPF.View
             InitializeComponent();
 
             PlayerBoardGUI playerBoardGUI = new PlayerBoardGUI();
-            window.Children.Add(playerBoardGUI);
+            grid.Children.Add(playerBoardGUI);
             Grid.SetRow(playerBoardGUI, 3);
             Grid.SetColumn(playerBoardGUI, 1);
             EnemyBoardGUI enemyBoardGUI = new EnemyBoardGUI();
-            window.Children.Add(enemyBoardGUI);
+            grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
 
             selecter = new ShipSelecterGUI();
-            window.Children.Add(selecter);
+            grid.Children.Add(selecter);
             Grid.SetRow(selecter, 1);
             Grid.SetRowSpan(selecter, 3);
             Grid.SetColumn(selecter, 1);

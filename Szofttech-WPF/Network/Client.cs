@@ -33,6 +33,20 @@ namespace Szofttech_WPF.Network
             thread.Start();
         }
 
+        public Client() {}
+
+        public void Connect(string ip, int port)
+        {
+            this.ip = ip;
+            this.port = port;
+
+            Thread thread = new Thread(() =>
+            {
+                run();
+            });
+            thread.Start();
+        }
+
         public bool isTimeout()
         {
             return timedOut;
@@ -40,6 +54,7 @@ namespace Szofttech_WPF.Network
 
         public void sendMessage(string message)
         {
+            message += "<EOF>";
             messageQueue.Add(message);
         }
 
@@ -130,12 +145,12 @@ namespace Szofttech_WPF.Network
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.Message, ex.StackTrace);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message, ex.StackTrace);
                 timedOut = true;
             }
         }
@@ -144,17 +159,26 @@ namespace Szofttech_WPF.Network
         {
             byte[] buffer = new byte[1024];
             string inMsg = null;
-            while (true)
+            try
             {
-                int numByte = socket.Receive(buffer);
-                inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
-
-                if (inMsg.IndexOf("<EOF>") > -1)
+                while (true)
                 {
-                    inMsg = inMsg.Replace("<EOF>", "");
-                    break;
+                    int numByte = socket.Receive(buffer);
+                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+
+                    if (inMsg.IndexOf("<EOF>") > -1)
+                    {
+                        inMsg = inMsg.Replace("<EOF>", "");
+                        break;
+                    }
                 }
             }
+            catch
+            {
+                Console.WriteLine("Szerver elpusztult amíg a kliens rajta volt. Ez nem egy hiba.");
+            }
+            
+            Console.WriteLine(inMsg);
             return inMsg;
         }
     }

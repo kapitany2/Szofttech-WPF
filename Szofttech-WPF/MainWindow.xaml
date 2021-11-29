@@ -20,11 +20,21 @@
             <Button.Background>
                 <ImageBrush ImageSource="Resources/back.png" Stretch="Fill" />
             </Button.Background>
+            <Button.ToolTip>
+                <ToolTip>
+                    Back to the Menu
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
         <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="40" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
             <Button.Background>
                 <ImageBrush ImageSource="Resources/x.png" Stretch="None" />
             </Button.Background>
+            <Button.ToolTip>
+                <ToolTip>
+                    Close the Application
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
     </Grid>
 </Window>

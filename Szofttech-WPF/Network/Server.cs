@@ -42,7 +42,7 @@ namespace Szofttech_WPF.Network
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
             sSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             sSocket.Bind(localEndPoint);
-            sSocket.Listen(3);
+            sSocket.Listen(4);
 
 
             Thread threadQueuePoll = new Thread(() => {
@@ -64,7 +64,7 @@ namespace Szofttech_WPF.Network
             });
             threadQueuePoll.Start();
 
-            for (int i = 0; i < 3; ++i)
+            for (int i = 0; i < 4; ++i)
                 ServeClient();
         }
 
@@ -80,6 +80,7 @@ namespace Szofttech_WPF.Network
                     byte[] buffer = new byte[1024];
                     string inMsg = null;
 
+
                     while (true)
                     {
                         int numByte = socket.Receive(buffer);
@@ -92,19 +93,23 @@ namespace Szofttech_WPF.Network
                             if (inMsg != "CLIENT")
                             { 
                                 socket.Close();
+                                Console.WriteLine("PING received");
                                 goto BEGIN;
                             }
+                            inMsg = null;
                             break;
                         }
                     }
-
+                    
                     int ID = clientID++;
                     int otherQueueID = (ID == 0) ? 1 : 0;
                     int ownQueueID = (ID == 0) ? 0 : 1;
-                    addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
+                    Console.WriteLine("Client " + ID + " joined the server.");
 
-                    byte[] message = Encoding.ASCII.GetBytes(ID.ToString());
+                    byte[] message = Encoding.ASCII.GetBytes(ID.ToString()+"<EOF>");
                     socket.Send(message);
+
+                    addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
 
                     Thread threadReader = new Thread(() =>
                     {
@@ -127,13 +132,15 @@ namespace Szofttech_WPF.Network
                                 if (inMsg == "$DisconnectData$$-1")
                                 {
                                     int recipient = (ID == 0) ? 1 : 0;
-                                    inMsg = "-1$ChatData$The other player has left the game.$" + recipient;
+                                    inMsg = "-1$ChatData$The other player has left the game.$" + recipient + "<EOF>";
                                 }
+
+                                Console.WriteLine(inMsg);
                                 gameLogic.processMessage(DataConverter.decode(inMsg));
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine(ex.Message);
+                                Console.WriteLine(ex);
                             }
                         }
                     });
@@ -173,18 +180,15 @@ namespace Szofttech_WPF.Network
                 }
                 else
                 {
-                    // NOTE, MUST CLOSE THE SOCKET
-
                     socket.Close();
                     isAvailable = false;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message, ex.StackTrace);
                 isAvailable = false;
             }          
-
             return isAvailable;
         }
 

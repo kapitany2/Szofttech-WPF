@@ -10,6 +10,8 @@ namespace Szofttech_WPF.Network
         private static ServerManager instance = new ServerManager();
         private static readonly char sep = Path.DirectorySeparatorChar;
 
+        private ServerManager() { }
+
         public static ServerManager getInstance()
         {
             ReadServersFromFile();
@@ -21,7 +23,7 @@ namespace Szofttech_WPF.Network
             try
             {
                 string dir = Directory.GetCurrentDirectory();
-                StreamWriter file = new StreamWriter(dir + $"{sep}settings.cfg");
+                StreamWriter file = new StreamWriter(dir + $"{sep}servers.dat");
                 file.WriteLine("Saved_Servers {");
                 foreach (ServerAddress item in serverList)
                 {
@@ -31,9 +33,8 @@ namespace Szofttech_WPF.Network
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Error reading file: " + ex.Message);
+                Console.WriteLine("Error writing file: " + ex.Message);
             }
-            
         }
 
         private static void ReadServersFromFile()
@@ -41,7 +42,7 @@ namespace Szofttech_WPF.Network
             try
             {
                 string dir = Directory.GetCurrentDirectory();
-                StreamReader file = new StreamReader(dir + $"{sep}settings.cfg");
+                StreamReader file = new StreamReader(dir + $"{sep}servers.dat");
 
                 while (file.Peek() != -1)
                 {
@@ -61,6 +62,7 @@ namespace Szofttech_WPF.Network
                         }
                     }
                 }
+                file.Close();
             }
             catch (FileNotFoundException)
             {
@@ -69,6 +71,11 @@ namespace Szofttech_WPF.Network
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                WriteSavedServersToFile();
+                
             }
         }
 
@@ -86,6 +93,8 @@ namespace Szofttech_WPF.Network
                     throw new Exception("SZERVER NÉV MÁR LÉTEZIK!");
                 }
             }
+            serverList.Add(sAddress);
+            WriteSavedServersToFile();
         }
 
         public static void EditServer(string name, ServerAddress newAddress)

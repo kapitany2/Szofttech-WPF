@@ -43,10 +43,10 @@ namespace Szofttech_WPF.View.Game
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
             for (int i = 0; i < board.getNLength(); i++)
             {
-                window.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Auto) });
                 for (int j = 0; j < board.getNLength(); j++)
                 {
-                    window.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
+                    grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                     CellGUI seged = new CellGUI(i, j);
                     seged.Width = seged.Height = szelesseg;
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
@@ -67,7 +67,7 @@ namespace Szofttech_WPF.View.Game
                     };
                     cells[i, j] = seged;
                     seged.setCell(board.getCellstatus()[i, j]);
-                    window.Children.Add(seged);
+                    grid.Children.Add(seged);
                     Grid.SetRow(seged, i);
                     Grid.SetColumn(seged, j);
                 }

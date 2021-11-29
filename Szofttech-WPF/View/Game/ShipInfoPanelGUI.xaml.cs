@@ -32,7 +32,7 @@ namespace Szofttech_WPF.View.Game
             felirat = new Label();
             felirat.Content = "1x" + shipSize + ": " + piece + "db";
             felirat.HorizontalAlignment = HorizontalAlignment.Center;
-            window.Children.Add(felirat);
+            grid.Children.Add(felirat);
         }
 
         public void SetPiece(int piece)

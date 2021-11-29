@@ -219,7 +219,6 @@
     <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\x.png" />
     <Resource Include="Resources\x_red.png" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

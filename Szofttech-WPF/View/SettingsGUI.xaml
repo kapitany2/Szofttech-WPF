@@ -6,16 +6,17 @@
              xmlns:local="clr-namespace:Szofttech_WPF.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="grid">
         <Grid.Background>
             <SolidColorBrush Color="#3269a8"/>
         </Grid.Background>
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label x:Name="lblPort" FontSize="20" Content="Port:"/>
-            <TextBox x:Name="txtBlckPort" Margin="50, 0, 0, 0" Width="150" Height="25"/>
+            <TextBox x:Name="txtBlckPort" Margin="50, 0, 0, 0" Width="150" Height="25" KeyUp="txtBlckPort_KeyUp"/>
         </Grid>
-        <Label x:Name="response" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 0, 0, 50" Content="placeholder"/>
+        <Label x:Name="response" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+               Margin="0, 0, 0, 50" Content="Settings saved..." Visibility="Hidden" FontSize="25"/>
 
     </Grid>
 </UserControl>
