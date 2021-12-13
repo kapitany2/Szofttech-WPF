@@ -66,11 +66,31 @@
                              RadiusY="0.5"
                              Opacity="0.5">
                                 <GradientStop Color="White" Offset="0.10"/>
-                                <GradientStop Color="#1C536F" Offset="0.75"/>
+                                <GradientStop Color="#34ebae" Offset="0.75"/>
                             </RadialGradientBrush>
                         </Border.Background>
                     </Border>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- NiceText -->
+    <Style x:Key="NiceText" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Foreground" Value="#34ebae"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    ShadowDepth="3"
+                    Direction="315"
+                    Color="Black"
+                    Opacity="1.0"
+                    BlurRadius="3"/>
             </Setter.Value>
         </Setter>
     </Style>
