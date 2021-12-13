@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Network;
 using Szofttech_WPF.View.Game;
 
 namespace Szofttech_WPF.View
@@ -13,6 +14,9 @@ namespace Szofttech_WPF.View
     {
         private ShipSelecterGUI selecter;
         private InfoPanelGUI infoPanel;
+        private Client Client;
+        private Server Server;
+        
 
         public GameGUI()
         {

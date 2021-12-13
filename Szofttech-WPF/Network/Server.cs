@@ -76,7 +76,6 @@ namespace Szofttech_WPF.Network
                 {
                     BEGIN:
                     Socket socket = sSocket.Accept();
-                    Console.WriteLine("some asshat joined");
 
                     byte[] buffer = new byte[1024];
                     string inMsg = null;
@@ -94,22 +93,23 @@ namespace Szofttech_WPF.Network
                             if (inMsg != "CLIENT")
                             { 
                                 socket.Close();
-                                Console.WriteLine("It was not a client");
+                                Console.WriteLine("PING received");
                                 goto BEGIN;
                             }
                             inMsg = null;
                             break;
                         }
                     }
-                    Console.WriteLine("It was a client");
-
+                    
                     int ID = clientID++;
                     int otherQueueID = (ID == 0) ? 1 : 0;
                     int ownQueueID = (ID == 0) ? 0 : 1;
-                    addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
+                    Console.WriteLine("Client " + ID + " joined the server.");
 
-                    byte[] message = Encoding.ASCII.GetBytes(ID.ToString());
+                    byte[] message = Encoding.ASCII.GetBytes(ID.ToString()+"<EOF>");
                     socket.Send(message);
+
+                    addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
 
                     Thread threadReader = new Thread(() =>
                     {

@@ -76,6 +76,7 @@ namespace Szofttech_WPF.View.Game
                 };
                 grid.Children.Add(infoPanel);
                 Grid.SetColumn(infoPanel, i);
+                Grid.SetRow(infoPanel, 1);
                 shipInfoPanels[i] = infoPanel;
             }
         }

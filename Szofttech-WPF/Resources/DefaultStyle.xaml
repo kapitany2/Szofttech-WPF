@@ -33,4 +33,88 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!-- Standard Button Colors-->
+    <SolidColorBrush x:Key="StandardButtonBackground" Color="#1C536F" />
+    <SolidColorBrush x:Key="StandardButtonForeground" Color="#FEFEFE" />
+
+    <!-- Rounded Button Template-->
+    <Style x:Key="RoundedGradientButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource StandardButtonBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource StandardButtonForeground}" />
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    ShadowDepth="3"
+                    Direction="315"
+                    Color="Black"
+                    Opacity="1.0"
+                    BlurRadius="3"/>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="55">
+                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                        <Border.Background>
+                            <RadialGradientBrush
+                             RadiusX="0.5"
+                             RadiusY="0.5"
+                             Opacity="0.5">
+                                <GradientStop Color="White" Offset="0.10"/>
+                                <GradientStop Color="#34ebae" Offset="0.75"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="55">
+                                <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                <Border.Background>
+                                    <RadialGradientBrush
+                             RadiusX="0.5"
+                             RadiusY="0.5"
+                             Opacity="0.5">
+                                        <GradientStop Color="White" Offset="0.10"/>
+                                        <GradientStop Color="#c2edce" Offset="0.75"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- NiceText -->
+    <Style x:Key="NiceText" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
+        <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Foreground" Value="#34ebae"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect
+                    ShadowDepth="3"
+                    Direction="315"
+                    Color="Black"
+                    Opacity="1.0"
+                    BlurRadius="3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
