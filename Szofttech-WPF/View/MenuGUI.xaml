@@ -29,10 +29,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" x:Name="bttnNewGame" Margin="40, 10, 40, 10" FontSize="20" Content="New Game" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="1" x:Name="bttnJoinGame" Margin="40, 10, 40, 10" FontSize="20" Content="Join Game" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="2" x:Name="bttnSettings" Margin="40, 10, 40, 10" FontSize="20" Content="Settings" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="3" x:Name="bttnExit" Margin="40, 10, 40, 10" FontSize="20" Content="Exit" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="0" x:Name="bttnNewGame" Margin="40, 10, 40, 10" FontSize="30" Content="New Game" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="1" x:Name="bttnJoinGame" Margin="40, 10, 40, 10" FontSize="30" Content="Join Game" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="2" x:Name="bttnSettings" Margin="40, 10, 40, 10" FontSize="30" Content="Settings" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="3" x:Name="bttnExit" Margin="40, 10, 40, 10" FontSize="30" Content="Exit" Style="{StaticResource RoundedGradientButton}"/>
             </Grid>
         </Grid>
 
