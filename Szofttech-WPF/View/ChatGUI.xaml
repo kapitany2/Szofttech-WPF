@@ -11,7 +11,17 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="chatLog" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#3269a8" IsReadOnly="True"/>
-        <TextBox x:Name="chatInput" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <TextBox x:Name="chatLog" Text="{Binding ChatMessages}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#3269a8" IsReadOnly="True"/>
+        <TextBox x:Name="chatInput" Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="1" 
+                 HorizontalAlignment="Stretch" 
+                 VerticalAlignment="Stretch">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Content="Gomb" Command="{Binding SendCommand}" Width="100" Grid.Row="1"/>
+        
+            
     </Grid>
 </UserControl>

@@ -16,6 +16,7 @@
             <Button x:Name="bttnJoinGame" Margin="0, 0, 0, 50" FontSize="19" VerticalContentAlignment="Center" Content="Join Game" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="bttnSettings" Margin="0, 80, 0, 0" FontSize="19" Content="Settings" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button x:Name="bttnExit" Margin="0, 210, 0, 0" FontSize="19" Content="Exit" Width="116" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button x:Name="testButton" FontSize="19" Content="TestButton" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
         </Grid>
     </Grid>
 </UserControl>

@@ -20,6 +20,7 @@ namespace Szofttech_WPF
         private MenuGUI menuGUI;
         private JoinGUI joinGUI;
         private SettingsGUI settingsGUI;
+        private ChatGUI chatGUI;
         public MainWindow()
         {
             InitializeComponent();
@@ -61,6 +62,17 @@ namespace Szofttech_WPF
             Grid.SetRow(settingsGUI, 1);
             #endregion
 
+            chatGUI = new ChatGUI();
+            chatGUI.Visibility = Visibility.Hidden;
+            chatGUI.IsVisibleChanged += (send, args) =>
+            {
+                setHeaderBarButtons(chatGUI.IsVisible ? Visibility.Hidden : Visibility.Visible);
+                menuGUI.Visibility = chatGUI.IsVisible ? Visibility.Hidden : Visibility.Visible;
+            };
+            windowGrid.Children.Add(chatGUI);
+            Grid.SetRow(chatGUI, 1);
+
+
             #region Menu init
             menuGUI = new MenuGUI();
             menuGUI.IsVisibleChanged += (send, args) =>
@@ -87,6 +99,11 @@ namespace Szofttech_WPF
                 Environment.Exit(0);
             };
             windowGrid.Children.Add(menuGUI);
+            menuGUI.testButton.Click += (send, args) =>
+              {
+                  chatGUI.Visibility = Visibility.Visible;
+                  menuGUI.Visibility = Visibility.Hidden;
+              };
             Grid.SetRow(menuGUI, 1);
             #endregion
         }

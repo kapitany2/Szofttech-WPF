@@ -12,17 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.Interfaces;
+using Szofttech_WPF.ViewModel;
 
 namespace Szofttech_WPF.View
 {
     /// <summary>
     /// Interaction logic for ChatGUI.xaml
     /// </summary>
-    public partial class ChatGUI : UserControl
+    public partial class ChatGUI : UserControl, IExitableGUI
     {
         public ChatGUI()
         {
+            DataContext = new ChatViewModel();
             InitializeComponent();
+        }
+
+        public void CloseGUI()
+        {
+            this.Visibility = Visibility.Hidden;
         }
     }
 }
