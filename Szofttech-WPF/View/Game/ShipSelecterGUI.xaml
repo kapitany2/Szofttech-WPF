@@ -23,18 +23,18 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform0"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform0"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform0"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -53,18 +53,18 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform1"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform1"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform1"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -83,18 +83,18 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform2"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform2"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform2"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
@@ -113,18 +113,18 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform3"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform3"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform3"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
