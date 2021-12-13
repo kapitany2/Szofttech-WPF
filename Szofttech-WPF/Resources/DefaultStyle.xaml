@@ -73,6 +73,29 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="55">
+                                <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+                                <Border.Background>
+                                    <RadialGradientBrush
+                             RadiusX="0.5"
+                             RadiusY="0.5"
+                             Opacity="0.5">
+                                        <GradientStop Color="White" Offset="0.10"/>
+                                        <GradientStop Color="#c2edce" Offset="0.75"/>
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!-- NiceText -->
