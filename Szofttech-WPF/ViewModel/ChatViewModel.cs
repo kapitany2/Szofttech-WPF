@@ -11,7 +11,7 @@ namespace Szofttech_WPF.ViewModel
     {
         string chatMessages, chatInput;
 
-        public RelayCommand SendCommand;
+        public RelayCommand SendCommand { get; }
         public string ChatMessages { get => chatMessages; set { chatMessages = value; OnPropertyChanged(); } }
         public string ChatInput { get => chatInput; set { chatInput = value; OnPropertyChanged(); } }
 
