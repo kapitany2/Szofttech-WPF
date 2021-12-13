@@ -13,8 +13,7 @@ namespace Szofttech_WPF.ViewModel.Base
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propName = null)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         protected void SetValue<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)
         {
