@@ -56,5 +56,9 @@ namespace Szofttech_WPF.View
                 timer.Start();
             }
         }
+        public void ExitApplication()
+        {
+            //Check if exitable
+        }
     }
 }

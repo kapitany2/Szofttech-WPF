@@ -9,5 +9,6 @@ namespace Szofttech_WPF.Interfaces
     interface IExitableGUI
     {
         void CloseGUI();
+        void ExitApplication();
     }
 }
