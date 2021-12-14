@@ -32,33 +32,5 @@ namespace Szofttech_WPF.View
         {
             this.Visibility = Visibility.Hidden;
         }
-
-        private void txtBlckPort_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter)
-            {
-                if (int.TryParse(((TextBox)sender).Text, out int port))
-                    Settings.setPort(port);
-                else
-                    Settings.setPort(25564);
-                Settings.Save();
-                response.Visibility = Visibility.Visible;
-                Timer timer = new Timer();
-                timer.Interval = 1500;
-                timer.Elapsed += (source, args) =>
-                {
-                    timer.Stop();
-                    Dispatcher.Invoke(() =>
-                    {
-                        response.Visibility = Visibility.Hidden;
-                    });
-                };
-                timer.Start();
-            }
-        }
-        public void ExitApplication()
-        {
-            //Check if exitable
-        }
     }
 }
