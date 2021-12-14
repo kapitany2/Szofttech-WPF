@@ -19,8 +19,8 @@ namespace Szofttech_WPF.Network
         private int port;
         private bool close = false;
         private bool timedOut = false;
-        private EventHandler clientEvent;
-
+        private EventHandler OnMessageReceived, OnYourTurn, OnGameEnded, OnEnemyHitMe, OnMyHit, OnJoinedEnemy;
+        
         public Client(string ip, int port)
         {
             this.ip = ip;
@@ -33,7 +33,7 @@ namespace Szofttech_WPF.Network
             thread.Start();
         }
 
-        public Client() {}
+        public Client() { }
 
         public void Connect(string ip, int port)
         {
@@ -177,7 +177,7 @@ namespace Szofttech_WPF.Network
             {
                 Console.WriteLine("Szerver elpusztult amíg a kliens rajta volt. Ez nem egy hiba.");
             }
-            
+
             Console.WriteLine(inMsg);
             return inMsg;
         }
