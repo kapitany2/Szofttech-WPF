@@ -76,6 +76,9 @@
     <Compile Include="Network\ServerAddress.cs" />
     <Compile Include="Network\ServerManager.cs" />
     <Compile Include="Utils\Settings.cs" />
+    <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\RelayCommand.cs" />
+    <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="View\ChatGUI.xaml.cs">
       <DependentUpon>ChatGUI.xaml</DependentUpon>
     </Compile>
@@ -216,7 +219,6 @@
   <ItemGroup>
     <Folder Include="EventArgs\" />
     <Folder Include="Model\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\x_red.png" />
