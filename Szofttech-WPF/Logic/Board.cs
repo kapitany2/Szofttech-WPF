@@ -125,7 +125,7 @@ namespace Szofttech_WPF.Logic
                         availableCellsIntegers.Add(s);
                     }
 
-                    bool probalkozz = true, horizontal = rnd.Next(0, 1) == 1 ? true : false;
+                    bool probalkozz = true, horizontal = rnd.Next(0, 2) == 1 ? true : false;
                     int cellI, cellJ;
 
                     do
