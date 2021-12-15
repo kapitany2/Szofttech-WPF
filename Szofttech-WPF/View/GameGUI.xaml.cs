@@ -26,7 +26,13 @@ namespace Szofttech_WPF.View
         private Server Server;
         private ChatViewModel ChatViewModel;
 
-        public GameGUI()
+        public GameGUI() : this("", 0)
+        {
+            Server = new Server(0);
+
+        }
+
+        public GameGUI(string ip, int port)
         {
             InitializeComponent();
 
@@ -35,6 +41,14 @@ namespace Szofttech_WPF.View
             selecter = new ShipSelecterGUI();
             ChatViewModel = new ChatViewModel();
             chatGUI = new ChatGUI();
+
+            Client = new Client(ip, port);
+            Client.OnMessageReceived += Client_OnMessageReceived;
+            Client.OnYourTurn += Client_OnYourTurn;
+            Client.OnGameEnded += Client_OnGameEnded;
+            Client.OnEnemyHitMe += Client_OnEnemyHitMe;
+            Client.OnMyHit += Client_OnMyHit;
+            Client.OnJoinedEnemy += Client_OnJoinedEnemy;
 
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
             playerBoardGUI.OnPickUp += PlayerBoardGUI_OnPickUp;
@@ -64,7 +78,55 @@ namespace Szofttech_WPF.View
             Grid.SetRowSpan(chatGUI, 3);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
+        }
 
+        private void Client_OnJoinedEnemy(object sender, EventArgs e)
+        {
+            //waitingTitle.Visibility = Visibility.Hidden;
+            playerBoardGUI.Visibility = Visibility.Visible;
+            enemyBoardGUI.Visibility = Visibility.Visible;
+            selecter.Visibility = Visibility.Visible;
+        }
+
+        private void Client_OnMyHit(object sender, EventArguments.Chat.MyHitArgs e)
+        {
+            enemyBoardGUI.Hit(e.I, e.J, e.Status);
+        }
+
+        private void Client_OnEnemyHitMe(object sender, EventArguments.Chat.EnemyHitMeArgs e)
+        {
+            playerBoardGUI.Hit(e.I, e.J);
+        }
+
+        private void Client_OnGameEnded(object sender, EventArguments.Chat.GameEndedArgs e)
+        {
+            enemyBoardGUI.setTurnEnabled(false);
+            string endMessage = "";
+            switch (e.GameEndedStatus)
+            {
+                case GameEndedStatus.Unknown:
+                    endMessage = "Unknown game ended status.";
+                    break;
+                case GameEndedStatus.Defeat:
+                    endMessage = "Defeat!";
+                    break;
+                case GameEndedStatus.Win:
+                    endMessage = "You win!";
+                    break;
+                default:
+                    break;
+            }
+            chatGUI.AddMessage("System", endMessage);
+        }
+
+        private void Client_OnYourTurn(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Client_OnMessageReceived(object sender, EventArguments.Chat.MessageReveivedArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void PlayerBoardGUI_OnPickUp(object sender, ShipSizeArgs e)
