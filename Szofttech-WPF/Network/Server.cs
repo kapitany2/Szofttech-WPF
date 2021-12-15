@@ -34,6 +34,7 @@ namespace Szofttech_WPF.Network
 
         public Server(int port)
         {
+            Console.WriteLine("Opening server on port " + port);
             for (int i = 0; i < 2; ++i)
             {
                 queueArray[i] = new List<string>();
@@ -142,7 +143,7 @@ namespace Szofttech_WPF.Network
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine(ex);
+                                    Console.WriteLine("Server closing...");
                                 }
                             }
                         });
@@ -161,10 +162,7 @@ namespace Szofttech_WPF.Network
                         }
                     }
                 }
-                catch (Exception)
-                {
-                    Console.WriteLine("Closing server threads");
-                }
+                catch (Exception) { }
                    
             });
             thread.Start();

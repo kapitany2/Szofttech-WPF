@@ -182,6 +182,7 @@ namespace Szofttech_WPF.View
         {
             this.Visibility = Visibility.Hidden;
             Server?.Close();
+            Client?.Close();
         }
 
         public void ExitApplication()
