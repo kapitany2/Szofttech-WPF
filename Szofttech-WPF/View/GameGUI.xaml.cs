@@ -181,6 +181,7 @@ namespace Szofttech_WPF.View
         public void CloseGUI()
         {
             this.Visibility = Visibility.Hidden;
+            Server?.Close();
         }
 
         public void ExitApplication()
