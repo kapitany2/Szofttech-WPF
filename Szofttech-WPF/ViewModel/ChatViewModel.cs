@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Szofttech_WPF.ViewModel.Base;
 
 namespace Szofttech_WPF.ViewModel
@@ -14,7 +10,7 @@ namespace Szofttech_WPF.ViewModel
         public RelayCommand SendCommand { get; }
         public string ChatMessages { get => chatMessages; set { chatMessages = value; OnPropertyChanged(); } }
         public string ChatInput { get => chatInput; set { chatInput = value; OnPropertyChanged(); } }
-
+        public event EventHandler OnSendMessage;
         public ChatViewModel()
         {
             SendCommand = new RelayCommand(send);
