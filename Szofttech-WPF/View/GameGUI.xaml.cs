@@ -26,16 +26,17 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private ChatViewModel ChatViewModel;
+        private int port;
 
         public GameGUI() : this(Settings.getIP(), Settings.getPort())
         {
-            Server = new Server(Settings.getPort());
-
+            Server = new Server(port);
         }
 
         public GameGUI(string ip, int port)
         {
             InitializeComponent();
+            this.port = port;
 
             playerBoardGUI = new PlayerBoardGUI();
             enemyBoardGUI = new EnemyBoardGUI();
