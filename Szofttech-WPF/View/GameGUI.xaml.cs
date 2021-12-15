@@ -7,6 +7,7 @@ using Szofttech_WPF.EventArguments.ShipSelecter;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Logic;
 using Szofttech_WPF.Network;
+using Szofttech_WPF.Utils;
 using Szofttech_WPF.View.Game;
 using Szofttech_WPF.ViewModel;
 
@@ -26,7 +27,7 @@ namespace Szofttech_WPF.View
         private Server Server;
         private ChatViewModel ChatViewModel;
 
-        public GameGUI() : this("", 0)
+        public GameGUI() : this(Settings.getIP(), Settings.getPort())
         {
             Server = new Server(0);
 
