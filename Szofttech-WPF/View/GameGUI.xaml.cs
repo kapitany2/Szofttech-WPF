@@ -27,9 +27,9 @@ namespace Szofttech_WPF.View
         private Server Server;
         private ChatViewModel ChatViewModel;
 
-        public GameGUI() : this(Settings.getIP(), Settings.getPort())
+        public GameGUI(int port) : this(Settings.getIP(), port)
         {
-            Server = new Server(Settings.getPort());
+            Server = new Server(port);
 
         }
 

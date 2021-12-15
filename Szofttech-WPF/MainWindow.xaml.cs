@@ -114,11 +114,11 @@ namespace Szofttech_WPF
             if (sa != null)
             {
                 //gameGUI = new GameGUI(sa.IP, sa.Port);
-                gameGUI = new GameGUI();
+                gameGUI = new GameGUI(Settings.getPort());
             }
             else
             {
-                gameGUI = new GameGUI();
+                gameGUI = new GameGUI(Settings.getPort());
             }
             gameGUI.IsVisibleChanged += (send, args) =>
             {
