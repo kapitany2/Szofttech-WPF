@@ -127,5 +127,26 @@
                     BlurRadius="3"/>
             </Setter.Value>
         </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="Foreground" Value="#92d1bd"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect
+                    ShadowDepth="3"
+                    Direction="315"
+                    Color="Black"
+                    Opacity="1.0"
+                    BlurRadius="3"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
