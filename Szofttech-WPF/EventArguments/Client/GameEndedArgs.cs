@@ -5,7 +5,7 @@ namespace Szofttech_WPF.EventArguments.Chat
 {
     public class GameEndedArgs : EventArgs
     {
-        GameEndedStatus GameEndedStatus { get; set; }
+        public GameEndedStatus GameEndedStatus { get; set; }
 
         public GameEndedArgs(GameEndedStatus gameEndedStatus)
         {
