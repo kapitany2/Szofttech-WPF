@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Szofttech_WPF.EventArguments.Chat
+namespace Szofttech_WPF.EventArguments.Client
 {
-    public class MessageReveivedArgs : EventArgs
+    public class MessageReceivedArgs : EventArgs
     {
         public int SenderID { get; set; }
         public string Message { get; set; }
-        public MessageReveivedArgs(int senderID, string message)
+        public MessageReceivedArgs(int senderID, string message)
         {
             SenderID = senderID;
             Message = message;

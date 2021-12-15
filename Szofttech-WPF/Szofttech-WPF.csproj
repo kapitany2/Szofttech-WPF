@@ -73,7 +73,7 @@
     <Compile Include="EventArguments\Chat\SendMessageEventArgs.cs" />
     <Compile Include="EventArguments\Client\EnemyHitMeArgs.cs" />
     <Compile Include="EventArguments\Client\GameEndedArgs.cs" />
-    <Compile Include="EventArguments\Client\MessageReveivedArgs.cs" />
+    <Compile Include="EventArguments\Client\MessageReceivedArgs.cs" />
     <Compile Include="EventArguments\Client\MyHitArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />

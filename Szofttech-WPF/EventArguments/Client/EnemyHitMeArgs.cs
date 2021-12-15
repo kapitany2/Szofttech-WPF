@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Szofttech_WPF.EventArguments.Chat
+namespace Szofttech_WPF.EventArguments.Client
 {
     public class EnemyHitMeArgs : EventArgs
     {

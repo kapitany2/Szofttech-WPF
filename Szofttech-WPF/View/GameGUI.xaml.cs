@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.EventArguments.Board;
+using Szofttech_WPF.EventArguments.Chat;
+using Szofttech_WPF.EventArguments.Client;
 using Szofttech_WPF.EventArguments.ShipSelecter;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Logic;
@@ -88,17 +90,17 @@ namespace Szofttech_WPF.View
             selecter.Visibility = Visibility.Visible;
         }
 
-        private void Client_OnMyHit(object sender, EventArguments.Chat.MyHitArgs e)
+        private void Client_OnMyHit(object sender, MyHitArgs e)
         {
             enemyBoardGUI.Hit(e.I, e.J, e.Status);
         }
 
-        private void Client_OnEnemyHitMe(object sender, EventArguments.Chat.EnemyHitMeArgs e)
+        private void Client_OnEnemyHitMe(object sender, EnemyHitMeArgs e)
         {
             playerBoardGUI.Hit(e.I, e.J);
         }
 
-        private void Client_OnGameEnded(object sender, EventArguments.Chat.GameEndedArgs e)
+        private void Client_OnGameEnded(object sender, GameEndedArgs e)
         {
             enemyBoardGUI.setTurnEnabled(false);
             string endMessage = "";
@@ -124,7 +126,7 @@ namespace Szofttech_WPF.View
             throw new NotImplementedException();
         }
 
-        private void Client_OnMessageReceived(object sender, EventArguments.Chat.MessageReveivedArgs e)
+        private void Client_OnMessageReceived(object sender, MessageReceivedArgs e)
         {
             throw new NotImplementedException();
         }
