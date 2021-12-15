@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Szofttech_WPF.DataPackage;
+using Szofttech_WPF.EventArguments.Chat;
 
 namespace Szofttech_WPF.Network
 {
@@ -19,13 +20,16 @@ namespace Szofttech_WPF.Network
         private int port;
         private bool close = false;
         private bool timedOut = false;
-        private EventHandler OnMessageReceived, OnYourTurn, OnGameEnded, OnEnemyHitMe, OnMyHit, OnJoinedEnemy;
-        
+        public event EventHandler<MessageReveivedArgs> OnMessageReceived;
+        public event EventHandler<GameEndedArgs> OnGameEnded;
+        public event EventHandler<EnemyHitMeArgs> OnEnemyHitMe;
+        public event EventHandler<MyHitArgs> OnMyHit;
+        public event EventHandler OnYourTurn, OnJoinedEnemy;
+
         public Client(string ip, int port)
         {
             this.ip = ip;
             this.port = port;
-
             Thread thread = new Thread(() =>
             {
                 run();
