@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Szofttech_WPF.ViewModel.Base
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action action;
         public event EventHandler CanExecuteChanged = (sender, e) => { };
