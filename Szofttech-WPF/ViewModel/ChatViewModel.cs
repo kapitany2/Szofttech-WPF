@@ -19,9 +19,12 @@ namespace Szofttech_WPF.ViewModel
 
         private void send()
         {
-            OnSendMessage?.Invoke(null, new SendMessageEventArgs(ChatInput));
-            addMessage("me", ChatInput);
-            ChatInput = String.Empty;
+            if (ChatInput != String.Empty)
+            {
+                OnSendMessage?.Invoke(null, new SendMessageEventArgs(ChatInput));
+                addMessage("local me", ChatInput); //ezt majd kiszedjük ha clientet implementáltuk
+                ChatInput = String.Empty;
+            }
         }
 
         internal void addMessage(string sender, string message)
