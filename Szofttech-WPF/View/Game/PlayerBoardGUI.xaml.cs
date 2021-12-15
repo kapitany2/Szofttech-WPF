@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -26,6 +27,7 @@ namespace Szofttech_WPF.View.Game
             new Point(1, 0),
             new Point(1, 1)
         };
+        public event EventHandler<ShipSizeArgs> OnPlace, OnPickUp;
 
         public PlayerBoardGUI()
         {
@@ -178,8 +180,7 @@ namespace Szofttech_WPF.View.Game
                         selectedCell.setCell(CellStatus.Ship);
                         board.setCell(selectedCell.I, selectedCell.J, selectedCell.CellStatus);
                     }
-                    //Hajó lerakva event
-                    Console.WriteLine("Hajó lerakva event itt lenne");
+                    OnPlace?.Invoke(null, new ShipSizeArgs(selectedShipSize));
                 }
             }
             else if (cell.CellStatus == CellStatus.Ship)
@@ -246,8 +247,7 @@ namespace Szofttech_WPF.View.Game
                     }
                     --i;
                 }
-                //Hajó felvétel event
-                Console.WriteLine("Hajó felvétel event itt lenne");
+                OnPickUp?.Invoke(null, new ShipSizeArgs(pickupShipSize));
                 cellEntered(cell); //Kijelölve legyen, amit levettünk
             }
         }
