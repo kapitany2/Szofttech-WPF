@@ -37,6 +37,7 @@ namespace Szofttech_WPF.View.Game
 
         private void Init()
         {
+            canPlace = true;
             shipPlaceHorizontal = true;
             selectedShipSize = 4;
             selectedCells = new List<CellGUI>();
@@ -88,7 +89,7 @@ namespace Szofttech_WPF.View.Game
         private void cellEntered(CellGUI cell)
         {
             selectedCells.Clear();
-
+            Console.WriteLine(shipPlaceHorizontal + " in PlayerBoardGUI");
             if (isEmptyPlace(cell))
             {
                 if (shipPlaceHorizontal)
