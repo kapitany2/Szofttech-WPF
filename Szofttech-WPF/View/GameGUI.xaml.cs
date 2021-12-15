@@ -29,7 +29,7 @@ namespace Szofttech_WPF.View
 
         public GameGUI() : this(Settings.getIP(), Settings.getPort())
         {
-            Server = new Server(0);
+            Server = new Server(Settings.getPort());
 
         }
 
