@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.EventArguments.Chat;
+using Szofttech_WPF.EventArguments.Client;
 
 namespace Szofttech_WPF.Network
 {
@@ -20,7 +21,7 @@ namespace Szofttech_WPF.Network
         private int port;
         private bool close = false;
         private bool timedOut = false;
-        public event EventHandler<MessageReveivedArgs> OnMessageReceived;
+        public event EventHandler<MessageReceivedArgs> OnMessageReceived;
         public event EventHandler<GameEndedArgs> OnGameEnded;
         public event EventHandler<EnemyHitMeArgs> OnEnemyHitMe;
         public event EventHandler<MyHitArgs> OnMyHit;

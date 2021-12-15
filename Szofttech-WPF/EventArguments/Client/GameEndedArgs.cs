@@ -1,7 +1,7 @@
 ﻿using System;
 using Szofttech_WPF.DataPackage;
 
-namespace Szofttech_WPF.EventArguments.Chat
+namespace Szofttech_WPF.EventArguments.Client
 {
     public class GameEndedArgs : EventArgs
     {
