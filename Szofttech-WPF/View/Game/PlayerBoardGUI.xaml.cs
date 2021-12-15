@@ -89,7 +89,6 @@ namespace Szofttech_WPF.View.Game
         private void cellEntered(CellGUI cell)
         {
             selectedCells.Clear();
-            Console.WriteLine(shipPlaceHorizontal + " in PlayerBoardGUI");
             if (isEmptyPlace(cell))
             {
                 if (shipPlaceHorizontal)
