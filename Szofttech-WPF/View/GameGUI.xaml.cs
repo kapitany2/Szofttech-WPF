@@ -76,7 +76,7 @@ namespace Szofttech_WPF.View
 
             chatGUI.DataContext = ChatViewModel;
             chatGUI.Visibility = Visibility.Hidden;
-            chatGUI.OnSendMessage += ChatGUI_OnSendMessage;
+            ((ChatViewModel)chatGUI.DataContext).OnSendMessage += ChatGUI_OnSendMessage;
             grid.Children.Add(chatGUI);
             Grid.SetRow(chatGUI, 1);
             Grid.SetRowSpan(chatGUI, 1);
@@ -130,7 +130,7 @@ namespace Szofttech_WPF.View
                 default:
                     break;
             }
-            chatGUI.AddMessage("System", endMessage);
+            ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
         }
 
         private void Client_OnYourTurn(object sender, EventArgs e)
