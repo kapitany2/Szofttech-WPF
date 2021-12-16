@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.EventArguments.Chat;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.ViewModel;
 
@@ -11,12 +13,19 @@ namespace Szofttech_WPF.View
     public partial class ChatGUI : UserControl, IExitableGUI//Ezt az interface-t majd ki kell venni, ha nem kell már tesztelni
     {
         public ChatViewModel ChatViewModel;
+        public event EventHandler<SendMessageEventArgs> OnSendMessage;
         public ChatGUI()
-        {
+        {            
+            InitializeComponent(); 
             ChatViewModel = new ChatViewModel();
             DataContext = ChatViewModel;
-            InitializeComponent();
             chatLog.TextChanged += (sender, args) => chatLog.ScrollToEnd();
+            ChatViewModel.OnSendMessage += ChatViewModel_OnSendMessage;
+        }
+
+        private void ChatViewModel_OnSendMessage(object sender, SendMessageEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddMessage(string sender, string message)

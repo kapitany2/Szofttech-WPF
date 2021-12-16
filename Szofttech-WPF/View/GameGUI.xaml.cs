@@ -51,6 +51,7 @@ namespace Szofttech_WPF.View
             Client.OnEnemyHitMe += Client_OnEnemyHitMe;
             Client.OnMyHit += Client_OnMyHit;
             Client.OnJoinedEnemy += Client_OnJoinedEnemy;
+            Client.OnDisconnected += Client_OnDisconnected;
 
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
             playerBoardGUI.OnPickUp += PlayerBoardGUI_OnPickUp;
@@ -75,11 +76,22 @@ namespace Szofttech_WPF.View
 
             chatGUI.DataContext = ChatViewModel;
             chatGUI.Visibility = Visibility.Hidden;
+            chatGUI.OnSendMessage += ChatGUI_OnSendMessage;
             grid.Children.Add(chatGUI);
             Grid.SetRow(chatGUI, 1);
             Grid.SetRowSpan(chatGUI, 1);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
+        }
+
+        private void ChatGUI_OnSendMessage(object sender, SendMessageEventArgs e)
+        {
+            Client.sendMessage(new ChatData(Client.ID, e.Message));
+        }
+
+        private void Client_OnDisconnected(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
