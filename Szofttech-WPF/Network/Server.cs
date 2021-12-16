@@ -4,10 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.Logic;
-using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.Network
 {
@@ -21,8 +19,8 @@ namespace Szofttech_WPF.Network
 
         public void addMessageToQueue(string message, int ID)
         {
-            if (ID != 1)
-                queueArray[ID].Add(message);
+            if (ID != -1)
+                queueArray[ID].Add(message + "<EOF>");
         }
 
         public void Close()
@@ -75,33 +73,24 @@ namespace Szofttech_WPF.Network
             {
                 try
                 {
+                    
                     while (!close)
                     {
-                        BEGIN:
                         Socket socket = sSocket.Accept();
 
                         byte[] buffer = new byte[1024];
                         string inMsg = null;
+                        bool isClient = false;
 
-
-                        while (true)
+                        if (!isClient)
                         {
-                            int numByte = socket.Receive(buffer);
-
-                            inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
-
-                            if (inMsg.IndexOf("<EOF>") > -1)
+                            if (getInMsg(socket) != "CLIENT")
                             {
-                                inMsg = inMsg.Replace("<EOF>", "");
-                                if (inMsg != "CLIENT")
-                                {
-                                    socket.Close();
-                                    Console.WriteLine("PING received");
-                                    goto BEGIN;
-                                }
-                                inMsg = null;
-                                break;
+                                socket.Close();
+                                Console.WriteLine("PING received");
+                                continue;
                             }
+                            else isClient = true;
                         }
 
                         int ID = clientID++;
@@ -112,7 +101,12 @@ namespace Szofttech_WPF.Network
                         byte[] message = Encoding.ASCII.GetBytes(ID.ToString() + "<EOF>");
                         socket.Send(message);
 
-                        addMessageToQueue(ID + "$ConnectionData$$" + ((ID == 0) ? 1 : 0), otherQueueID);
+                        ConnectionData cData = new ConnectionData(ID)
+                        {
+                            recipientID = (ID == 0) ? 1 : 0
+                        };
+
+                        addMessageToQueue(DataConverter.encode(cData), otherQueueID);
 
                         Thread threadReader = new Thread(() =>
                         {
@@ -121,30 +115,12 @@ namespace Szofttech_WPF.Network
                                 Thread.Sleep(10);
                                 try
                                 {
-                                    while (true)
-                                    {
-                                        int numByte = socket.Receive(buffer);
-                                        inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
-
-                                        if (inMsg.IndexOf("<EOF>") > -1)
-                                        {
-                                            inMsg = inMsg.Replace("<EOF>", "");
-                                            break;
-                                        }
-                                    }
-                                    if (inMsg == "$DisconnectData$$-1")
-                                    {
-                                        int recipient = (ID == 0) ? 1 : 0;
-                                        inMsg = "-1$ChatData$The other player has left the game.$" + recipient + "<EOF>";
-                                    }
+                                    inMsg = getInMsg(socket);
 
                                     Console.WriteLine(inMsg);
                                     gameLogic.processMessage(DataConverter.decode(inMsg));
                                 }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine("Server closing...");
-                                }
+                                catch (Exception) { }
                             }
                         });
                         threadReader.Start();
@@ -209,6 +185,30 @@ namespace Szofttech_WPF.Network
                 }
             }
             return "NO IP FOUND";
+        }
+
+        private string getInMsg(Socket socket)
+        {
+            byte[] buffer = new byte[1024];
+            string inMsg = null;
+            try
+            {
+                while (true)
+                {
+                    int numByte = socket.Receive(buffer);
+                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+
+                    if (inMsg.Contains("<EOF>"))
+                    {
+                        inMsg = inMsg.Replace("<EOF>", "");
+                        break;
+                    }
+                }
+            }
+            catch { Close(); }
+
+            Console.WriteLine(inMsg);
+            return inMsg;
         }
     }
 }

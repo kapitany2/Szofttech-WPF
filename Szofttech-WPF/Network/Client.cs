@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Szofttech_WPF.DataPackage;
-using Szofttech_WPF.EventArguments.Chat;
 using Szofttech_WPF.EventArguments.Client;
 
 namespace Szofttech_WPF.Network
@@ -59,14 +56,14 @@ namespace Szofttech_WPF.Network
 
         public void sendMessage(string message)
         {
-            message += "<EOF>";
-            messageQueue.Add(message);
+            messageQueue.Add(message + "<EOF>");
         }
 
         public void sendMessage(Data data)
         {
             string message = DataConverter.encode(data);
-            messageQueue.Add(message);
+            Console.WriteLine(message);
+            messageQueue.Add(message + "<EOF>");
         }
 
         public void Close()
@@ -91,15 +88,16 @@ namespace Szofttech_WPF.Network
                     {
                         Thread.Sleep(10);
                         string inMsg = getInMsg(socket);
-                        if (inMsg == "0" || inMsg == "1")
+                        if (int.TryParse(inMsg, out int ID))
                         {
-                            ID = int.Parse(inMsg);
+                            this.ID = ID;
                             continue;
                         }
 
                         if (inMsg != null)
                         {
                             Data data = DataConverter.decode(inMsg);
+                            Console.WriteLine(data.GetType().Name);
                             switch (data.GetType().Name)
                             {
                                 case "ChatData":
@@ -123,6 +121,9 @@ namespace Szofttech_WPF.Network
                                 case "GameEndedData":
                                     //GameEndedData
                                     break;
+                                case "DisconnectData":
+                                    //DisconnectData
+                                    break;
                                 default:
                                     //NOT IMPLEMENTED
                                     Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
@@ -145,7 +146,12 @@ namespace Szofttech_WPF.Network
                 }
                 try
                 {
-                    socket.Send(Encoding.ASCII.GetBytes("$DisconnectData$$-1"));
+                    DisconnectData dcData = new DisconnectData(ID)
+                    {
+                        recipientID = -1
+                    };
+                    string json = DataConverter.encode(dcData);
+                    socket.Send(Encoding.ASCII.GetBytes(json + "<EOF>"));
                     socket.Close();
                 }
                 catch (Exception ex)
@@ -181,6 +187,7 @@ namespace Szofttech_WPF.Network
             catch
             {
                 Console.WriteLine("Szerver elpusztult amíg a kliens rajta volt. Ez nem egy hiba.");
+                Close();
             }
 
             Console.WriteLine(inMsg);
