@@ -140,7 +140,12 @@ namespace Szofttech_WPF.View
 
         private void Client_OnMessageReceived(object sender, MessageReceivedArgs e)
         {
-            throw new NotImplementedException();
+            if (e.SenderID == -1)
+                ((ChatViewModel)chatGUI.DataContext).addMessage("System", e.Message);
+            else if (e.SenderID == Client.ID)
+                ((ChatViewModel)chatGUI.DataContext).addMessage("You", e.Message);
+            else
+                ((ChatViewModel)chatGUI.DataContext).addMessage("Opponent", e.Message);
         }
 
         private void PlayerBoardGUI_OnPickUp(object sender, ShipSizeArgs e)
