@@ -77,7 +77,7 @@ namespace Szofttech_WPF.View
             chatGUI.Visibility = Visibility.Hidden;
             grid.Children.Add(chatGUI);
             Grid.SetRow(chatGUI, 1);
-            Grid.SetRowSpan(chatGUI, 3);
+            Grid.SetRowSpan(chatGUI, 1);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
         }
