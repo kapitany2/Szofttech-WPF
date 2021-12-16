@@ -117,7 +117,7 @@ namespace Szofttech_WPF.Network
                                 {
                                     inMsg = getInMsg(socket);
 
-                                    Console.WriteLine(inMsg);
+                                    //Console.WriteLine(inMsg);
                                     gameLogic.processMessage(DataConverter.decode(inMsg));
                                 }
                                 catch (Exception) { }
@@ -207,7 +207,7 @@ namespace Szofttech_WPF.Network
             }
             catch { Close(); }
 
-            Console.WriteLine(inMsg);
+            //Console.WriteLine(inMsg);
             return inMsg;
         }
     }
