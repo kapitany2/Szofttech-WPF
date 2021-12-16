@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Szofttech_WPF.ViewModel.Base;
 
-namespace Szofttech_WPF.Interfaces
+namespace Szofttech_WPF.ViewModel
 {
-    interface IExitableGUI
+    class JoinGameGUIViewModel : BaseViewModel
     {
-        void CloseGUI();
-        void ExitApplication();
+        
     }
 }

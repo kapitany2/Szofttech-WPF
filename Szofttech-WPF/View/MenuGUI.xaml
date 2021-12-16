@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="title" Margin="0, 10, 0, 0"  FontSize="32" Text="Battleship Game" Style="{StaticResource NiceText}"/>
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="3" x:Name="title" FontSize="56" Text="Battleship Game" Style="{StaticResource NiceText}"/>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -29,10 +29,10 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" x:Name="bttnNewGame" Margin="40, 10, 40, 10" FontSize="20" Content="New Game" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="1" x:Name="bttnJoinGame" Margin="40, 10, 40, 10" FontSize="20" Content="Join Game" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="2" x:Name="bttnSettings" Margin="40, 10, 40, 10" FontSize="20" Content="Settings" Style="{StaticResource RoundedGradientButton}"/>
-                <Button Grid.Row="3" x:Name="bttnExit" Margin="40, 10, 40, 10" FontSize="20" Content="Exit" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="0" x:Name="bttnNewGame" Margin="40, 10, 40, 10" FontSize="30" Content="New Game" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="1" x:Name="bttnJoinGame" Margin="40, 10, 40, 10" FontSize="30" Content="Join Game" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="2" x:Name="bttnSettings" Margin="40, 10, 40, 10" FontSize="30" Content="Settings" Style="{StaticResource RoundedGradientButton}"/>
+                <Button Grid.Row="3" x:Name="bttnExit" Margin="40, 10, 40, 10" FontSize="30" Content="Exit" Style="{StaticResource RoundedGradientButton}"/>
             </Grid>
         </Grid>
 

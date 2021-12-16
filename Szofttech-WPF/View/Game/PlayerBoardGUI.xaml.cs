@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -26,6 +27,7 @@ namespace Szofttech_WPF.View.Game
             new Point(1, 0),
             new Point(1, 1)
         };
+        public event EventHandler<ShipSizeArgs> OnPlace, OnPickUp;
 
         public PlayerBoardGUI()
         {
@@ -35,6 +37,7 @@ namespace Szofttech_WPF.View.Game
 
         private void Init()
         {
+            canPlace = true;
             shipPlaceHorizontal = true;
             selectedShipSize = 4;
             selectedCells = new List<CellGUI>();
@@ -86,23 +89,22 @@ namespace Szofttech_WPF.View.Game
         private void cellEntered(CellGUI cell)
         {
             selectedCells.Clear();
-
             if (isEmptyPlace(cell))
             {
                 if (shipPlaceHorizontal)
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
-                        cells[i + cell.I, cell.J].select();
-                        selectedCells.Add(cells[i + cell.I, cell.J]);
+                        cells[cell.I, cell.J + i].select();
+                        selectedCells.Add(cells[cell.I, cell.J + i]);
                     }
                 }
                 else
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
-                        cells[cell.I, cell.J + i].select();
-                        selectedCells.Add(cells[cell.I, cell.J + i]);
+                        cells[cell.I + i, cell.J].select();
+                        selectedCells.Add(cells[cell.I + i, cell.J]);
                     }
                 }
             }
@@ -112,7 +114,7 @@ namespace Szofttech_WPF.View.Game
         {
             if (shipPlaceHorizontal)
             {
-                if (cell.I + selectedShipSize - 1 <= 9)
+                if (cell.J + selectedShipSize - 1 <= 9)
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
@@ -121,10 +123,10 @@ namespace Szofttech_WPF.View.Game
                             int cellI = cell.I + (int)relativeCoord.Y;
                             int cellJ = cell.J + (int)relativeCoord.X;
 
-                            cellI += i;
+                            cellJ += i;
                             if (cellI >= 0 && cellI <= 9 && cellJ >= 0 && cellJ <= 9)
                             {
-                                if (cells[cellI, cellJ].CellStatus == CellStatus.Ship)
+                                if (cells[cellI, cellJ].CellStatus != CellStatus.Empty)
                                 {
                                     return false;
                                 }
@@ -139,7 +141,7 @@ namespace Szofttech_WPF.View.Game
             }
             else
             {//Vertical
-                if (cell.J + selectedShipSize - 1 <= 9)
+                if (cell.I + selectedShipSize - 1 <= 9)
                 {
                     for (int i = 0; i < selectedShipSize; i++)
                     {
@@ -148,7 +150,7 @@ namespace Szofttech_WPF.View.Game
                             int cellI = cell.I + (int)relativeCoord.Y;
                             int cellJ = cell.J + (int)relativeCoord.X;
 
-                            cellJ += i;
+                            cellI += i;
                             if (cellI >= 0 && cellI <= 9 && cellJ >= 0 && cellJ <= 9)
                             {
                                 if (cells[cellI, cellJ].CellStatus != CellStatus.Empty)
@@ -178,8 +180,7 @@ namespace Szofttech_WPF.View.Game
                         selectedCell.setCell(CellStatus.Ship);
                         board.setCell(selectedCell.I, selectedCell.J, selectedCell.CellStatus);
                     }
-                    //Hajó lerakva event
-                    Console.WriteLine("Hajó lerakva event itt lenne");
+                    OnPlace?.Invoke(null, new ShipSizeArgs(selectedShipSize));
                 }
             }
             else if (cell.CellStatus == CellStatus.Ship)
@@ -246,8 +247,7 @@ namespace Szofttech_WPF.View.Game
                     }
                     --i;
                 }
-                //Hajó felvétel event
-                Console.WriteLine("Hajó felvétel event itt lenne");
+                OnPickUp?.Invoke(null, new ShipSizeArgs(pickupShipSize));
                 cellEntered(cell); //Kijelölve legyen, amit levettünk
             }
         }

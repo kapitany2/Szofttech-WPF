@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Reflection;
 
 namespace Szofttech_WPF.Utils
@@ -82,7 +83,7 @@ namespace Szofttech_WPF.Utils
 
         public static string getIP()
         {
-            return "0.0.0.0";
+            return IPAddress.Loopback.ToString();
         }
 
         public static int getPort()

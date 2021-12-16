@@ -3,7 +3,7 @@
     public abstract class Data
     {
         public int clientID;
-        public int recipientID;
+        public int recipientID;     
 
         public Data(int clientID)
         {

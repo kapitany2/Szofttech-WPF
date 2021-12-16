@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Szofttech_WPF.EventArguments.Chat;
 using Szofttech_WPF.ViewModel.Base;
 
 namespace Szofttech_WPF.ViewModel
 {
-    class ChatViewModel : BaseViewModel
+    public class ChatViewModel : BaseViewModel
     {
         string chatMessages, chatInput;
 
         public RelayCommand SendCommand { get; }
         public string ChatMessages { get => chatMessages; set { chatMessages = value; OnPropertyChanged(); } }
         public string ChatInput { get => chatInput; set { chatInput = value; OnPropertyChanged(); } }
-
+        public event EventHandler<SendMessageEventArgs> OnSendMessage;
         public ChatViewModel()
         {
             SendCommand = new RelayCommand(send);
@@ -22,8 +19,17 @@ namespace Szofttech_WPF.ViewModel
 
         private void send()
         {
-            ChatMessages += "\n" + ChatInput;
-            ChatInput = String.Empty;
+            if (ChatInput != String.Empty)
+            {
+                OnSendMessage?.Invoke(null, new SendMessageEventArgs(ChatInput));
+                ChatInput = String.Empty;
+            }
+        }
+
+        internal void addMessage(string sender, string message)
+        {
+            string time = DateTime.Now.ToString();
+            ChatMessages += "[" + time + "] [" + sender + "] : " + message + "\n";
         }
     }
 }

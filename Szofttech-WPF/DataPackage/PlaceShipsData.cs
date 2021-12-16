@@ -4,7 +4,7 @@ namespace Szofttech_WPF.DataPackage
 {
     public class PlaceShipsData : Data
     {
-        Board board;
+        public Board board;
 
         public PlaceShipsData(int clientID, Board board) : base(clientID)
         {

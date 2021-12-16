@@ -15,11 +15,30 @@ using System.Windows.Shapes;
 
 namespace Szofttech_WPF.View.Join
 {
-    /// <summary>
-    /// Interaction logic for ServerListItem.xaml
-    /// </summary>
     public partial class ServerListItem : UserControl
     {
+        public static readonly DependencyProperty ServerNameProperty = DependencyProperty.Register("ServerName", typeof(string), typeof(ServerListItem));
+        public static readonly DependencyProperty ServerIPProperty = DependencyProperty.Register("ServerIP", typeof(string), typeof(ServerListItem));
+        public static readonly DependencyProperty ServerPortProperty = DependencyProperty.Register("ServerPort", typeof(int), typeof(ServerListItem));
+
+        public string ServerName
+        {
+            get => (string)GetValue(ServerNameProperty);
+            set => SetValue(ServerNameProperty, value);
+        }
+
+        public string ServerIP
+        {
+            get => (string)GetValue(ServerIPProperty);
+            set => SetValue(ServerIPProperty, value);
+        }
+
+        public int ServerPort
+        {
+            get => (int)GetValue(ServerPortProperty);
+            set => SetValue(ServerPortProperty, value);
+        }
+
         public ServerListItem()
         {
             InitializeComponent();

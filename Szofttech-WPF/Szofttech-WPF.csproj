@@ -38,6 +38,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -59,15 +62,26 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\PortConverter.cs" />
     <Compile Include="DataPackage\CellData.cs" />
     <Compile Include="DataPackage\ChatData.cs" />
     <Compile Include="DataPackage\ConnectionData.cs" />
     <Compile Include="DataPackage\Data.cs" />
     <Compile Include="DataPackage\DataConverter.cs" />
+    <Compile Include="DataPackage\DisconnectData.cs" />
     <Compile Include="DataPackage\GameEndedData.cs" />
     <Compile Include="DataPackage\PlaceShipsData.cs" />
     <Compile Include="DataPackage\ShotData.cs" />
     <Compile Include="DataPackage\TurnData.cs" />
+    <Compile Include="EventArguments\Board\ShipSizeArgs.cs" />
+    <Compile Include="EventArguments\Board\ShotArgs.cs" />
+    <Compile Include="EventArguments\Chat\SendMessageEventArgs.cs" />
+    <Compile Include="EventArguments\Client\EnemyHitMeArgs.cs" />
+    <Compile Include="EventArguments\Client\GameEndedArgs.cs" />
+    <Compile Include="EventArguments\Client\MessageReceivedArgs.cs" />
+    <Compile Include="EventArguments\Client\MyHitArgs.cs" />
+    <Compile Include="EventArguments\ShipSelecter\SelectShipArgs.cs" />
+    <Compile Include="EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />
     <Compile Include="Interfaces\IExitableGUI.cs" />
     <Compile Include="Logic\Board.cs" />
     <Compile Include="Logic\CellStatus.cs" />
@@ -80,6 +94,7 @@
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
+    <Compile Include="ViewModel\JoinGameGUIViewModel.cs" />
     <Compile Include="ViewModel\SettingsGUIViewModel.cs" />
     <Compile Include="View\ChatGUI.xaml.cs">
       <DependentUpon>ChatGUI.xaml</DependentUpon>
@@ -210,6 +225,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -219,7 +235,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EventArgs\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>

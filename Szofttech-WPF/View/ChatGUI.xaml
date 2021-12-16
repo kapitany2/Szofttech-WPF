@@ -18,6 +18,7 @@
                  Background="#3269a8"
                  IsReadOnly="True" 
                  VerticalScrollBarVisibility="Auto"
+                 TextWrapping="Wrap"
                  />
         <TextBox x:Name="chatInput" Grid.Row="1" FontSize="20"
                  Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"

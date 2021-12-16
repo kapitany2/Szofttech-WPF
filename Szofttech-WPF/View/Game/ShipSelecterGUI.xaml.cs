@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Szofttech_WPF.EventArguments.ShipSelecter;
 
 namespace Szofttech_WPF.View.Game
 {
@@ -24,6 +14,9 @@ namespace Szofttech_WPF.View.Game
         private int selectedShipSize;
         private bool shipPlaceHorizontal;
         ShipInfoPanelGUI[] shipInfoPanels;
+        public event EventHandler<SelectShipArgs> OnSelectShip;
+        public event EventHandler<SelectShipDirectionArgs> OnSelectDirection;
+        public event EventHandler OnRanOutOfShips, OnClearBoard, OnPlaceRandomShips, OnDone;
 
         public ShipSelecterGUI()
         {
@@ -40,21 +33,21 @@ namespace Szofttech_WPF.View.Game
                     buttonHorizontal.Content = "Horizontal";
                     shipPlaceHorizontal = true;
                 }
-                Console.WriteLine("Ide kéne egy selectDirection event");
+                OnSelectDirection?.Invoke(send, new SelectShipDirectionArgs(shipPlaceHorizontal));
             };
             buttonClearBoard.Click += (send, args) =>
             {
                 resetShips();
-                Console.WriteLine("Ide kéne egy onClearBoard event");
+                OnClearBoard?.Invoke(send, null);
             };
             buttonRandomizeShips.Click += (send, args) =>
             {
                 setShipsPieceTo(0);
-                Console.WriteLine("Ide kéne egy onPlaceRandomShips event");
+                OnPlaceRandomShips?.Invoke(send, null);
             };
             buttonDone.Click += (send, args) =>
             {
-                Console.WriteLine("Ide kéne egy onDone event");
+                OnDone?.Invoke(send, null);
                 Visibility = Visibility.Hidden;
             };
 
@@ -70,9 +63,7 @@ namespace Szofttech_WPF.View.Game
                 infoPanel.PreviewMouseLeftButtonDown += (send, args) =>
                 {
                     if (infoPanel.IsEnabled)
-                    {
                         SelectShip(infoPanel);
-                    }
                 };
                 grid.Children.Add(infoPanel);
                 Grid.SetColumn(infoPanel, i);
@@ -81,30 +72,70 @@ namespace Szofttech_WPF.View.Game
             }
         }
 
+        public void CanDone(bool value)
+        {
+            buttonDone.IsEnabled = value;
+        }
+
+        public void PlaceToTable(int size)
+        {
+            shipInfoPanels[size - 1].decrease();
+            if (shipInfoPanels[size - 1].getPiece() == 0)
+            {
+                shipInfoPanels[size - 1].IsEnabled = false;
+                automaticSelectShip();
+            }
+        }
+
+        public void PickupFromTable(int size)
+        {
+            shipInfoPanels[size - 1].increase();
+            if (shipInfoPanels[size - 1].getPiece() == shipInfoPanels.Length)
+            {
+                shipInfoPanels[size - 1].IsEnabled = false;
+                SelectShip(shipInfoPanels[size - 1]);
+            }
+            automaticSelectShip();
+        }
+
+        private void automaticSelectShip()
+        {
+            foreach (var shipInfoPanel in shipInfoPanels)
+                if (shipInfoPanel.getPiece() > 0)
+                    SelectShip(shipInfoPanel);
+
+            int i = shipInfoPanels.Length - 1;
+            while (i >= 0)
+            {
+                if (shipInfoPanels[i].getPiece() > 0)
+                {
+                    SelectShip(shipInfoPanels[i]);
+                    return;
+                }
+                --i;
+            }
+            OnRanOutOfShips?.Invoke(null, null);
+        }
+
         private void setShipsPieceTo(int number)
         {
             foreach (ShipInfoPanelGUI shipInfoPanel in shipInfoPanels)
-            {
                 shipInfoPanel.SetPiece(number);
-            }
         }
 
         private void resetShips()
         {
             for (int i = 0; i < shipInfoPanels.Length; i++)
-            {
                 shipInfoPanels[i].SetPiece(shipTypeNumbers - i);
-            }
         }
 
         private void SelectShip(ShipInfoPanelGUI infoPanel)
         {
             foreach (ShipInfoPanelGUI shipInfoPanel in shipInfoPanels)
-            {
                 shipInfoPanel.UnSelect();
-            }
+
             infoPanel.Select();
-            Console.WriteLine("Ide kéne egy onSelectShip event");
+            OnSelectShip?.Invoke(infoPanel, new SelectShipArgs(infoPanel.ShipSize));
         }
     }
 }

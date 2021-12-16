@@ -11,7 +11,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="140"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" x:Name="buttonHorizontal" Margin="40, 05, 40, 05" Content="Horizontal" 
+        <Button Grid.Row="0" Grid.Column="0" x:Name="buttonHorizontal" Margin="40, 05, 40, 05" FontSize="18" Content="Horizontal" 
                 RenderTransformOrigin="0.5,0.5" Style="{StaticResource RoundedGradientButton}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -23,25 +23,25 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform0"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform0"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform0"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Button.Triggers>
         </Button>
-        
-        <Button Grid.Row="0" Grid.Column="1" x:Name="buttonClearBoard" Margin="40, 05, 40, 05" Content="Clear Board" 
+
+        <Button Grid.Row="0" Grid.Column="1" x:Name="buttonClearBoard" Margin="40, 05, 40, 05" FontSize="18" Content="Clear Board" 
                 RenderTransformOrigin="0.5,0.5" Style="{StaticResource RoundedGradientButton}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -53,25 +53,25 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform1"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform1"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform1"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Button.Triggers>
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="2" x:Name="buttonRandomizeShips" Margin="40, 05, 40, 05" Content="Randomize" 
+        <Button Grid.Row="0" Grid.Column="2" x:Name="buttonRandomizeShips" Margin="40, 05, 40, 05" FontSize="18" Content="Randomize" 
                 RenderTransformOrigin="0.5,0.5" Style="{StaticResource RoundedGradientButton}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -83,25 +83,25 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform2"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform2"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform2"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Button.Triggers>
         </Button>
 
-        <Button Grid.Row="0" Grid.Column="3" x:Name="buttonDone" Margin="40, 05, 40, 05" Content="Done"  IsEnabled="False" 
+        <Button Grid.Row="0" Grid.Column="3" x:Name="buttonDone" Margin="40, 05, 40, 05" Content="Done" FontSize="25" IsEnabled="False" 
                 RenderTransformOrigin="0.5,0.5" Style="{StaticResource RoundedGradientButton}">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -113,18 +113,18 @@
                 <EventTrigger RoutedEvent="Button.Click">
                     <BeginStoryboard>
                         <Storyboard>
-                            <DoubleAnimation
+                            <!--<DoubleAnimation
                                     Storyboard.TargetName="rotateTransform3"
                                     Storyboard.TargetProperty="(RotateTransform.Angle)"
-                                    From="0" To="360" Duration="0:0:0.5" />
+                                    From="0" To="360" Duration="0:0:0.5" />-->
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform3"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                             <DoubleAnimation
                                     Storyboard.TargetName="scaleTransform3"
                                     Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
-                                    From="1" To="0.25" Duration="0:0:0.25" AutoReverse="true"/>
+                                    From="1" To="0.5" Duration="0:0:0.10" AutoReverse="true"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>

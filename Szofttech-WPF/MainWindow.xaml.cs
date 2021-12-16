@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
@@ -114,11 +116,11 @@ namespace Szofttech_WPF
             if (sa != null)
             {
                 //gameGUI = new GameGUI(sa.IP, sa.Port);
-                gameGUI = new GameGUI();
+                gameGUI = new GameGUI(Settings.getPort());
             }
             else
             {
-                gameGUI = new GameGUI();
+                gameGUI = new GameGUI(Settings.getPort());
             }
             gameGUI.IsVisibleChanged += (send, args) =>
             {
@@ -160,6 +162,9 @@ namespace Szofttech_WPF
             //Server server = new Server(25564);
             //Client client = new Client(IPAddress.Loopback.ToString(), 25564); // Saját gépre így mész fel
             //Client client2 = new Client("192.168.1.130", 25564); // Más gépére IP szerint mész fel
+
+            //Data data = (ConnectionData)Server.DeserializeFromJSON(json);
+            //Console.WriteLine(data);
 
             //Thread.Sleep(1000);
             //Console.WriteLine(client.ID);
