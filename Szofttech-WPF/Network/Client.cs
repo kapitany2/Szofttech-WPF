@@ -22,7 +22,7 @@ namespace Szofttech_WPF.Network
         public event EventHandler<GameEndedArgs> OnGameEnded;
         public event EventHandler<EnemyHitMeArgs> OnEnemyHitMe;
         public event EventHandler<MyHitArgs> OnMyHit;
-        public event EventHandler OnYourTurn, OnJoinedEnemy;
+        public event EventHandler OnYourTurn, OnJoinedEnemy, OnDisconnected;
 
         public Client(string ip, int port)
         {
@@ -62,7 +62,7 @@ namespace Szofttech_WPF.Network
         public void sendMessage(Data data)
         {
             string message = DataConverter.encode(data);
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
             messageQueue.AddLast(message + "<EOF>");
         }
 
@@ -97,32 +97,33 @@ namespace Szofttech_WPF.Network
                         if (inMsg != null)
                         {
                             Data data = DataConverter.decode(inMsg);
-                            Console.WriteLine(data.GetType().Name);
+                            //Console.WriteLine(data.GetType().Name);
                             switch (data.GetType().Name)
                             {
                                 case "ChatData":
-                                    //ChatData
+                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.clientID, ((ChatData)data).message));
                                     break;
                                 case "PlaceShipsData":
                                     //PlaceShipsData
                                     break;
                                 case "ConnectionData":
-                                    //ConnectionData
+                                    OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
-                                    //ShotData
+                                    if (((ShotData)data).getRecipientID() == ID)
+                                        OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
                                     break;
                                 case "CellData":
-                                    //CellData
+                                    OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
                                     break;
                                 case "TurnData":
-                                    //TurnData
+                                    OnYourTurn(null, EventArgs.Empty);
                                     break;
                                 case "GameEndedData":
-                                    //GameEndedData
+                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).status));
                                     break;
                                 case "DisconnectData":
-                                    //DisconnectData
+                                    OnDisconnected(null, EventArgs.Empty);
                                     break;
                                 default:
                                     //NOT IMPLEMENTED
@@ -190,7 +191,7 @@ namespace Szofttech_WPF.Network
                 Close();
             }
 
-            Console.WriteLine(inMsg);
+            //Console.WriteLine(inMsg);
             return inMsg;
         }
     }
