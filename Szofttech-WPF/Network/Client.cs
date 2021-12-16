@@ -54,11 +54,6 @@ namespace Szofttech_WPF.Network
             return timedOut;
         }
 
-        public void sendMessage(string message)
-        {
-            messageQueue.AddLast(message + "<EOF>");
-        }
-
         public void sendMessage(Data data)
         {
             string message = DataConverter.encode(data);
