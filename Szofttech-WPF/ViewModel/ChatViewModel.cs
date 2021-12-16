@@ -22,7 +22,6 @@ namespace Szofttech_WPF.ViewModel
             if (ChatInput != String.Empty)
             {
                 OnSendMessage?.Invoke(null, new SendMessageEventArgs(ChatInput));
-                addMessage("local me", ChatInput); //ezt majd kiszedjük ha clientet implementáltuk
                 ChatInput = String.Empty;
             }
         }
