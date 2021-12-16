@@ -60,7 +60,7 @@ namespace Szofttech_WPF.Network
                 IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse(ip), port);
                 socket.Connect(serverAddress);
 
-                byte[] bytes = Encoding.ASCII.GetBytes("CLIENT<EOF>");
+                byte[] bytes = Encoding.UTF8.GetBytes("CLIENT<EOF>");
                 socket.Send(bytes);
 
                 Thread thread = new Thread(() =>
@@ -123,7 +123,7 @@ namespace Szofttech_WPF.Network
                     {
                         string message = messageQueue.First.Value;
                         messageQueue.RemoveFirst();
-                        socket.Send(Encoding.ASCII.GetBytes(message));
+                        socket.Send(Encoding.UTF8.GetBytes(message));
                     }
                 }
                 try
@@ -133,7 +133,7 @@ namespace Szofttech_WPF.Network
                         recipientID = -1
                     };
                     string json = DataConverter.encode(dcData);
-                    socket.Send(Encoding.ASCII.GetBytes(json + "<EOF>"));
+                    socket.Send(Encoding.UTF8.GetBytes(json + "<EOF>"));
                     socket.Close();
                 }
                 catch (Exception ex)
@@ -157,7 +157,7 @@ namespace Szofttech_WPF.Network
                 while (true)
                 {
                     int numByte = socket.Receive(buffer);
-                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+                    inMsg += Encoding.UTF8.GetString(buffer, 0, numByte);
 
                     if (inMsg.IndexOf("<EOF>") > -1)
                     {
