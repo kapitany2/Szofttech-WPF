@@ -13,7 +13,7 @@ namespace Szofttech_WPF.Network
     {
         public int ID;
 
-        private List<string> messageQueue = new List<string>();
+        private LinkedList<string> messageQueue = new LinkedList<string>();
         private string ip;
         private int port;
         private bool close = false;
@@ -56,14 +56,14 @@ namespace Szofttech_WPF.Network
 
         public void sendMessage(string message)
         {
-            messageQueue.Add(message + "<EOF>");
+            messageQueue.AddLast(message + "<EOF>");
         }
 
         public void sendMessage(Data data)
         {
             string message = DataConverter.encode(data);
             Console.WriteLine(message);
-            messageQueue.Add(message + "<EOF>");
+            messageQueue.AddLast(message + "<EOF>");
         }
 
         public void Close()
@@ -139,8 +139,8 @@ namespace Szofttech_WPF.Network
                     Thread.Sleep(10);
                     while (messageQueue.Count != 0)
                     {
-                        string message = messageQueue[0];
-                        messageQueue.RemoveAt(0);
+                        string message = messageQueue.First.Value;
+                        messageQueue.RemoveFirst();
                         socket.Send(Encoding.ASCII.GetBytes(message));
                     }
                 }

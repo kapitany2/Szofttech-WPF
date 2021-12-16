@@ -12,7 +12,7 @@ namespace Szofttech_WPF.Network
     public class Server
     {
         private int clientID = 0;
-        private List<string>[] queueArray = new List<string>[2];
+        private LinkedList<string>[] queueArray = new LinkedList<string>[2];
         private bool close = false;
         private GameLogic gameLogic = null;
         private Socket sSocket = null;
@@ -20,7 +20,7 @@ namespace Szofttech_WPF.Network
         public void addMessageToQueue(string message, int ID)
         {
             if (ID != -1)
-                queueArray[ID].Add(message + "<EOF>");
+                queueArray[ID].AddLast(message + "<EOF>");
         }
 
         public void Close()
@@ -35,7 +35,7 @@ namespace Szofttech_WPF.Network
             Console.WriteLine("Opening server on port " + port);
             for (int i = 0; i < 2; ++i)
             {
-                queueArray[i] = new List<string>();
+                queueArray[i] = new LinkedList<string>();
             }
             gameLogic = new GameLogic();
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
@@ -130,8 +130,8 @@ namespace Szofttech_WPF.Network
                             Thread.Sleep(10);
                             while (queueArray[ownQueueID].Count != 0)
                             {
-                                string queueMsg = queueArray[ownQueueID][0];
-                                queueArray[ownQueueID].RemoveAt(0);
+                                string queueMsg = queueArray[ownQueueID].First.Value;
+                                queueArray[ownQueueID].RemoveFirst();
                                 byte[] bytes = Encoding.ASCII.GetBytes(queueMsg);
                                 socket.Send(bytes);
                             }
