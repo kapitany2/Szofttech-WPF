@@ -98,7 +98,7 @@ namespace Szofttech_WPF.Network
                         int ownQueueID = (ID == 0) ? 0 : 1;
                         Console.WriteLine("Client " + ID + " joined the server.");
 
-                        byte[] message = Encoding.ASCII.GetBytes(ID.ToString() + "<EOF>");
+                        byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
                         socket.Send(message);
 
                         ConnectionData cData = new ConnectionData(ID)
@@ -132,7 +132,7 @@ namespace Szofttech_WPF.Network
                             {
                                 string queueMsg = queueArray[ownQueueID].First.Value;
                                 queueArray[ownQueueID].RemoveFirst();
-                                byte[] bytes = Encoding.ASCII.GetBytes(queueMsg);
+                                byte[] bytes = Encoding.UTF8.GetBytes(queueMsg);
                                 socket.Send(bytes);
                             }
                         }
@@ -196,7 +196,7 @@ namespace Szofttech_WPF.Network
                 while (true)
                 {
                     int numByte = socket.Receive(buffer);
-                    inMsg += Encoding.ASCII.GetString(buffer, 0, numByte);
+                    inMsg += Encoding.UTF8.GetString(buffer, 0, numByte);
 
                     if (inMsg.Contains("<EOF>"))
                     {
