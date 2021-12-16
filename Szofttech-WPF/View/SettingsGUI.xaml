@@ -33,7 +33,7 @@
         
         <TextBlock Grid.Row="1" Grid.Column="1" x:Name="lblPort" FontSize="60" Text="Port:" Style="{StaticResource NiceText}"/>
         <TextBox Grid.Row="1" Grid.Column="3" MaxLines="1" TextAlignment="Center" FontSize="32"
-                 Text="{Binding Source={StaticResource vmSettings}, Path=PortText, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding Source={StaticResource vmSettings}, Path=PortText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding Source={StaticResource vmSettings}, Path=ModifyPortCommand}" Key="Return"/>
             </TextBox.InputBindings>

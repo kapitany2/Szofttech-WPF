@@ -20,6 +20,7 @@ namespace Szofttech_WPF.ViewModel
 
         public SettingsGUIViewModel()
         {
+            PortText = Settings.getPort().ToString();
             ModifyPortCommand = new RelayCommand(ModifyPort);
         }
 

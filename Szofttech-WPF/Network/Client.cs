@@ -35,28 +35,9 @@ namespace Szofttech_WPF.Network
             thread.Start();
         }
 
-        public Client() { }
-
-        public void Connect(string ip, int port)
-        {
-            this.ip = ip;
-            this.port = port;
-
-            Thread thread = new Thread(() =>
-            {
-                run();
-            });
-            thread.Start();
-        }
-
         public bool isTimeout()
         {
             return timedOut;
-        }
-
-        public void sendMessage(string message)
-        {
-            messageQueue.AddLast(message + "<EOF>");
         }
 
         public void sendMessage(Data data)
