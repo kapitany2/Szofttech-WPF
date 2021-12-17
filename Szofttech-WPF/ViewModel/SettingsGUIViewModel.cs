@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -10,10 +11,12 @@ using Szofttech_WPF.ViewModel.Base;
 
 namespace Szofttech_WPF.ViewModel
 {
-    class SettingsGUIViewModel : BaseViewModel
+    public class SettingsGUIViewModel : BaseViewModel
     {
         public RelayCommand ModifyPortCommand {get;}
-        public string PortText { get; set; }
+
+        private string portText;
+        public string PortText { get => portText; set { portText = value; portText = AllowOnlyNumerics(portText); } }
 
         private string responseText;
         public string ResponseText { get => responseText; set { responseText = value; OnPropertyChanged(); } }
@@ -30,12 +33,20 @@ namespace Szofttech_WPF.ViewModel
         private void ModifyPort()
         {
             if (int.TryParse(PortText, out int port))
+            {
                 if (port >= 0 && port <= 65535)
+                {
                     Settings.setPort(port);
-            else
-                Settings.setPort(25564);
-            Settings.Save();
-            ResponseText = "Port set to: " + Settings.getPort().ToString();
+                    ResponseText = "Port set to: " + Settings.getPort().ToString();
+                    Settings.Save();
+                }
+                else
+                {
+                    ResponseText = "Port must be between 0 and 65535";
+                }
+            }
+            
+                     
             Visibility = true;
             Timer timer = new Timer();
             timer.Interval = 1500;
@@ -45,6 +56,14 @@ namespace Szofttech_WPF.ViewModel
                 Visibility = false;
             };
             timer.Start();
+        }
+
+        private string AllowOnlyNumerics(string text)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            if (regex.IsMatch(text) || text.Length > 5)
+                text = text.Remove(text.Length - 1);
+            return text;
         }
     }
 }
