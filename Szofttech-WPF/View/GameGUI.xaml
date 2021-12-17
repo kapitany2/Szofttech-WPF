@@ -24,5 +24,24 @@
             <ColumnDefinition Width="300"/>
             <ColumnDefinition Width="25"/>
         </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="waitingTitle"
+                   Text="Waiting for opponent..."
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="5"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Style="{StaticResource NiceText}"/>
+        <TextBlock x:Name="ip"
+                   Text="Your game host on:"
+                   Grid.Row="2"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="5"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="13"
+                   Visibility="Hidden"/>
     </Grid>
 </UserControl>
