@@ -101,11 +101,6 @@ namespace Szofttech_WPF
                 Environment.Exit(0);
             };
             windowGrid.Children.Add(menuGUI);
-            menuGUI.testButton.Click += (send, args) =>
-              {
-                  chatGUI.Visibility = Visibility.Visible;
-                  menuGUI.Visibility = Visibility.Hidden;
-              };
             Grid.SetRow(menuGUI, 1);
             #endregion
         }
@@ -152,7 +147,15 @@ namespace Szofttech_WPF
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            Environment.Exit(0);
+            var c = windowGrid.Children.Cast<UIElement>().Where(a => Grid.GetRow(a) == 1 && a.Visibility == Visibility.Visible).OfType<IExitableGUI>().FirstOrDefault();
+
+            if (c != null)
+            {
+                if (c.ExitApplication())
+                    Environment.Exit(0);
+            }
+            else
+                Console.WriteLine("nem tudtam bezárni, mivel null-t kaptam.");
         }
 
         private void TESZTVILI()

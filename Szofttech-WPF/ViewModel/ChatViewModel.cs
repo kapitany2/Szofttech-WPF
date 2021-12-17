@@ -28,7 +28,7 @@ namespace Szofttech_WPF.ViewModel
 
         internal void addMessage(string sender, string message)
         {
-            string time = DateTime.Now.ToString();
+            string time = DateTime.Now.ToString("HH:mm:ss");
             ChatMessages += "[" + time + "] [" + sender + "] : " + message + "\n";
         }
     }

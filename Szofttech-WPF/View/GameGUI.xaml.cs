@@ -28,10 +28,13 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private ChatViewModel ChatViewModel;
+        private bool exitable = true;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
             Server = new Server(port);
+            ip.Text = String.Format("Host Address: {0}:{1}", Server.getLocalIP(),Settings.getPort());
+            ip.Visibility = Visibility.Visible;
         }
 
         public GameGUI(string ip, int port)
@@ -53,15 +56,19 @@ namespace Szofttech_WPF.View
             Client.OnJoinedEnemy += Client_OnJoinedEnemy;
             Client.OnDisconnected += Client_OnDisconnected;
 
+            playerBoardGUI.Visibility = Visibility.Hidden;
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
             playerBoardGUI.OnPickUp += PlayerBoardGUI_OnPickUp;
             grid.Children.Add(playerBoardGUI);
             Grid.SetRow(playerBoardGUI, 3);
             Grid.SetColumn(playerBoardGUI, 1);
+
+            enemyBoardGUI.Visibility = Visibility.Hidden;
             grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
 
+            selecter.Visibility = Visibility.Hidden;
             selecter.OnSelectShip += Selecter_OnSelectShip;
             selecter.OnSelectDirection += Selecter_OnSelectDirection;
             selecter.OnClearBoard += Selecter_OnClearBoard;
@@ -91,12 +98,14 @@ namespace Szofttech_WPF.View
 
         private void Client_OnDisconnected(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Client.sendMessage(new ChatData(-1, "Enemy left the game."));
+            exitable = true;
         }
 
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
         {
-            //waitingTitle.Visibility = Visibility.Hidden;
+            exitable = false;
+            waitingTitle.Visibility = Visibility.Hidden;
             playerBoardGUI.Visibility = Visibility.Visible;
             enemyBoardGUI.Visibility = Visibility.Visible;
             selecter.Visibility = Visibility.Visible;
@@ -131,6 +140,7 @@ namespace Szofttech_WPF.View
                     break;
             }
             ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
+            exitable = true;
         }
 
         private void Client_OnYourTurn(object sender, EventArgs e)
@@ -202,14 +212,32 @@ namespace Szofttech_WPF.View
 
         public void CloseGUI()
         {
-            this.Visibility = Visibility.Hidden;
-            Server?.Close();
-            Client?.Close();
+            if (exitable)
+            {
+                this.Visibility = Visibility.Hidden;
+                Server?.Close();
+                Client?.Close();
+            }
+            else
+            {
+                var Res = MessageBox.Show("Do you want to return to the menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (MessageBoxResult.Yes == Res)
+                {
+                    exitable = true;
+                    CloseGUI();
+                }
+            }
         }
 
-        public void ExitApplication()
+        public bool ExitApplication()
         {
-            //Check if exitable
+            if (exitable) return true;
+
+            var Res = MessageBox.Show("Do you want to exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == Res)
+                return true;
+
+            return false;
         }
     }
 }

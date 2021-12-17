@@ -35,7 +35,5 @@
                 <Button Grid.Row="3" x:Name="bttnExit" Margin="40, 10, 40, 10" FontSize="30" Content="Exit" Style="{StaticResource RoundedGradientButton}"/>
             </Grid>
         </Grid>
-
-        <Button x:Name="testButton" FontSize="19" Content="TestButton" Width="100" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-    </Grid>
+</Grid>
 </UserControl>
