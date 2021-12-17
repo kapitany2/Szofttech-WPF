@@ -101,11 +101,6 @@ namespace Szofttech_WPF
                 Environment.Exit(0);
             };
             windowGrid.Children.Add(menuGUI);
-            menuGUI.testButton.Click += (send, args) =>
-              {
-                  chatGUI.Visibility = Visibility.Visible;
-                  menuGUI.Visibility = Visibility.Hidden;
-              };
             Grid.SetRow(menuGUI, 1);
             #endregion
         }
