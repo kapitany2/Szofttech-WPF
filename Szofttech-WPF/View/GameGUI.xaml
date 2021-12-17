@@ -42,7 +42,7 @@
                    Grid.RowSpan="4"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="20"
+                   FontSize="32"
                    Visibility="Hidden"
                    Style="{StaticResource NiceText}"/>
     </Grid>
