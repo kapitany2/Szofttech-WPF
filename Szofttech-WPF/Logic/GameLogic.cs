@@ -9,14 +9,10 @@ namespace Szofttech_WPF.Logic
 
         public List<string> messageQueue = new List<string>();
         Random rnd = new Random();
-        Player player1;
-        Player player2;
         private Player[] players;
 
         public GameLogic()
         {
-            player1 = new Player();
-            player2 = new Player();
             players = new Player[2];
             players[0] = new Player();
             players[1] = new Player();
@@ -40,7 +36,9 @@ namespace Szofttech_WPF.Logic
                 case "ShotData":
                     calcShot((ShotData)data);
                     break;
-                case "":
+                case "DisconnectData":
+                    data.setRecipientID(data.clientID == 1 ? 0 : 1);
+                    messageQueue.Add(DataConverter.encode((DisconnectData)data));
                     break;
                 default:
                     Console.WriteLine("########## ISMERETLEN OSZTÁLY #########");
@@ -89,9 +87,8 @@ namespace Szofttech_WPF.Logic
         private bool isWin(Player player)
         {
             if (player.Board.hasCellStatus(CellStatus.Ship))
-            {
                 return false;
-            }
+
             return true;
         }
 
@@ -112,24 +109,18 @@ namespace Szofttech_WPF.Logic
         {
             if (data.getClientID() == 0)
             {
-                player1.Identifier = data.getClientID();
-                player1.Board = data.getBoard();
-                player1.isReady = true;
                 players[0].Identifier = data.getClientID();
                 players[0].isReady = true;
                 players[0].Board = data.getBoard();
             }
             else
             {
-                player2.Identifier = data.getClientID();
-                player2.Board = data.getBoard();
-                player2.isReady = true;
                 players[1].Identifier = data.getClientID();
                 players[1].isReady = true;
                 players[1].Board = data.getBoard();
             }
 
-            if (player1.isReady == true && player2.isReady == true)
+            if (players[0].isReady == true && players[1].isReady == true)
             {
                 messageQueue.Add(DataConverter.encode(new TurnData(rnd.Next(1))));
             }
