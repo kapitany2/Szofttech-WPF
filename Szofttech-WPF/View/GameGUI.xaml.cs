@@ -28,7 +28,7 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private ChatViewModel ChatViewModel;
-        private bool exitable;
+        private bool exitable = true;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -93,6 +93,7 @@ namespace Szofttech_WPF.View
         private void Client_OnDisconnected(object sender, EventArgs e)
         {
             Client.sendMessage(new ChatData(-1, "Enemy left the game."));
+            exitable = true;
         }
 
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
@@ -133,6 +134,7 @@ namespace Szofttech_WPF.View
                     break;
             }
             ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
+            exitable = true;
         }
 
         private void Client_OnYourTurn(object sender, EventArgs e)
