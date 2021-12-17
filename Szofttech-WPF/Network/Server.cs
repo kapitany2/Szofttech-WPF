@@ -43,25 +43,24 @@ namespace Szofttech_WPF.Network
             sSocket.Bind(localEndPoint);
             sSocket.Listen(4);
 
-
-            Thread threadQueuePoll = new Thread(() => {
+            Thread messageDistributorThread = new Thread(() => {
                 while (!close)
                 {
                     Thread.Sleep(10);
                     while (gameLogic.messageQueue.Count != 0)
                     {
-                        string BroadcastMessage = gameLogic.messageQueue[0];
+                        string messageToClient = gameLogic.messageQueue[0];
                         gameLogic.messageQueue.RemoveAt(0);
-                        if (BroadcastMessage != null)
+                        if (messageToClient != null)
                         {
-                            Data decoded = DataConverter.decode(BroadcastMessage);
+                            Data decoded = DataConverter.decode(messageToClient);
                             int recipient = decoded.getRecipientID();
-                            addMessageToQueue(BroadcastMessage, recipient);
+                            addMessageToQueue(messageToClient, recipient);
                         }
                     }
                 } 
             });
-            threadQueuePoll.Start();
+            messageDistributorThread.Start();
 
             for (int i = 0; i < 4; ++i)
                 ServeClient();
@@ -108,7 +107,7 @@ namespace Szofttech_WPF.Network
 
                         addMessageToQueue(DataConverter.encode(cData), otherQueueID);
 
-                        Thread threadReader = new Thread(() =>
+                        Thread messageProcessingThread = new Thread(() =>
                         {
                             while (!close)
                             {
@@ -116,14 +115,12 @@ namespace Szofttech_WPF.Network
                                 try
                                 {
                                     inMsg = getInMsg(socket);
-
-                                    //Console.WriteLine(inMsg);
                                     gameLogic.processMessage(DataConverter.decode(inMsg));
                                 }
                                 catch (Exception) { }
                             }
                         });
-                        threadReader.Start();
+                        messageProcessingThread.Start();
 
                         while (!close)
                         {
