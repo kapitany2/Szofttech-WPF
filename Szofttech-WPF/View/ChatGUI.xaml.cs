@@ -10,18 +10,15 @@ namespace Szofttech_WPF.View
     /// <summary>
     /// Interaction logic for ChatGUI.xaml
     /// </summary>
-    public partial class ChatGUI : UserControl, IExitableGUI//Ezt az interface-t majd ki kell venni, ha nem kell már tesztelni
+    public partial class ChatGUI : UserControl
     {
         public ChatViewModel ChatViewModel;
         public ChatGUI()
-        {            
-            InitializeComponent(); 
+        {
+            InitializeComponent();
             ChatViewModel = new ChatViewModel();
             DataContext = ChatViewModel;
             chatLog.TextChanged += (sender, args) => chatLog.ScrollToEnd();
         }
-
-        public void CloseGUI() => this.Visibility = Visibility.Hidden;
-        public void ExitApplication() { }
     }
 }
