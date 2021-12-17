@@ -15,6 +15,9 @@ namespace Szofttech_WPF.ViewModel
         public RelayCommand ModifyPortCommand {get;}
         public string PortText { get; set; }
 
+        private string responseText;
+        public string ResponseText { get => responseText; set { responseText = value; OnPropertyChanged(); } }
+
         private bool visibility;
         public bool Visibility { get => visibility; set { visibility = value; OnPropertyChanged(); } }
 
@@ -27,10 +30,12 @@ namespace Szofttech_WPF.ViewModel
         private void ModifyPort()
         {
             if (int.TryParse(PortText, out int port))
-                Settings.setPort(port);
+                if (port >= 0 && port <= 65535)
+                    Settings.setPort(port);
             else
                 Settings.setPort(25564);
             Settings.Save();
+            ResponseText = "Port set to: " + Settings.getPort().ToString();
             Visibility = true;
             Timer timer = new Timer();
             timer.Interval = 1500;
