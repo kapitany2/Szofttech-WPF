@@ -33,7 +33,7 @@ namespace Szofttech_WPF.View
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
             Server = new Server(port);
-            ip.Text = String.Format("Your game host on: {0}:{1}", Settings.getIP(),Settings.getPort());
+            ip.Text = String.Format("Host Address: {0}:{1}", Server.getLocalIP(),Settings.getPort());
             ip.Visibility = Visibility.Visible;
         }
 

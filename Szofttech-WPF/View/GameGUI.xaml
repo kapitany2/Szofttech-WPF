@@ -35,13 +35,15 @@
                    FontSize="24"
                    Style="{StaticResource NiceText}"/>
         <TextBlock x:Name="ip"
-                   Text="Your game host on:"
-                   Grid.Row="2"
+                   Text="Host Address:"
+                   Grid.Row="1"
                    Grid.Column="1"
                    Grid.ColumnSpan="5"
+                   Grid.RowSpan="3"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="13"
-                   Visibility="Hidden"/>
+                   FontSize="32"
+                   Visibility="Hidden"
+                   Style="{StaticResource NiceText}"/>
     </Grid>
 </UserControl>
