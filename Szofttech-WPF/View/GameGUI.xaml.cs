@@ -28,6 +28,7 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private ChatViewModel ChatViewModel;
+        private bool exitable;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -91,11 +92,12 @@ namespace Szofttech_WPF.View
 
         private void Client_OnDisconnected(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Client.sendMessage(new ChatData(-1, "Enemy left the game."));
         }
 
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
         {
+            exitable = false;
             //waitingTitle.Visibility = Visibility.Hidden;
             playerBoardGUI.Visibility = Visibility.Visible;
             enemyBoardGUI.Visibility = Visibility.Visible;
@@ -202,14 +204,32 @@ namespace Szofttech_WPF.View
 
         public void CloseGUI()
         {
-            this.Visibility = Visibility.Hidden;
-            Server?.Close();
-            Client?.Close();
+            if (exitable)
+            {
+                this.Visibility = Visibility.Hidden;
+                Server?.Close();
+                Client?.Close();
+            }
+            else
+            {
+                var Res = MessageBox.Show("Do you want to return to the menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (MessageBoxResult.Yes == Res)
+                {
+                    exitable = true;
+                    CloseGUI();
+                }
+            }
         }
 
-        public void ExitApplication()
+        public bool ExitApplication()
         {
-            //Check if exitable
+            if (exitable) return true;
+
+            var Res = MessageBox.Show("Do you want to exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == Res)
+                return true;
+
+            return false;
         }
     }
 }
