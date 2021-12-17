@@ -30,9 +30,9 @@ namespace Szofttech_WPF.View
         {
             this.Visibility = Visibility.Hidden;
         }
-        public void ExitApplication()
+        public bool ExitApplication()
         {
-            //Check if exitable
+            return true;
         }
     }
 }
