@@ -33,6 +33,8 @@ namespace Szofttech_WPF.View
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
             Server = new Server(port);
+            ip.Text = String.Format("Your game host on: {0}:{1}", Settings.getIP(),Settings.getPort());
+            ip.Visibility = Visibility.Visible;
         }
 
         public GameGUI(string ip, int port)
@@ -54,15 +56,19 @@ namespace Szofttech_WPF.View
             Client.OnJoinedEnemy += Client_OnJoinedEnemy;
             Client.OnDisconnected += Client_OnDisconnected;
 
+            playerBoardGUI.Visibility = Visibility.Hidden;
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
             playerBoardGUI.OnPickUp += PlayerBoardGUI_OnPickUp;
             grid.Children.Add(playerBoardGUI);
             Grid.SetRow(playerBoardGUI, 3);
             Grid.SetColumn(playerBoardGUI, 1);
+
+            enemyBoardGUI.Visibility = Visibility.Hidden;
             grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
 
+            selecter.Visibility = Visibility.Hidden;
             selecter.OnSelectShip += Selecter_OnSelectShip;
             selecter.OnSelectDirection += Selecter_OnSelectDirection;
             selecter.OnClearBoard += Selecter_OnClearBoard;
@@ -99,7 +105,7 @@ namespace Szofttech_WPF.View
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
         {
             exitable = false;
-            //waitingTitle.Visibility = Visibility.Hidden;
+            waitingTitle.Visibility = Visibility.Hidden;
             playerBoardGUI.Visibility = Visibility.Visible;
             enemyBoardGUI.Visibility = Visibility.Visible;
             selecter.Visibility = Visibility.Visible;
