@@ -1,15 +1,22 @@
-﻿namespace Szofttech_WPF.DataPackage
+﻿using Newtonsoft.Json;
+using System;
+
+namespace Szofttech_WPF.DataPackage
 {
+    [Serializable]
     public class GameEndedData : Data
     {
-        public GameEndedStatus status { get; private set; }
+        [JsonProperty("Status")]
+        public GameEndedStatus Status { get; set; }
 
         public GameEndedData(GameEndedStatus status, int recipientID) : base(-1)
         {
-            this.status = status;
-            base.recipientID = recipientID;
+            Status = status;
+            RecipientID = recipientID;
         }
     }
+
+    [Serializable]
     public enum GameEndedStatus
     {
         Unknown,

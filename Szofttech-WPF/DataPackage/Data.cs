@@ -1,29 +1,20 @@
-﻿namespace Szofttech_WPF.DataPackage
+﻿using Newtonsoft.Json;
+using System;
+
+namespace Szofttech_WPF.DataPackage
 {
+    [Serializable]
     public abstract class Data
     {
-        public int clientID;
-        public int recipientID;     
+        [JsonProperty("ClientID")]
+        public int ClientID { get; set; }
+        [JsonProperty("RecipientID")]
+        public int RecipientID { get; set; }
 
         public Data(int clientID)
         {
-            this.clientID = clientID;
-            this.recipientID = -1;
-        }
-
-        public int getClientID()
-        {
-            return clientID;
-        }
-
-        public int getRecipientID()
-        {
-            return recipientID;
-        }
-
-        public void setRecipientID(int recipientID)
-        {
-            this.recipientID = recipientID;
+            this.ClientID = clientID;
+            this.RecipientID = -1;
         }
     }
 }

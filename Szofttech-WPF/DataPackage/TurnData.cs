@@ -1,10 +1,13 @@
-﻿namespace Szofttech_WPF.DataPackage
+﻿using System;
+
+namespace Szofttech_WPF.DataPackage
 {
+    [Serializable]
     public class TurnData : Data
     {
         public TurnData(int recipientID) : base(-1)
         {
-            base.recipientID = recipientID;
+            RecipientID = recipientID;
         }
     }
 }
