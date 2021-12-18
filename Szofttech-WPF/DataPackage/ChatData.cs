@@ -9,6 +9,8 @@ namespace Szofttech_WPF.DataPackage
         [JsonProperty("")]
         public string Message { get; set; }
 
+        public ChatData() : base() { }
+
         public ChatData(int clientID, string message) : base(clientID)
         {
             Message = message;

@@ -10,6 +10,7 @@ namespace Szofttech_WPF.DataPackage
         [JsonProperty("Board")]
         public Board Board;
 
+        public PlaceShipsData() : base() { }
         public PlaceShipsData(int clientID, Board board) : base(clientID)
         {
             Board = board;

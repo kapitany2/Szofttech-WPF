@@ -11,6 +11,8 @@ namespace Szofttech_WPF.DataPackage
         [JsonProperty("RecipientID")]
         public int RecipientID { get; set; }
 
+        public Data() { }
+
         public Data(int clientID)
         {
             this.ClientID = clientID;

@@ -12,6 +12,7 @@ namespace Szofttech_WPF.DataPackage
         [JsonProperty("J")]
         public int J { get; private set; }
 
+        public ShotData() : base() { }
         public ShotData(int clientID, int i, int j) : base(clientID)
         {
             I = i;

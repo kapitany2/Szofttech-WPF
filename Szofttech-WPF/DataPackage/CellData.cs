@@ -15,6 +15,8 @@ namespace Szofttech_WPF.DataPackage
         [JsonProperty("Status")]
         public CellStatus Status { get; set; }
 
+        public CellData() : base() { }
+
         public CellData(int clientID, int i, int j) : base(clientID)
         {
             I = i;
