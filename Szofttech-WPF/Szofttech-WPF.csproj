@@ -92,6 +92,7 @@
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Network\ServerAddress.cs" />
     <Compile Include="Network\ServerManager.cs" />
+    <Compile Include="Utils\ColorChanger.cs" />
     <Compile Include="Utils\Settings.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
