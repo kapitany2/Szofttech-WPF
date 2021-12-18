@@ -30,7 +30,7 @@ namespace Szofttech_WPF.ViewModel
         public List<Color> Colors { get => colors; }
 
         private static Color selectedColor = Settings.getBackgroundColor();
-        public static Color SelectedColor { get => selectedColor; set { selectedColor = value; } }
+        public static Color SelectedColor { get => selectedColor; set { selectedColor = value; Settings.setBackgroundColor(selectedColor); Settings.Save(); } }
 
         public SettingsGUIViewModel()
         {
