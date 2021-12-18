@@ -6,22 +6,18 @@ using System.Windows.Media;
 
 namespace Szofttech_WPF.Utils
 {
-    public class Settings
+    public static class Settings
     {
-        private static Settings instance = new Settings();
         public static int port = 25564;
-        public static string BackgroundColor = Color.FromRgb(50, 105, 168).ToString();
+        public static string BackgroundColor = Color.FromRgb(37, 57, 66).ToString();
 
         private static readonly FieldInfo[] fields = typeof(Settings).GetFields();
         private static int lineCount = 0;
         private static readonly char sep = Path.DirectorySeparatorChar;
 
-        private Settings() { }
-
-        public static Settings getInstance()
+        static Settings()
         {
             Read();
-            return instance;
         }
 
         private static void Read()

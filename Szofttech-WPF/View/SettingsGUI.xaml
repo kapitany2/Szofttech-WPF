@@ -43,7 +43,7 @@
                Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>
 
         <TextBlock Grid.Row="3" Grid.Column="1" FontSize="60" Text="Theme:" Style="{StaticResource NiceText}"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource vmSettings}, Path=Colors}" SelectedItem="{Binding Source={StaticResource vmSettings}, Path=SelectedColor, Mode=TwoWay}"
+        <ComboBox ItemsSource="{Binding Source={StaticResource vmSettings}, Path=Colors}" SelectedItem="{Binding Path=(viewmodel:StaticViewModel.SelectedColor)}"
                   Grid.Row="3" Grid.Column="3" FontSize="32" VerticalAlignment="Center" Margin="3" HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
                 <DataTemplate>

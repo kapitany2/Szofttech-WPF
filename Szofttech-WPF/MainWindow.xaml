@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szofttech_WPF"
+        xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+
     <Grid x:Name="windowGrid">
         <Grid.Background>
-            <SolidColorBrush Color="#3269a8"/>
+            <SolidColorBrush Color="{Binding Path=(viewmodel:StaticViewModel.SelectedColor), Mode=OneWay}"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

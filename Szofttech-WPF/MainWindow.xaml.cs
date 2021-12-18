@@ -26,7 +26,6 @@ namespace Szofttech_WPF
         public MainWindow()
         {
             InitializeComponent();
-            Settings settings = Settings.getInstance();
             TESZTVILI();
 
 

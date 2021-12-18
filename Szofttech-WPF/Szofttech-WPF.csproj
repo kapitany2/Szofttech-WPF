@@ -98,6 +98,7 @@
     <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="ViewModel\JoinGameGUIViewModel.cs" />
     <Compile Include="ViewModel\SettingsGUIViewModel.cs" />
+    <Compile Include="ViewModel\StaticViewModel.cs" />
     <Compile Include="View\ChatGUI.xaml.cs">
       <DependentUpon>ChatGUI.xaml</DependentUpon>
     </Compile>
