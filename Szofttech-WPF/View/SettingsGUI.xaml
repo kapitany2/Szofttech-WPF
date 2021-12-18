@@ -11,6 +11,7 @@
     <UserControl.Resources>
         <viewmodel:SettingsGUIViewModel x:Key="vmSettings"/>
         <converter:BoolToVisibilityConverter x:Key="cnvBoolToVisibility"/>
+        <converter:ColorConverter x:Key="cnvColor"/>
     </UserControl.Resources>
     
     <Grid>
@@ -46,10 +47,13 @@
                Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>
 
         <TextBlock Grid.Row="3" Grid.Column="1" FontSize="60" Text="Theme:" Style="{StaticResource NiceText}"/>
-        <ComboBox Grid.Row="3" Grid.Column="3" FontSize="32" VerticalAlignment="Center" Margin="3" HorizontalContentAlignment="Center">
-            <ComboBoxItem>Light-Blue</ComboBoxItem>
-            <ComboBoxItem>Dark-Blue</ComboBoxItem>
-            <ComboBoxItem>Blue</ComboBoxItem>
+        <ComboBox ItemsSource="{Binding Source={StaticResource vmSettings}, Path=Colors}" SelectedItem="{Binding Source={StaticResource vmSettings}, Path=SelectedColor, Mode=OneWayToSource}"
+                  Grid.Row="3" Grid.Column="3" FontSize="32" VerticalAlignment="Center" Margin="3" HorizontalContentAlignment="Center">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource cnvColor}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
     </Grid>
 </UserControl>

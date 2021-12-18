@@ -62,6 +62,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Converters\PortConverter.cs" />
     <Compile Include="DataPackage\CellData.cs" />
     <Compile Include="DataPackage\ChatData.cs" />

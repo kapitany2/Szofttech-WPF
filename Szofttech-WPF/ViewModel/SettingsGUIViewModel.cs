@@ -20,12 +20,17 @@ namespace Szofttech_WPF.ViewModel
         private bool visibility;
         public bool Visibility { get => visibility; set { visibility = value; OnPropertyChanged(); } }
 
-        private static List<Color> Colors = new List<Color>()
+        private List<Color> colors = new List<Color>()
         {
             Color.FromRgb(50, 105, 168),
             Color.FromRgb(37, 57, 66),
             Color.FromRgb(186, 217, 232)
         };
+
+        public List<Color> Colors { get => colors; }
+
+        private static Color selectedColor = Settings.getBackgroundColor();
+        public static Color SelectedColor { get => selectedColor; set { selectedColor = value; } }
 
         public SettingsGUIViewModel()
         {

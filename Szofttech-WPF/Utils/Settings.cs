@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -11,15 +10,11 @@ namespace Szofttech_WPF.Utils
     {
         private static Settings instance = new Settings();
         public static int port = 25564;
-        public static Color BackgroundColor = Color.FromRgb(50, 105, 168);
+        public static string BackgroundColor = Color.FromRgb(50, 105, 168).ToString();
 
         private static readonly FieldInfo[] fields = typeof(Settings).GetFields();
         private static int lineCount = 0;
         private static readonly char sep = Path.DirectorySeparatorChar;
-        private static List<Color> Colors = new List<Color>()
-        {
-            Color.FromRgb(50, 105, 168)
-        };
 
         private Settings() { }
 
@@ -72,7 +67,10 @@ namespace Szofttech_WPF.Utils
         {
             if (line.Contains(variable.Name))
             {
-                variable.SetValue(null, int.Parse(line.Split(' ')[1]));
+                if (int.TryParse(line.Split(' ')[1], out int parsed))
+                    variable.SetValue(null, parsed);
+                else 
+                    variable.SetValue(null, line.Split(' ')[1]);
                 ++lineCount;
             }
         }
@@ -101,6 +99,16 @@ namespace Szofttech_WPF.Utils
         public static void setPort(int _port)
         {
             port = _port;
+        }
+
+        public static Color getBackgroundColor()
+        {
+            return (Color)ColorConverter.ConvertFromString(BackgroundColor);
+        }
+
+        public static void setBackgroundColor(Color color)
+        {
+            BackgroundColor = color.ToString();
         }
     }
 }
