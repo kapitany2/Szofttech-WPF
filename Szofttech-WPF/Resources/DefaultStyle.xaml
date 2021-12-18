@@ -18,7 +18,7 @@
         </Setter>
     </Style>
 
-    <ImageBrush x:Key="backButton_MouseOver" ImageSource="../Resources/back_black.png" Stretch="None"/>
+    <ImageBrush x:Key="backButton_MouseOver" ImageSource="../Resources/back_hover_icon.png" Stretch="None"/>
     <Style x:Key="backButton" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>

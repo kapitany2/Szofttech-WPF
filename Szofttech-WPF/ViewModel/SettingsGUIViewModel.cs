@@ -1,5 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Timers;
+using System.Windows.Media;
 using Szofttech_WPF.Utils;
 using Szofttech_WPF.ViewModel.Base;
 
@@ -17,6 +19,13 @@ namespace Szofttech_WPF.ViewModel
 
         private bool visibility;
         public bool Visibility { get => visibility; set { visibility = value; OnPropertyChanged(); } }
+
+        private static List<Color> Colors = new List<Color>()
+        {
+            Color.FromRgb(50, 105, 168),
+            Color.FromRgb(37, 57, 66),
+            Color.FromRgb(186, 217, 232)
+        };
 
         public SettingsGUIViewModel()
         {
