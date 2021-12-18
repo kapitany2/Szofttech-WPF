@@ -7,21 +7,30 @@
              xmlns:join="clr-namespace:Szofttech_WPF.View.Join"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding ServerAddresses}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding ServerName}"/>
-                        <TextBlock Text="{Binding ServerIP}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding ServerAddresses}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="24" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Row="1" Text="{Binding IP}" FontSize="20" HorizontalAlignment="Center"/>
+                                <TextBlock Grid.Row="1" Text="{Binding Por}"/>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <ItemsControl Grid.Row="0"
                       HorizontalAlignment="Center">
             <join:ServerListItem ServerName="TESZT" ServerIP="127.0.0.1" ServerPort="25564"/>
@@ -43,7 +52,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding ConnectCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform0" Angle="0"/>
@@ -75,7 +85,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding AddCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform1" Angle="0"/>
@@ -107,7 +118,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding EditCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform2" Angle="0"/>
@@ -139,7 +151,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding RemoveCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform3" Angle="0"/>

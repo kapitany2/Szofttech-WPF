@@ -9,14 +9,14 @@ using Szofttech_WPF.ViewModel.Base;
 
 namespace Szofttech_WPF.ViewModel
 {
-    class JoinGameGUIViewModel : BaseViewModel
+    public class JoinGameGUIViewModel : BaseViewModel
     {
-        List<ServerAddress> ServerAddresses;
-        ServerAddress SelectedServerAddress;
-        RelayCommand ConnectCommand;
-        RelayCommand AddCommand;
-        RelayCommand EditCommand;
-        RelayCommand RemoveCommand;
+        public List<ServerAddress> ServerAddresses { get; set; }
+        public ServerAddress SelectedServerAddress { get; set; }
+        public RelayCommand ConnectCommand { get; }
+        public RelayCommand AddCommand { get; }
+        public RelayCommand EditCommand { get; }
+        public RelayCommand RemoveCommand { get; }
         public event EventHandler<ConnectArgs> OnConnect;
         public JoinGameGUIViewModel()
         {
@@ -31,6 +31,11 @@ namespace Szofttech_WPF.ViewModel
         private void loadServers()
         {
             ServerAddresses.Clear();
+            SelectedServerAddress = new ServerAddress("Local", "127.0.0.1", 25564);
+            for (int i = 0; i < 10; i++)
+            {
+                ServerAddresses.Add(new ServerAddress(i + ". Name", "192.168.0." + i, 25564));
+            }
         }
 
         void connect()

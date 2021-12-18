@@ -105,11 +105,14 @@ namespace Szofttech_WPF.View
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
         {
             exitable = false;
-            waitingTitle.Visibility = Visibility.Hidden;
-            ipListGrid.Visibility = Visibility.Hidden;
-            playerBoardGUI.Visibility = Visibility.Visible;
-            enemyBoardGUI.Visibility = Visibility.Visible;
-            selecter.Visibility = Visibility.Visible;
+            Dispatcher.Invoke(() =>
+            {
+                waitingTitle.Visibility = Visibility.Hidden;
+                ipListGrid.Visibility = Visibility.Hidden;
+                playerBoardGUI.Visibility = Visibility.Visible;
+                enemyBoardGUI.Visibility = Visibility.Visible;
+                selecter.Visibility = Visibility.Visible;
+            });
         }
 
         private void Client_OnMyHit(object sender, MyHitArgs e)
@@ -146,7 +149,7 @@ namespace Szofttech_WPF.View
 
         private void Client_OnYourTurn(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            enemyBoardGUI.setTurnEnabled(true);
         }
 
         private void Client_OnMessageReceived(object sender, MessageReceivedArgs e)
