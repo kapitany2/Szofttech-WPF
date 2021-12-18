@@ -80,6 +80,7 @@
     <Compile Include="EventArguments\Client\GameEndedArgs.cs" />
     <Compile Include="EventArguments\Client\MessageReceivedArgs.cs" />
     <Compile Include="EventArguments\Client\MyHitArgs.cs" />
+    <Compile Include="EventArguments\Join\ConnectArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />
     <Compile Include="Interfaces\IExitableGUI.cs" />
