@@ -56,7 +56,7 @@ namespace Szofttech_WPF.Network
                         if (messageToClient != null)
                         {
                             Data decoded = DataConverter.decode(messageToClient);
-                            int recipient = decoded.getRecipientID();
+                            int recipient = decoded.RecipientID;
                             addMessageToQueue(messageToClient, recipient);
                         }
                     }

@@ -78,11 +78,16 @@ namespace Szofttech_WPF.Network
                         if (inMsg != null)
                         {
                             Data data = DataConverter.decode(inMsg);
+                            if (data == null)
+                            {
+                                Console.WriteLine("Nem tudtam dekódolni:\n" + inMsg);
+                                continue;
+                            }
                             //Console.WriteLine(data.GetType().Name);
                             switch (data.GetType().Name)
                             {
                                 case "ChatData":
-                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.clientID, ((ChatData)data).message));
+                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
                                     break;
                                 case "PlaceShipsData":
                                     //PlaceShipsData
@@ -91,7 +96,7 @@ namespace Szofttech_WPF.Network
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
-                                    if (((ShotData)data).getRecipientID() == ID)
+                                    if (((ShotData)data).RecipientID == ID)
                                         OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
                                     break;
                                 case "CellData":
@@ -101,7 +106,7 @@ namespace Szofttech_WPF.Network
                                     OnYourTurn(null, EventArgs.Empty);
                                     break;
                                 case "GameEndedData":
-                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).status));
+                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
                                     break;
                                 case "DisconnectData":
                                     OnDisconnected(null, EventArgs.Empty);
@@ -130,7 +135,7 @@ namespace Szofttech_WPF.Network
                 {
                     DisconnectData dcData = new DisconnectData(ID)
                     {
-                        recipientID = -1
+                        RecipientID = -1
                     };
                     string json = DataConverter.encode(dcData);
                     socket.Send(Encoding.UTF8.GetBytes(json + "<EOF>"));

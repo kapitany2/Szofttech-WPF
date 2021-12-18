@@ -23,9 +23,9 @@ namespace Szofttech_WPF.Logic
             switch (data.GetType().Name)
             {
                 case "ChatData":
-                    data.setRecipientID(0);
+                    data.RecipientID = 0;
                     messageQueue.Add(DataConverter.encode((ChatData)data));
-                    data.setRecipientID(1);
+                    data.RecipientID = 1;
                     messageQueue.Add(DataConverter.encode((ChatData)data));
                     break;
                 case "PlaceShipsData":
@@ -37,7 +37,7 @@ namespace Szofttech_WPF.Logic
                     calcShot((ShotData)data);
                     break;
                 case "DisconnectData":
-                    data.setRecipientID(data.clientID == 1 ? 0 : 1);
+                    data.RecipientID = data.ClientID == 1 ? 0 : 1;
                     messageQueue.Add(DataConverter.encode((DisconnectData)data));
                     break;
                 default:
@@ -50,23 +50,23 @@ namespace Szofttech_WPF.Logic
         private void calcShot(ShotData data)
         {
 
-            int egyik = data.getClientID();
+            int egyik = data.ClientID;
             int masik = egyik == 1 ? 0 : 1;
 
-            ShotData sd = new ShotData(data.getClientID(), data.getI(), data.getJ());
-            sd.setRecipientID(masik);
+            ShotData sd = new ShotData(data.ClientID, data.I, data.J);
+            sd.RecipientID = masik;
             messageQueue.Add(DataConverter.encode(sd));
 
-            CellData cd = new CellData(-1, data.getI(), data.getJ(), players[masik].Board.cellstatus[data.getI(), data.getJ()]);
-            cd.setRecipientID(egyik);
+            CellData cd = new CellData(-1, data.I, data.J, players[masik].Board.cellstatus[data.I, data.J]);
+            cd.RecipientID = egyik;
             messageQueue.Add(DataConverter.encode(cd));
 
-            if (players[masik].Board.cellstatus[data.getI(), data.getJ()] == CellStatus.Ship)
+            if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
-                players[masik].Board.cellstatus[data.getI(), data.getJ()] = CellStatus.ShipHit;
-                if (players[masik].Board.isSunk(data.getI(), data.getJ()))
+                players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
+                if (players[masik].Board.isSunk(data.I, data.J))
                 {
-                    hitNear(egyik, masik, data.getI(), data.getJ());
+                    hitNear(egyik, masik, data.I, data.J);
                 }
                 if (isWin(players[masik]))
                 {
@@ -97,27 +97,27 @@ namespace Szofttech_WPF.Logic
             foreach (Coordinate nearShipPoint in players[masik].Board.nearShipPoints(i, j))
             {
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
-                cd.setRecipientID(egyik);
+                cd.RecipientID = egyik;
                 messageQueue.Add(DataConverter.encode(cd));
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
-                sd.setRecipientID(masik);
+                sd.RecipientID = masik;
                 messageQueue.Add(DataConverter.encode(sd));
             }
         }
 
         private void setPlayerBoard(PlaceShipsData data)
         {
-            if (data.getClientID() == 0)
+            if (data.ClientID == 0)
             {
-                players[0].Identifier = data.getClientID();
+                players[0].Identifier = data.ClientID;
                 players[0].isReady = true;
-                players[0].Board = data.getBoard();
+                players[0].Board = data.Board;
             }
             else
             {
-                players[1].Identifier = data.getClientID();
+                players[1].Identifier = data.ClientID;
                 players[1].isReady = true;
-                players[1].Board = data.getBoard();
+                players[1].Board = data.Board;
             }
 
             if (players[0].isReady == true && players[1].isReady == true)
