@@ -32,7 +32,7 @@
                    Grid.ColumnSpan="5"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
-                   FontSize="30"
+                   FontSize="64"
                    Style="{StaticResource NiceText}"/>
         <TextBlock x:Name="ip"
                    Text="Host Address:"
