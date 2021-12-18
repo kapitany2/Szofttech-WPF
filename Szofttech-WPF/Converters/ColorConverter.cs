@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -14,13 +13,13 @@ namespace Szofttech_WPF.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Color val = (Color)value;
+            Color color = (Color)value;
 
-            if (val == Blue)
+            if (color == Blue)
                 return "Blue";
-            else if (val == Dark)
+            else if (color == Dark)
                 return "Dark";
-            else if (val == Light)
+            else if (color == Light)
                 return "Light";
             else
                 return "Dark";

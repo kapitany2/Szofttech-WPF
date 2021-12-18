@@ -99,7 +99,18 @@ namespace Szofttech_WPF.Utils
 
         public static Color getBackgroundColor()
         {
-            return (Color)ColorConverter.ConvertFromString(BackgroundColor);
+            Color color;
+            try
+            {
+                color = (Color)ColorConverter.ConvertFromString(BackgroundColor);
+            }
+            catch (Exception)
+            {
+                BackgroundColor = Color.FromRgb(37, 57, 66).ToString();
+                color = (Color)ColorConverter.ConvertFromString(BackgroundColor);
+                Save();
+            }
+            return color;
         }
 
         public static void setBackgroundColor(Color color)
