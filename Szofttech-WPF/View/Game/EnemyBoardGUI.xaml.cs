@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -11,6 +12,7 @@ namespace Szofttech_WPF.View.Game
     public partial class EnemyBoardGUI : BoardGUI
     {
         private bool canTip;
+        public event EventHandler<ShotArgs> OnShot;
         public EnemyBoardGUI()
         {
             InitializeComponent();
@@ -69,8 +71,7 @@ namespace Szofttech_WPF.View.Game
         {
             if (cell.CellStatus == CellStatus.Empty)
             {
-                //ShotEvent
-                Console.WriteLine("Ide kéne egy lövő event.");
+                OnShot?.Invoke(null, new ShotArgs(cell.I, cell.J));
                 setTurnEnabled(false);
                 cellExited(cell);
             }
