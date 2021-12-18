@@ -20,7 +20,7 @@ namespace Szofttech_WPF.View.Game
         private void Init()
         {
             canTip = true;
-
+            IsEnabled = false;
             cells = new CellGUI[board.getNLength(), board.getNLength()];
 
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
