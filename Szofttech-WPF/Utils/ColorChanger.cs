@@ -23,7 +23,7 @@ namespace Szofttech_WPF.Utils
                 B = B + darkeningLevel < 0 ? 0 : B + darkeningLevel;
             }
 
-            return Color.FromRgb(byte.Parse(R + ""), byte.Parse(G + ""), byte.Parse(B + ""));
+            return Color.FromRgb((byte)R, (byte)G, (byte)B);
         }
     }
 }
