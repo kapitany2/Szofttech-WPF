@@ -12,6 +12,16 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding ServerAddresses}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ServerName}"/>
+                        <TextBlock Text="{Binding ServerIP}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         <ItemsControl Grid.Row="0"
                       HorizontalAlignment="Center">
             <join:ServerListItem ServerName="TESZT" ServerIP="127.0.0.1" ServerPort="25564"/>

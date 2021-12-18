@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Szofttech_WPF.Interfaces;
+using Szofttech_WPF.ViewModel;
 
 namespace Szofttech_WPF.View
 {
@@ -24,6 +25,7 @@ namespace Szofttech_WPF.View
         public JoinGUI()
         {
             InitializeComponent();
+            DataContext = new JoinGameGUIViewModel();
         }
 
         public void CloseGUI()
