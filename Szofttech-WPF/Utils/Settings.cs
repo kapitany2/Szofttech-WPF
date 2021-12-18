@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Windows.Media;
 
 namespace Szofttech_WPF.Utils
 {
@@ -9,10 +11,15 @@ namespace Szofttech_WPF.Utils
     {
         private static Settings instance = new Settings();
         public static int port = 25564;
+        public static Color BackgroundColor = Color.FromRgb(50, 105, 168);
 
         private static readonly FieldInfo[] fields = typeof(Settings).GetFields();
         private static int lineCount = 0;
         private static readonly char sep = Path.DirectorySeparatorChar;
+        private static List<Color> Colors = new List<Color>()
+        {
+            Color.FromRgb(50, 105, 168)
+        };
 
         private Settings() { }
 
