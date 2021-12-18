@@ -242,13 +242,9 @@
     <Resource Include="Resources\x_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\x.png" />
+    <Resource Include="Resources\back_hover_icon.png" />
+    <Resource Include="Resources\back_icon.png" />
+    <Resource Include="Resources\exit_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
