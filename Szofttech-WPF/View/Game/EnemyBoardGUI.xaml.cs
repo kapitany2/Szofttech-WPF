@@ -78,7 +78,10 @@ namespace Szofttech_WPF.View.Game
         public void setTurnEnabled(bool value)
         {
             canTip = value;
-            IsEnabled = value;
+            Dispatcher.Invoke(() =>
+            {
+                IsEnabled = value;
+            });
         }
     }
 }
