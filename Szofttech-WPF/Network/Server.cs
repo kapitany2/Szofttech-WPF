@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.Network
 {
@@ -43,7 +44,8 @@ namespace Szofttech_WPF.Network
             sSocket.Bind(localEndPoint);
             sSocket.Listen(4);
 
-            Thread messageDistributorThread = new Thread(() => {
+            Thread messageDistributorThread = new Thread(() =>
+            {
                 while (!close)
                 {
                     Thread.Sleep(10);
@@ -58,7 +60,7 @@ namespace Szofttech_WPF.Network
                             addMessageToQueue(messageToClient, recipient);
                         }
                     }
-                } 
+                }
             });
             messageDistributorThread.Start();
 
@@ -72,7 +74,7 @@ namespace Szofttech_WPF.Network
             {
                 try
                 {
-                    
+
                     while (!close)
                     {
                         Socket socket = sSocket.Accept();
@@ -136,7 +138,7 @@ namespace Szofttech_WPF.Network
                     }
                 }
                 catch (Exception) { }
-                   
+
             });
             thread.Start();
         }
@@ -167,7 +169,7 @@ namespace Szofttech_WPF.Network
             {
                 Console.WriteLine(ex.Message, ex.StackTrace);
                 isAvailable = false;
-            }          
+            }
             return isAvailable;
         }
 
@@ -182,6 +184,17 @@ namespace Szofttech_WPF.Network
                 }
             }
             return "NO IP FOUND";
+        }
+
+        public static List<string> getLocalIPs()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            List<string> ipList = new List<string>();
+            foreach (IPAddress ip in host.AddressList)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    ipList.Add(ip.ToString() + ":" + Settings.getPort());
+
+            return ipList;
         }
 
         private string getInMsg(Socket socket)
