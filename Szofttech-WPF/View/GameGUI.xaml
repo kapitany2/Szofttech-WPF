@@ -43,7 +43,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Your game hosting at:"
+            <TextBlock Text="Your game is hosted at:"
                        Grid.Row="0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
