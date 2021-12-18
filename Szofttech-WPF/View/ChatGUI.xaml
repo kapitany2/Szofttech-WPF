@@ -15,7 +15,7 @@
                  Text="{Binding ChatMessages}"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
-                 Background="#3269a8"
+                 Background="DeepPink"
                  IsReadOnly="True" 
                  VerticalScrollBarVisibility="Auto"
                  TextWrapping="Wrap"

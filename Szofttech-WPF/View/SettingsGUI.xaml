@@ -14,10 +14,6 @@
     </UserControl.Resources>
     
     <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="#3269a8"/>
-        </Grid.Background>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.5*"/>
