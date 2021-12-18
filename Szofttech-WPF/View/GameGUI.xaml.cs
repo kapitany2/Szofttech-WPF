@@ -64,6 +64,7 @@ namespace Szofttech_WPF.View
             Grid.SetColumn(playerBoardGUI, 1);
 
             enemyBoardGUI.Visibility = Visibility.Hidden;
+            enemyBoardGUI.OnShot += EnemyBoardGUI_OnShot;
             grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
@@ -89,6 +90,12 @@ namespace Szofttech_WPF.View
             Grid.SetRowSpan(chatGUI, 1);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
+        }
+
+        private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
+        {
+            Console.WriteLine("SetTurnText FALSE");
+            Client.sendMessage(new ShotData(Client.ID, e.I, e.J));
         }
 
         private void ChatGUI_OnSendMessage(object sender, SendMessageEventArgs e)
