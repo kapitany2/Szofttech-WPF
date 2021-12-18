@@ -102,10 +102,7 @@ namespace Szofttech_WPF.Network
                         byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
                         socket.Send(message);
 
-                        ConnectionData cData = new ConnectionData(ID)
-                        {
-                            recipientID = (ID == 0) ? 1 : 0
-                        };
+                        ConnectionData cData = new ConnectionData(ID);
 
                         addMessageToQueue(DataConverter.encode(cData), otherQueueID);
 
