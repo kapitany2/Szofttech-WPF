@@ -34,16 +34,44 @@
                    HorizontalAlignment="Center"
                    FontSize="64"
                    Style="{StaticResource NiceText}"/>
-        <TextBlock x:Name="ip"
-                   Text="Host Address:"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="5"
-                   Grid.RowSpan="4"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="32"
-                   Visibility="Hidden"
-                   Style="{StaticResource NiceText}"/>
+        <Grid x:Name="ipListGrid"
+              Grid.Row="3"
+              Grid.Column="1"
+              Grid.ColumnSpan="5"
+              Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Your game hosting at:"
+                       Grid.Row="0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="32"
+                       Margin="0,0,0,5"
+                       Style="{StaticResource NiceText}"/>
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ItemsControl x:Name="IPListItemsControl" ItemsSource="{Binding}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="32"
+                                           Margin="0,5,0,5"
+                                           Style="{StaticResource NiceText}"
+                                           MouseLeftButtonDown="ClickIPTextBlock">
+                                    <TextBlock.ToolTip>
+                                        <ToolTip>Click to Copy</ToolTip>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

@@ -33,9 +33,8 @@ namespace Szofttech_WPF.View
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
             Server = new Server(port);
-            ip.Text = String.Format("Your game hosting at: {0}:{1}", Server.getLocalIP(),Settings.getPort());
-            ip.Visibility = Visibility.Visible;
-            ip.MouseLeftButtonDown += (sender, e) => { Clipboard.SetText(Server.getLocalIP()); };
+            ipListGrid.Visibility = Visibility.Visible;
+            IPListItemsControl.DataContext = Server.getLocalIPs();
         }
 
         public GameGUI(string ip, int port)
@@ -107,6 +106,7 @@ namespace Szofttech_WPF.View
         {
             exitable = false;
             waitingTitle.Visibility = Visibility.Hidden;
+            ipListGrid.Visibility = Visibility.Hidden;
             playerBoardGUI.Visibility = Visibility.Visible;
             enemyBoardGUI.Visibility = Visibility.Visible;
             selecter.Visibility = Visibility.Visible;
@@ -240,5 +240,7 @@ namespace Szofttech_WPF.View
 
             return false;
         }
+
+        private void ClickIPTextBlock(object sender, System.Windows.Input.MouseButtonEventArgs e) => Clipboard.SetText((sender as TextBlock).Text);
     }
 }
