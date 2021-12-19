@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Szofttech_WPF.Logic;
 using Szofttech_WPF.Utils;
@@ -53,31 +54,77 @@ namespace Szofttech_WPF.View.Game
         public void setCell(CellStatus cell)
         {
             CellStatus = cell;
-            switch (cell)
+            Dispatcher.Invoke(() =>
+            {
+                switch (cell)
+                {
+                    case CellStatus.Empty:
+                        Background = new SolidColorBrush(BackGroundColor);
+                        break;
+                    case CellStatus.EmptyHit:
+                        //Background = new SolidColorBrush(Color.FromRgb(150, 50, 0));
+                        Background = new SolidColorBrush(Colors.Blue);
+                        break;
+                    case CellStatus.NearShip:
+                        break;
+                    case CellStatus.Ship:
+                        Background = new SolidColorBrush(shipColor);
+                        break;
+                    case CellStatus.ShipHit:
+                        Background = new SolidColorBrush(Colors.Red);
+                        break;
+                    case CellStatus.ShipSunk:
+                        Background = new SolidColorBrush(Colors.DarkRed);
+                        break;
+                    default:
+                        break;
+                }
+                InvalidateVisual();
+            });
+        }
+
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+            Pen pen;
+            Brush brush;
+            Rect rect;
+            switch (CellStatus)
             {
                 case CellStatus.Empty:
-                    Background = new SolidColorBrush(BackGroundColor);
                     break;
                 case CellStatus.EmptyHit:
-
+                    //SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.Red);
+                    //pen = new Pen(Brushes.Red, 5);
+                    //rect = new Rect(0, 0, 30, 30);
+                    //drawingContext.DrawRectangle(solidColorBrush, pen, rect);
+                    //for (int k = 0; k < 6; k++)
+                    //{
+                    //    int[] x = { 0, 5, 10, 15, 20, 25, 30 };
+                    //    int[] y = { 0 + k * 5, 5 + k * 5, 0 + k * 5, 5 + k * 5, 0 + k * 5, 5 + k * 5, 0 + k * 5 };
+                    //    for (int i = 1; i < x.Length; i++)
+                    //    {
+                    //        drawingContext.DrawLine(pen, new Point(x[i - 1], y[i - 1]), new Point(x[i], y[i]));
+                    //    }
+                    //}
                     break;
                 case CellStatus.NearShip:
                     break;
                 case CellStatus.Ship:
-                    Background = new SolidColorBrush(shipColor);
                     break;
                 case CellStatus.ShipHit:
+                    //pen = new Pen(Brushes.Red, 5);
+                    //drawingContext.DrawLine(pen, new Point(0, 0), new Point(30, 30));
+                    //drawingContext.DrawLine(pen, new Point(0, 30), new Point(30, 0));
+                    //brush = new SolidColorBrush(Colors.Pink);
+                    //rect = new Rect(0, 0, 60, 60);
+                    //drawingContext.DrawRectangle(brush, pen, rect);
                     break;
                 case CellStatus.ShipSunk:
                     break;
                 default:
                     break;
             }
-        }
-
-        protected override void OnRender(DrawingContext drawingContext)
-        {
-            base.OnRender(drawingContext);
         }
     }
 }
