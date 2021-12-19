@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
+             xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel" xmlns:converter="clr-namespace:Szofttech_WPF.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="60" d:DesignWidth="60">
     <UserControl.Resources>
         <viewmodel:InfoPanelGUIViewModel x:Key="vmVisibility" />
+        <converter:BoolToVisibilityConverter x:Key="cnvBoolToVisibility"/>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=RedArrowVisibility, UpdateSourceTrigger=PropertyChanged}"/>
-        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=GreenArrowVisibility, UpdateSourceTrigger=PropertyChanged}"/>
+        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=RedArrowVisibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}"/>
+        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=GreenArrowVisibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}"/>
     </Grid>
 </UserControl>
