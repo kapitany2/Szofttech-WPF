@@ -53,17 +53,17 @@ namespace Szofttech_WPF.Network
                     Thread.Sleep(10);
                     while (gameLogic.messageQueue.Count != 0)
                     {
-                        lock (gameLogic.queueLock)
+                        //lock (gameLogic.queueLock)
+                        //{
+                        string messageToClient = gameLogic.messageQueue[0];
+                        gameLogic.messageQueue.RemoveAt(0);
+                        if (messageToClient != null)
                         {
-                            string messageToClient = gameLogic.messageQueue.First.Value;
-                            gameLogic.messageQueue.RemoveFirst();
-                            if (messageToClient != null)
-                            {
-                                Data decoded = DataConverter.decode(messageToClient);
-                                int recipient = decoded.RecipientID;
-                                addMessageToQueue(messageToClient, recipient);
-                            }
+                            Data decoded = DataConverter.decode(messageToClient);
+                            int recipient = decoded.RecipientID;
+                            addMessageToQueue(messageToClient, recipient);
                         }
+                        //}
                     }
                 }
             });
@@ -213,7 +213,7 @@ namespace Szofttech_WPF.Network
                     {
                         inMsg = inMsg.Replace("<EOF>", "");
                         break;
-                    }                    
+                    }
                 }
             }
             catch { Close(); }
