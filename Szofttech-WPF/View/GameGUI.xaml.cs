@@ -251,6 +251,7 @@ namespace Szofttech_WPF.View
                 if (MessageBoxResult.Yes == Res)
                 {
                     exitable = true;
+                    Client.sendMessage(new DisconnectData(Client.ID));
                     CloseGUI();
                 }
             }
@@ -262,7 +263,10 @@ namespace Szofttech_WPF.View
 
             var Res = MessageBox.Show("Do you want to exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == Res)
+            {
+                Client.sendMessage(new DisconnectData(Client.ID));
                 return true;
+            }
 
             return false;
         }
