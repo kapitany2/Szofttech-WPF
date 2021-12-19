@@ -99,6 +99,7 @@
     <Compile Include="ViewModel\Base\CommandBase.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
+    <Compile Include="ViewModel\InfoPanelGUIViewModel.cs" />
     <Compile Include="ViewModel\JoinGameGUIViewModel.cs" />
     <Compile Include="ViewModel\ServerListItemViewModel.cs" />
     <Compile Include="ViewModel\SettingsGUIViewModel.cs" />
@@ -251,6 +252,10 @@
     <Resource Include="Resources\back_hover_icon.png" />
     <Resource Include="Resources\back_icon.png" />
     <Resource Include="Resources\exit_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow_left.png" />
+    <Resource Include="Resources\arrow_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
