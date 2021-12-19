@@ -4,18 +4,14 @@ using System.IO;
 
 namespace Szofttech_WPF.Network
 {
-    public class ServerManager
+    public static class ServerManager
     {
-        private static readonly List<ServerAddress> serverList = new List<ServerAddress>();
-        private static ServerManager instance = new ServerManager();
+        private static List<ServerAddress> serverList = new List<ServerAddress>();
         private static readonly char sep = Path.DirectorySeparatorChar;
 
-        private ServerManager() { }
-
-        public static ServerManager getInstance()
+        static ServerManager()
         {
             ReadServersFromFile();
-            return instance;
         }
 
         private static void WriteSavedServersToFile()
@@ -27,9 +23,10 @@ namespace Szofttech_WPF.Network
                 file.WriteLine("Saved_Servers {");
                 foreach (ServerAddress item in serverList)
                 {
-                    file.WriteLine(item);
+                    file.WriteLine("\t" + item);
                 }
                 file.WriteLine("}");
+                file.Close();
             }
             catch(Exception ex)
             {
@@ -44,7 +41,7 @@ namespace Szofttech_WPF.Network
                 string dir = Directory.GetCurrentDirectory();
                 StreamReader file = new StreamReader(dir + $"{sep}servers.dat");
 
-                while (file.Peek() != -1)
+                while (file.Peek() > -1)
                 {
                     string data = file.ReadLine();
                     if (data.Contains("Saved_Servers {"))
@@ -75,7 +72,6 @@ namespace Szofttech_WPF.Network
             finally
             {
                 WriteSavedServersToFile();
-                
             }
         }
 
