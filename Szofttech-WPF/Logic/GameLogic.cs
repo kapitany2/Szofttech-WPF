@@ -21,6 +21,10 @@ namespace Szofttech_WPF.Logic
 
         public void processMessage(Data data)
         {
+            if (data == null)
+            {
+                throw new Exception("Data is null");
+            }
             lock (queueLock)
             {
                 switch (data.GetType().Name)
@@ -67,6 +71,7 @@ namespace Szofttech_WPF.Logic
 
             if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
+                Console.WriteLine("Gamelogic Ship");
                 players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {

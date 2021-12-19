@@ -213,8 +213,7 @@ namespace Szofttech_WPF.Network
                     {
                         inMsg = inMsg.Replace("<EOF>", "");
                         break;
-                    }
-                    
+                    }                    
                 }
             }
             catch { Close(); }

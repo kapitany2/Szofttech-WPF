@@ -77,10 +77,11 @@ namespace Szofttech_WPF.Network
 
                         if (inMsg != null)
                         {
+                            //process(inMsg);
                             Data data = DataConverter.decode(inMsg);
                             if (data == null)
                             {
-                                Console.WriteLine("Nem tudtam dekódolni:\n" + inMsg);
+                                Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
                                 continue;
                             }
                             //Console.WriteLine(data.GetType().Name);
@@ -97,10 +98,12 @@ namespace Szofttech_WPF.Network
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
+                                    Console.WriteLine("client Ship shot");
                                     if (((ShotData)data).RecipientID == ID)
                                         OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
                                     break;
                                 case "CellData":
+                                    Console.WriteLine("client Ship cell");
                                     OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
                                     break;
                                 case "TurnData":
@@ -180,6 +183,53 @@ namespace Szofttech_WPF.Network
 
             //Console.WriteLine(inMsg);
             return inMsg;
+        }
+
+        private void process(string inMsg)
+        {
+            List<Data> datas = DataConverter.tryDecode(inMsg);
+            Console.WriteLine("MÉRET: " + datas.Count);
+            foreach (var data in datas)
+            {
+                if (data == null)
+                {
+                    Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
+                    continue;
+                }
+                //Console.WriteLine(data.GetType().Name);
+                switch (data.GetType().Name)
+                {
+                    case "ChatData":
+                        OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
+                        break;
+                    case "PlaceShipsData":
+                        //PlaceShipsData
+                        break;
+                    case "ConnectionData":
+                        OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
+                        break;
+                    case "ShotData":
+                        if (((ShotData)data).RecipientID == ID)
+                            OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
+                        break;
+                    case "CellData":
+                        OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
+                        break;
+                    case "TurnData":
+                        OnYourTurn(null, EventArgs.Empty);
+                        break;
+                    case "GameEndedData":
+                        OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
+                        break;
+                    case "DisconnectData":
+                        OnDisconnected(null, EventArgs.Empty);
+                        break;
+                    default:
+                        //NOT IMPLEMENTED
+                        Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
+                        break;
+                }
+            }
         }
     }
 }
