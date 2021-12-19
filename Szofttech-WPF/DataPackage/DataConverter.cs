@@ -12,18 +12,17 @@ namespace Szofttech_WPF.DataPackage
         public static Data decode(string message)
         {
             //Console.WriteLine(message);
-            Data data;
+            //Data data;
             //try
             //{
-                data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+                //data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
             //}
-            //catch (Newtonsoft.Json.JsonReaderException e)
+            //catch (Exception e)
             //{
-            //    //tryDecode(message);
-            //    Console.WriteLine("Decode Error\n" + e.Message);
-            //    return null;
+            //    return new ChatData(-1, "Error\n" + e.Message);
             //}
-            return data;
+            //return data;
+            return (Data)JsonConvert.DeserializeObject(message, jsonsettings);
         }
 
         public static List<Data> tryDecode(string message)
