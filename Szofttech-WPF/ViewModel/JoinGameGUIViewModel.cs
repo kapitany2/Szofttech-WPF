@@ -47,7 +47,8 @@ namespace Szofttech_WPF.ViewModel
 
         void connect()
         {
-            OnConnect?.Invoke(null, new ConnectArgs(SelectedServerAddress));
+            //OnConnect?.Invoke(null, new ConnectArgs(SelectedServerAddress));
+            OnConnect?.Invoke(null, new ConnectArgs(new ServerAddress("sajat", "192.168.1.130", 25564)));
         }
 
         void add()

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Szofttech_WPF.View"
              xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
-             xmlns:join="clr-namespace:Szofttech_WPF.View.Join"
+             xmlns:join="clr-namespace:Szofttech_WPF.View.Join" d:DataContext="{d:DesignInstance Type=viewmodel:JoinGameGUIViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -45,7 +45,7 @@
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
                     RenderTransformOrigin="0.5,0.5"
-                    Command="{Binding Source={StaticResource vmJoin}, Path=ConnectCommand}">
+                    Command="{Binding ConnectCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform0" Angle="0"/>
@@ -78,7 +78,7 @@
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
                     RenderTransformOrigin="0.5,0.5"
-                    Command="{Binding Source={StaticResource vmJoin}, Path=AddCommand}">
+                    Command="{Binding AddCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform1" Angle="0"/>
@@ -111,7 +111,7 @@
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
                     RenderTransformOrigin="0.5,0.5"
-                    Command="{Binding Source={StaticResource vmJoin}, Path=EditCommand}">
+                    Command="{Binding EditCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform2" Angle="0"/>
@@ -144,7 +144,7 @@
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
                     RenderTransformOrigin="0.5,0.5"
-                    Command="{Binding Source={StaticResource vmJoin}, Path=RemoveCommand}">
+                    Command="{Binding RemoveCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform3" Angle="0"/>
