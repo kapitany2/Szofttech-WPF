@@ -9,17 +9,7 @@ namespace Szofttech_WPF.DataPackage
         private static JsonSerializerSettings jsonsettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
         public static Data decode(string message)
         {
-            //Console.WriteLine(message);
-            Data data;
-            //try
-            //{
-                data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
-            //}
-            //catch (Exception e)
-            //{
-            //    return new ChatData(-1, "Error\n" + e.Message);
-            //}
-            return data;
+            return (Data)JsonConvert.DeserializeObject(message, jsonsettings);
         }
 
         public static string encode(Data data)

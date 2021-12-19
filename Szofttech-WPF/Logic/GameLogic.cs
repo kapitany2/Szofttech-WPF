@@ -8,8 +8,8 @@ namespace Szofttech_WPF.Logic
     public class GameLogic
     {
 
-        public List<string> messageQueue = new List<string>();
-        Random rnd = new Random();
+        public LinkedList<string> messageQueue = new LinkedList<string>();
+        private Random rnd = new Random();
         private Player[] players;
 
         public GameLogic()
@@ -21,30 +21,33 @@ namespace Szofttech_WPF.Logic
 
         public void processMessage(Data data)
         {
-            switch (data.GetType().Name)
+            lock (messageQueue)
             {
-                case "ChatData":
-                    data.RecipientID = 0;
-                    messageQueue.Add(DataConverter.encode((ChatData)data));
-                    data.RecipientID = 1;
-                    messageQueue.Add(DataConverter.encode((ChatData)data));
-                    break;
-                case "PlaceShipsData":
-                    setPlayerBoard((PlaceShipsData)data);
-                    break;
-                case "ConnectionData":
-                    break;
-                case "ShotData":
-                    calcShot((ShotData)data);
-                    break;
-                case "DisconnectData":
-                    data.RecipientID = data.ClientID == 1 ? 0 : 1;
-                    messageQueue.Add(DataConverter.encode((DisconnectData)data));
-                    break;
-                default:
-                    Console.WriteLine("########## ISMERETLEN OSZTÁLY #########");
-                    Console.WriteLine("Nincs implementálva a GameLogicban az alábbi osztály: " + data.GetType().Name);
-                    throw new Exception("Not implemented");
+                switch (data.GetType().Name)
+                {
+                    case "ChatData":
+                        data.RecipientID = 0;
+                        messageQueue.AddLast(DataConverter.encode((ChatData)data));
+                        data.RecipientID = 1;
+                        messageQueue.AddLast(DataConverter.encode((ChatData)data));
+                        break;
+                    case "PlaceShipsData":
+                        setPlayerBoard((PlaceShipsData)data);
+                        break;
+                    case "ConnectionData":
+                        break;
+                    case "ShotData":
+                        calcShot((ShotData)data);
+                        break;
+                    case "DisconnectData":
+                        data.RecipientID = data.ClientID == 1 ? 0 : 1;
+                        messageQueue.AddLast(DataConverter.encode((DisconnectData)data));
+                        break;
+                    default:
+                        Console.WriteLine("########## ISMERETLEN OSZTÁLY #########");
+                        Console.WriteLine("Nincs implementálva a GameLogicban az alábbi osztály: " + data.GetType().Name);
+                        throw new Exception("Not implemented");
+                }
             }
         }
 
@@ -56,11 +59,11 @@ namespace Szofttech_WPF.Logic
 
             ShotData sd = new ShotData(data.ClientID, data.I, data.J);
             sd.RecipientID = masik;
-            messageQueue.Add(DataConverter.encode(sd));
+            messageQueue.AddLast(DataConverter.encode(sd));
 
             CellData cd = new CellData(-1, data.I, data.J, players[masik].Board.cellstatus[data.I, data.J]);
             cd.RecipientID = egyik;
-            messageQueue.Add(DataConverter.encode(cd));
+            messageQueue.AddLast(DataConverter.encode(cd));
 
             if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
@@ -71,17 +74,17 @@ namespace Szofttech_WPF.Logic
                 }
                 if (isWin(players[masik]))
                 {
-                    messageQueue.Add(DataConverter.encode(new GameEndedData(GameEndedStatus.Win, egyik)));
-                    messageQueue.Add(DataConverter.encode(new GameEndedData(GameEndedStatus.Defeat, masik)));
+                    messageQueue.AddLast(DataConverter.encode(new GameEndedData(GameEndedStatus.Win, egyik)));
+                    messageQueue.AddLast(DataConverter.encode(new GameEndedData(GameEndedStatus.Defeat, masik)));
                 }
                 else
                 {
-                    messageQueue.Add(DataConverter.encode(new TurnData(egyik)));
+                    messageQueue.AddLast(DataConverter.encode(new TurnData(egyik)));
                 }
             }
             else
             {
-                messageQueue.Add(DataConverter.encode(new TurnData(masik)));
+                messageQueue.AddLast(DataConverter.encode(new TurnData(masik)));
             }
         }
 
@@ -100,10 +103,10 @@ namespace Szofttech_WPF.Logic
             {
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
                 cd.RecipientID = egyik;
-                messageQueue.Add(DataConverter.encode(cd));
+                messageQueue.AddLast(DataConverter.encode(cd));
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
                 sd.RecipientID = masik;
-                messageQueue.Add(DataConverter.encode(sd));
+                messageQueue.AddLast(DataConverter.encode(sd));
 
                 while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
                 {
@@ -129,7 +132,7 @@ namespace Szofttech_WPF.Logic
 
             if (players[0].isReady == true && players[1].isReady == true)
             {
-                messageQueue.Add(DataConverter.encode(new TurnData(rnd.Next(1))));
+                messageQueue.AddLast(DataConverter.encode(new TurnData(rnd.Next(1))));
             }
         }
     }
