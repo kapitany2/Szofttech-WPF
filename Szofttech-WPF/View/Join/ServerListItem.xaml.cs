@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.Network;
 
 namespace Szofttech_WPF.View.Join
 {
@@ -32,9 +33,12 @@ namespace Szofttech_WPF.View.Join
             set => SetValue(ServerPortProperty, value);
         }
 
+        public ServerAddress ServerAddress { get; private set; }
+
         public ServerListItem()
         {
             InitializeComponent();
+            ServerAddress = new ServerAddress((string)GetValue(ServerNameProperty), (string)GetValue(ServerIPProperty), (int)GetValue(ServerPortProperty));
         }
     }
 }
