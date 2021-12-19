@@ -71,6 +71,7 @@ namespace Szofttech_WPF.Logic
 
             if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
+                Console.WriteLine("Gamelogic Ship");
                 players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {
