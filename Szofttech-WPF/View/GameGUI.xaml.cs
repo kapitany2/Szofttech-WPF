@@ -29,7 +29,7 @@ namespace Szofttech_WPF.View
         private Server Server;
         private ChatViewModel ChatViewModel;
         private bool exitable = true;
-        private bool TEST_MODE = false;
+        private bool TEST_MODE = true;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {

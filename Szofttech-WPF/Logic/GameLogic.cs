@@ -21,6 +21,10 @@ namespace Szofttech_WPF.Logic
 
         public void processMessage(Data data)
         {
+            if (data == null)
+            {
+                throw new Exception("Data is null");
+            }
             switch (data.GetType().Name)
             {
                 case "ChatData":
