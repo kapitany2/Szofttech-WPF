@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Szofttech_WPF.Logic
 {
+    [Serializable]
     public enum CellStatus
     {
         Empty,

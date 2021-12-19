@@ -1,24 +1,22 @@
-﻿namespace Szofttech_WPF.DataPackage
+﻿using Newtonsoft.Json;
+using System;
+
+namespace Szofttech_WPF.DataPackage
 {
+    [Serializable]
     public class ShotData : Data
     {
+        [JsonProperty("I")]
         public int I { get; private set; }
+
+        [JsonProperty("J")]
         public int J { get; private set; }
 
+        public ShotData() : base() { }
         public ShotData(int clientID, int i, int j) : base(clientID)
         {
-            this.I = i;
-            this.J = j;
-        }
-
-        public int getI()
-        {
-            return I;
-        }
-
-        public int getJ()
-        {
-            return J;
+            I = i;
+            J = j;
         }
     }
 }

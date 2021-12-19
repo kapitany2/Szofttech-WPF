@@ -11,13 +11,10 @@
     <UserControl.Resources>
         <viewmodel:SettingsGUIViewModel x:Key="vmSettings"/>
         <converter:BoolToVisibilityConverter x:Key="cnvBoolToVisibility"/>
+        <converter:ColorConverter x:Key="cnvColor"/>
     </UserControl.Resources>
     
     <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="#3269a8"/>
-        </Grid.Background>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.5*"/>
@@ -27,6 +24,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.9*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.10*"/>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -42,5 +41,15 @@
         <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                Margin="0, 0, 0, 50" Text="{Binding Source={StaticResource vmSettings}, Path=ResponseText, Mode=TwoWay}" Style="{StaticResource NiceText}"
                Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="60" Text="Theme:" Style="{StaticResource NiceText}"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource vmSettings}, Path=Colors}" SelectedItem="{Binding Path=(viewmodel:StaticViewModel.SelectedColor)}"
+                  Grid.Row="3" Grid.Column="3" FontSize="32" VerticalAlignment="Center" Margin="3" HorizontalContentAlignment="Center">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource cnvColor}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </UserControl>

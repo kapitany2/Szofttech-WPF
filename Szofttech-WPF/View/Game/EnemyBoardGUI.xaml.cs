@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.Logic;
 
 namespace Szofttech_WPF.View.Game
@@ -11,6 +12,8 @@ namespace Szofttech_WPF.View.Game
     public partial class EnemyBoardGUI : BoardGUI
     {
         private bool canTip;
+        public event EventHandler<ShotArgs> OnShot;
+        private bool TEST_MODE_LOCAL = false;
         public EnemyBoardGUI()
         {
             InitializeComponent();
@@ -20,7 +23,7 @@ namespace Szofttech_WPF.View.Game
         private void Init()
         {
             canTip = true;
-
+            IsEnabled = false;
             cells = new CellGUI[board.getNLength(), board.getNLength()];
 
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
@@ -35,6 +38,7 @@ namespace Szofttech_WPF.View.Game
                     //seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
                     {
+                        Console.WriteLine("Erre kattintottál: " + seged.CellStatus);
                         if (IsEnabled && canTip)
                             cellClick(seged);
                     };
@@ -69,16 +73,19 @@ namespace Szofttech_WPF.View.Game
         {
             if (cell.CellStatus == CellStatus.Empty)
             {
-                //ShotEvent
-                Console.WriteLine("Ide kéne egy lövő event.");
+                OnShot?.Invoke(null, new ShotArgs(cell.I, cell.J));
                 setTurnEnabled(false);
+                if (TEST_MODE_LOCAL)
+                {
+                    setTurnEnabled(true);
+                }
                 cellExited(cell);
             }
         }
         public void setTurnEnabled(bool value)
         {
             canTip = value;
-            IsEnabled = value;
+            Dispatcher.Invoke(() => IsEnabled = value);
         }
     }
 }

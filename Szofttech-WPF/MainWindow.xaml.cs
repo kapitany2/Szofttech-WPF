@@ -11,6 +11,7 @@ using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
 using Szofttech_WPF.View;
+using Szofttech_WPF.ViewModel;
 
 namespace Szofttech_WPF
 {
@@ -26,7 +27,6 @@ namespace Szofttech_WPF
         public MainWindow()
         {
             InitializeComponent();
-            Settings settings = Settings.getInstance();
             TESZTVILI();
 
 
@@ -47,6 +47,10 @@ namespace Szofttech_WPF
             {
                 setHeaderBarButtons(joinGUI.IsVisible ? Visibility.Hidden : Visibility.Visible);
                 menuGUI.Visibility = joinGUI.IsVisible ? Visibility.Hidden : Visibility.Visible;
+            };
+            (joinGUI.DataContext as JoinGameGUIViewModel).OnConnect += (sender, args) =>
+            {
+                CreateGameGUI(args.ServerAddress);
             };
             windowGrid.Children.Add(joinGUI);
             Grid.SetRow(joinGUI, 1);
@@ -110,8 +114,8 @@ namespace Szofttech_WPF
             GameGUI gameGUI;
             if (sa != null)
             {
-                //gameGUI = new GameGUI(sa.IP, sa.Port);
-                gameGUI = new GameGUI(Settings.getPort());
+                joinGUI.Visibility = Visibility.Hidden;
+                gameGUI = new GameGUI(sa.IP, sa.Port);
             }
             else
             {

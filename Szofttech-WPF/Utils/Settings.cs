@@ -2,24 +2,22 @@
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Windows.Media;
 
 namespace Szofttech_WPF.Utils
 {
-    public class Settings
+    public static class Settings
     {
-        private static Settings instance = new Settings();
         public static int port = 25564;
+        public static string BackgroundColor = Color.FromRgb(37, 57, 66).ToString();
 
         private static readonly FieldInfo[] fields = typeof(Settings).GetFields();
         private static int lineCount = 0;
         private static readonly char sep = Path.DirectorySeparatorChar;
 
-        private Settings() { }
-
-        public static Settings getInstance()
+        static Settings()
         {
             Read();
-            return instance;
         }
 
         private static void Read()
@@ -65,7 +63,10 @@ namespace Szofttech_WPF.Utils
         {
             if (line.Contains(variable.Name))
             {
-                variable.SetValue(null, int.Parse(line.Split(' ')[1]));
+                if (int.TryParse(line.Split(' ')[1], out int parsed))
+                    variable.SetValue(null, parsed);
+                else 
+                    variable.SetValue(null, line.Split(' ')[1]);
                 ++lineCount;
             }
         }
@@ -94,6 +95,27 @@ namespace Szofttech_WPF.Utils
         public static void setPort(int _port)
         {
             port = _port;
+        }
+
+        public static Color getBackgroundColor()
+        {
+            Color color;
+            try
+            {
+                color = (Color)ColorConverter.ConvertFromString(BackgroundColor);
+            }
+            catch (Exception)
+            {
+                BackgroundColor = Color.FromRgb(37, 57, 66).ToString();
+                color = (Color)ColorConverter.ConvertFromString(BackgroundColor);
+                Save();
+            }
+            return color;
+        }
+
+        public static void setBackgroundColor(Color color)
+        {
+            BackgroundColor = color.ToString();
         }
     }
 }

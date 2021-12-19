@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Szofttech_WPF"
+        xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+
     <Grid x:Name="windowGrid">
         <Grid.Background>
-            <SolidColorBrush Color="#3269a8"/>
+            <SolidColorBrush Color="{Binding Path=(viewmodel:StaticViewModel.SelectedColor), Mode=OneWay}"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -18,7 +20,7 @@
         <TextBlock x:Name="header" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
         <Button x:Name="backButton" HorizontalAlignment="Left" Width="40" Height="40" Visibility="Hidden" Style="{StaticResource backButton}">
             <Button.Background>
-                <ImageBrush ImageSource="Resources/back.png" Stretch="Fill" />
+                <ImageBrush ImageSource="Resources/back_icon.png" Stretch="Fill" />
             </Button.Background>
             <Button.ToolTip>
                 <ToolTip>
@@ -28,7 +30,7 @@
         </Button>
         <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="40" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
             <Button.Background>
-                <ImageBrush ImageSource="Resources/x.png" Stretch="None" />
+                <ImageBrush ImageSource="Resources/exit_icon.png" Stretch="None" />
             </Button.Background>
             <Button.ToolTip>
                 <ToolTip>

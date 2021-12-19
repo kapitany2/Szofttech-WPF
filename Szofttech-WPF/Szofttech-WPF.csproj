@@ -61,7 +61,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\SelectItemCommand.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ColorConverter.cs" />
     <Compile Include="Converters\PortConverter.cs" />
     <Compile Include="DataPackage\CellData.cs" />
     <Compile Include="DataPackage\ChatData.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="EventArguments\Client\GameEndedArgs.cs" />
     <Compile Include="EventArguments\Client\MessageReceivedArgs.cs" />
     <Compile Include="EventArguments\Client\MyHitArgs.cs" />
+    <Compile Include="EventArguments\Join\ConnectArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipArgs.cs" />
     <Compile Include="EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />
     <Compile Include="Interfaces\IExitableGUI.cs" />
@@ -90,12 +93,17 @@
     <Compile Include="Logic\Player.cs" />
     <Compile Include="Network\ServerAddress.cs" />
     <Compile Include="Network\ServerManager.cs" />
+    <Compile Include="Utils\ColorChanger.cs" />
     <Compile Include="Utils\Settings.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\CommandBase.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
+    <Compile Include="ViewModel\InfoPanelGUIViewModel.cs" />
     <Compile Include="ViewModel\JoinGameGUIViewModel.cs" />
+    <Compile Include="ViewModel\ServerListItemViewModel.cs" />
     <Compile Include="ViewModel\SettingsGUIViewModel.cs" />
+    <Compile Include="ViewModel\StaticViewModel.cs" />
     <Compile Include="View\ChatGUI.xaml.cs">
       <DependentUpon>ChatGUI.xaml</DependentUpon>
     </Compile>
@@ -241,13 +249,13 @@
     <Resource Include="Resources\x_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_black.png" />
+    <Resource Include="Resources\back_hover_icon.png" />
+    <Resource Include="Resources\back_icon.png" />
+    <Resource Include="Resources\exit_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\x.png" />
+    <Resource Include="Resources\arrow_left.png" />
+    <Resource Include="Resources\arrow_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

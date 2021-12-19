@@ -69,29 +69,36 @@ namespace Szofttech_WPF.Network
                     {
                         Thread.Sleep(10);
                         string inMsg = getInMsg(socket);
-                        if (int.TryParse(inMsg, out int ID))
-                        {
-                            this.ID = ID;
-                            continue;
-                        }
+                        //if (int.TryParse(inMsg, out int ID))
+                        //{
+                        //    this.ID = ID;
+                        //    continue;
+                        //}
 
                         if (inMsg != null)
                         {
+                            //process(inMsg);
                             Data data = DataConverter.decode(inMsg);
+                            if (data == null)
+                            {
+                                Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
+                                continue;
+                            }
                             //Console.WriteLine(data.GetType().Name);
                             switch (data.GetType().Name)
                             {
                                 case "ChatData":
-                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.clientID, ((ChatData)data).message));
+                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
                                     break;
                                 case "PlaceShipsData":
                                     //PlaceShipsData
                                     break;
                                 case "ConnectionData":
+                                    ID = (data.ClientID == 0) ? 1 : 0;
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
-                                    if (((ShotData)data).getRecipientID() == ID)
+                                    if (((ShotData)data).RecipientID == ID)
                                         OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
                                     break;
                                 case "CellData":
@@ -101,7 +108,7 @@ namespace Szofttech_WPF.Network
                                     OnYourTurn(null, EventArgs.Empty);
                                     break;
                                 case "GameEndedData":
-                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).status));
+                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
                                     break;
                                 case "DisconnectData":
                                     OnDisconnected(null, EventArgs.Empty);
@@ -130,7 +137,7 @@ namespace Szofttech_WPF.Network
                 {
                     DisconnectData dcData = new DisconnectData(ID)
                     {
-                        recipientID = -1
+                        RecipientID = -1
                     };
                     string json = DataConverter.encode(dcData);
                     socket.Send(Encoding.UTF8.GetBytes(json + "<EOF>"));
@@ -174,6 +181,53 @@ namespace Szofttech_WPF.Network
 
             //Console.WriteLine(inMsg);
             return inMsg;
+        }
+
+        private void process(string inMsg)
+        {
+            List<Data> datas = DataConverter.tryDecode(inMsg);
+            Console.WriteLine("MÉRET: " + datas.Count);
+            foreach (var data in datas)
+            {
+                if (data == null)
+                {
+                    Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
+                    continue;
+                }
+                //Console.WriteLine(data.GetType().Name);
+                switch (data.GetType().Name)
+                {
+                    case "ChatData":
+                        OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
+                        break;
+                    case "PlaceShipsData":
+                        //PlaceShipsData
+                        break;
+                    case "ConnectionData":
+                        OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
+                        break;
+                    case "ShotData":
+                        if (((ShotData)data).RecipientID == ID)
+                            OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
+                        break;
+                    case "CellData":
+                        OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
+                        break;
+                    case "TurnData":
+                        OnYourTurn(null, EventArgs.Empty);
+                        break;
+                    case "GameEndedData":
+                        OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
+                        break;
+                    case "DisconnectData":
+                        OnDisconnected(null, EventArgs.Empty);
+                        break;
+                    default:
+                        //NOT IMPLEMENTED
+                        Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
+                        break;
+                }
+            }
         }
     }
 }

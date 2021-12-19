@@ -1,17 +1,19 @@
-﻿namespace Szofttech_WPF.DataPackage
+﻿using Newtonsoft.Json;
+using System;
+
+namespace Szofttech_WPF.DataPackage
 {
+    [Serializable]
     public class ChatData : Data
     {
-        public string message;
+        [JsonProperty("")]
+        public string Message { get; set; }
+
+        public ChatData() : base() { }
 
         public ChatData(int clientID, string message) : base(clientID)
         {
-            this.message = message;
-        }
-
-        public string getMessage()
-        {
-            return message;
+            Message = message;
         }
     }
 }

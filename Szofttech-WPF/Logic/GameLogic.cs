@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Szofttech_WPF.DataPackage;
 
 namespace Szofttech_WPF.Logic
 {
     public class GameLogic
     {
-
-        public List<string> messageQueue = new List<string>();
-        Random rnd = new Random();
+        public object queueLock = new object();
+        //public LinkedList<string> messageQueueVili = new LinkedList<string>();
+        public LinkedList<string> messageQueue = new LinkedList<string>();
+        private Random rnd = new Random();
         private Player[] players;
 
         public GameLogic()
@@ -18,15 +20,27 @@ namespace Szofttech_WPF.Logic
             players[1] = new Player();
         }
 
+        private void addMessage(Data data)
+        {
+            lock (queueLock)
+            {
+                messageQueue.AddLast(DataConverter.encode(data));
+            }
+        }
+
         public void processMessage(Data data)
         {
+            if (data == null)
+            {
+                throw new Exception("Data is null");
+            }
             switch (data.GetType().Name)
             {
                 case "ChatData":
-                    data.setRecipientID(0);
-                    messageQueue.Add(DataConverter.encode((ChatData)data));
-                    data.setRecipientID(1);
-                    messageQueue.Add(DataConverter.encode((ChatData)data));
+                    data.RecipientID = 0;
+                    addMessage((ChatData)data);
+                    data.RecipientID = 1;
+                    addMessage((ChatData)data);
                     break;
                 case "PlaceShipsData":
                     setPlayerBoard((PlaceShipsData)data);
@@ -37,8 +51,8 @@ namespace Szofttech_WPF.Logic
                     calcShot((ShotData)data);
                     break;
                 case "DisconnectData":
-                    data.setRecipientID(data.clientID == 1 ? 0 : 1);
-                    messageQueue.Add(DataConverter.encode((DisconnectData)data));
+                    data.RecipientID = data.ClientID == 1 ? 0 : 1;
+                    addMessage((DisconnectData)data);
                     break;
                 default:
                     Console.WriteLine("########## ISMERETLEN OSZTÁLY #########");
@@ -50,37 +64,38 @@ namespace Szofttech_WPF.Logic
         private void calcShot(ShotData data)
         {
 
-            int egyik = data.getClientID();
+            int egyik = data.ClientID;
             int masik = egyik == 1 ? 0 : 1;
 
-            ShotData sd = new ShotData(data.getClientID(), data.getI(), data.getJ());
-            sd.setRecipientID(masik);
-            messageQueue.Add(DataConverter.encode(sd));
+            ShotData sd = new ShotData(data.ClientID, data.I, data.J);
+            sd.RecipientID = masik;
+            addMessage(sd);
 
-            CellData cd = new CellData(-1, data.getI(), data.getJ(), players[masik].Board.cellstatus[data.getI(), data.getJ()]);
-            cd.setRecipientID(egyik);
-            messageQueue.Add(DataConverter.encode(cd));
+            CellData cd = new CellData(-1, data.I, data.J, players[masik].Board.cellstatus[data.I, data.J]);
+            cd.RecipientID = egyik;
+            addMessage(cd);
 
-            if (players[masik].Board.cellstatus[data.getI(), data.getJ()] == CellStatus.Ship)
+            if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
-                players[masik].Board.cellstatus[data.getI(), data.getJ()] = CellStatus.ShipHit;
-                if (players[masik].Board.isSunk(data.getI(), data.getJ()))
+                Console.WriteLine("Gamelogic Ship");
+                players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
+                if (players[masik].Board.isSunk(data.I, data.J))
                 {
-                    hitNear(egyik, masik, data.getI(), data.getJ());
+                    hitNear(egyik, masik, data.I, data.J);
                 }
                 if (isWin(players[masik]))
                 {
-                    messageQueue.Add(DataConverter.encode(new GameEndedData(GameEndedStatus.Win, egyik)));
-                    messageQueue.Add(DataConverter.encode(new GameEndedData(GameEndedStatus.Defeat, masik)));
+                    addMessage(new GameEndedData(GameEndedStatus.Win, egyik));
+                    addMessage(new GameEndedData(GameEndedStatus.Defeat, masik));
                 }
                 else
                 {
-                    messageQueue.Add(DataConverter.encode(new TurnData(egyik)));
+                    addMessage(new TurnData(egyik));
                 }
             }
             else
             {
-                messageQueue.Add(DataConverter.encode(new TurnData(masik)));
+                addMessage(new TurnData(masik));
             }
         }
 
@@ -97,32 +112,38 @@ namespace Szofttech_WPF.Logic
             foreach (Coordinate nearShipPoint in players[masik].Board.nearShipPoints(i, j))
             {
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
-                cd.setRecipientID(egyik);
-                messageQueue.Add(DataConverter.encode(cd));
+                cd.RecipientID = egyik;
+                addMessage(cd);
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
-                sd.setRecipientID(masik);
-                messageQueue.Add(DataConverter.encode(sd));
+                sd.RecipientID = masik;
+                addMessage(sd);
+
+                while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
+                {
+                    Thread.Sleep(50);
+                }
             }
         }
 
         private void setPlayerBoard(PlaceShipsData data)
         {
-            if (data.getClientID() == 0)
+            Console.WriteLine(data.Board);
+            if (data.ClientID == 0)
             {
-                players[0].Identifier = data.getClientID();
+                players[0].Identifier = data.ClientID;
                 players[0].isReady = true;
-                players[0].Board = data.getBoard();
+                players[0].Board = data.Board;
             }
             else
             {
-                players[1].Identifier = data.getClientID();
+                players[1].Identifier = data.ClientID;
                 players[1].isReady = true;
-                players[1].Board = data.getBoard();
+                players[1].Board = data.Board;
             }
 
             if (players[0].isReady == true && players[1].isReady == true)
             {
-                messageQueue.Add(DataConverter.encode(new TurnData(rnd.Next(1))));
+                addMessage(new TurnData(rnd.Next(2)));
             }
         }
     }

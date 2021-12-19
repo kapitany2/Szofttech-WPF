@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.View.Game
 {
@@ -10,6 +11,7 @@ namespace Szofttech_WPF.View.Game
     /// </summary>
     public partial class ShipInfoPanelGUI : UserControl
     {
+        private SolidColorBrush UnSelectedColor, SelectedColor;
         private TextBlock felirat;
         public readonly int ShipSize;
         private int piece;
@@ -17,7 +19,9 @@ namespace Szofttech_WPF.View.Game
         public ShipInfoPanelGUI(int shipSize, int piece)
         {
             InitializeComponent();
-            Background = new SolidColorBrush(Color.FromRgb(66, 121, 184));
+            UnSelectedColor = new SolidColorBrush(ColorChanger.DarkeningColor(Settings.getBackgroundColor(), 16));
+            SelectedColor = new SolidColorBrush(ColorChanger.DarkeningColor(UnSelectedColor.Color, -32));
+            Background = UnSelectedColor;
             this.ShipSize = shipSize;
             this.piece = piece;
             felirat = new TextBlock();
@@ -42,20 +46,11 @@ namespace Szofttech_WPF.View.Game
             }
         }
 
-        public int getPiece()
-        {
-            return this.piece;
-        }
+        public int getPiece() => this.piece;
 
-        public void Select()
-        {
-            Background = new SolidColorBrush(Color.FromRgb(34, 89, 152));
-        }
+        public void Select() => Background = SelectedColor;
 
-        public void UnSelect()
-        {
-            Background = new SolidColorBrush(Color.FromRgb(66, 121, 184));
-        }
+        public void UnSelect() => Background = UnSelectedColor;
 
         public void decrease()
         {

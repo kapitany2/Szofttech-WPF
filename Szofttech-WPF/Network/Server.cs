@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.Network
 {
     public class Server
     {
+        private object queueArrayLock = new object();
+        private object socketLock = new object();
         private int clientID = 0;
         private LinkedList<string>[] queueArray = new LinkedList<string>[2];
         private bool close = false;
@@ -43,22 +46,26 @@ namespace Szofttech_WPF.Network
             sSocket.Bind(localEndPoint);
             sSocket.Listen(4);
 
-            Thread messageDistributorThread = new Thread(() => {
+            Thread messageDistributorThread = new Thread(() =>
+            {
                 while (!close)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                     while (gameLogic.messageQueue.Count != 0)
                     {
-                        string messageToClient = gameLogic.messageQueue[0];
-                        gameLogic.messageQueue.RemoveAt(0);
-                        if (messageToClient != null)
+                        lock (gameLogic.queueLock)
                         {
-                            Data decoded = DataConverter.decode(messageToClient);
-                            int recipient = decoded.getRecipientID();
-                            addMessageToQueue(messageToClient, recipient);
+                            string messageToClient = gameLogic.messageQueue.First.Value;
+                            gameLogic.messageQueue.RemoveFirst();
+                            if (messageToClient != null)
+                            {
+                                Data decoded = DataConverter.decode(messageToClient);
+                                int recipient = decoded.RecipientID;
+                                addMessageToQueue(messageToClient, recipient);
+                            }
                         }
                     }
-                } 
+                }
             });
             messageDistributorThread.Start();
 
@@ -72,7 +79,7 @@ namespace Szofttech_WPF.Network
             {
                 try
                 {
-                    
+
                     while (!close)
                     {
                         Socket socket = sSocket.Accept();
@@ -97,13 +104,10 @@ namespace Szofttech_WPF.Network
                         int ownQueueID = (ID == 0) ? 0 : 1;
                         Console.WriteLine("Client " + ID + " joined the server.");
 
-                        byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
-                        socket.Send(message);
+                        //byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
+                        //socket.Send(Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>"));
 
-                        ConnectionData cData = new ConnectionData(ID)
-                        {
-                            recipientID = (ID == 0) ? 1 : 0
-                        };
+                        ConnectionData cData = new ConnectionData(ID);
 
                         addMessageToQueue(DataConverter.encode(cData), otherQueueID);
 
@@ -136,7 +140,6 @@ namespace Szofttech_WPF.Network
                     }
                 }
                 catch (Exception) { }
-                   
             });
             thread.Start();
         }
@@ -167,7 +170,7 @@ namespace Szofttech_WPF.Network
             {
                 Console.WriteLine(ex.Message, ex.StackTrace);
                 isAvailable = false;
-            }          
+            }
             return isAvailable;
         }
 
@@ -182,6 +185,17 @@ namespace Szofttech_WPF.Network
                 }
             }
             return "NO IP FOUND";
+        }
+
+        public static List<string> getLocalIPs()
+        {
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            List<string> ipList = new List<string>();
+            foreach (IPAddress ip in host.AddressList)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    ipList.Add(ip.ToString() + ":" + Settings.getPort());
+
+            return ipList;
         }
 
         private string getInMsg(Socket socket)

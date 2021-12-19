@@ -4,8 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Szofttech_WPF.View"
+             xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <viewmodel:SettingsGUIViewModel x:Key="vmSettings"/>
+    </UserControl.Resources>
+    
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -15,7 +20,8 @@
                  Text="{Binding ChatMessages}"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
-                 Background="#3269a8"
+                 Foreground="{Binding ForegroundColor}"
+                 Background="{Binding Source={StaticResource vmSettings}, Path=SelectedColor}"
                  IsReadOnly="True" 
                  VerticalScrollBarVisibility="Auto"
                  TextWrapping="Wrap"

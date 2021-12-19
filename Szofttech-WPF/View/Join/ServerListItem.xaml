@@ -4,9 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Szofttech_WPF.View.Join"
+             xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ServerListItemViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerName}"/>
-    </Grid>
+
+    <UserControl.Resources>
+        <viewmodel:ServerListItemViewModel x:Key="vmSListItem"/>
+    </UserControl.Resources>
+
+    <UserControl.InputBindings>
+        <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource vmSListItem}, Path=SelectItem}"
+                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerAddress}"/>
+    </UserControl.InputBindings>
+
+    <StackPanel x:Name="panel" HorizontalAlignment="Stretch" Orientation="Vertical" Background="{Binding Source={StaticResource vmSListItem}, Path=SelectedColor, UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerName}" FontSize="24" Style="{StaticResource NiceText}"/>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerIP}" FontSize="20" Style="{StaticResource NiceText}"/>
+            <TextBlock Text=":" FontSize="20" Style="{StaticResource NiceText}"/>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerPort}" FontSize="20" Style="{StaticResource NiceText}"/>
+        </StackPanel >
+    </StackPanel>
+    
 </UserControl>
+<!--To="{Binding Source={StaticResource vmSListItem}, Path=DarkerColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" -->

@@ -4,18 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Szofttech_WPF.View"
-             xmlns:join="clr-namespace:Szofttech_WPF.View.Join"
+             xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
+             xmlns:join="clr-namespace:Szofttech_WPF.View.Join" d:DataContext="{d:DesignInstance Type=viewmodel:JoinGameGUIViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <UserControl.Resources>
+        <viewmodel:JoinGameGUIViewModel x:Key="vmJoin"/>
+    </UserControl.Resources>
+    <Grid Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ItemsControl Grid.Row="0"
-                      HorizontalAlignment="Center">
-            <join:ServerListItem ServerName="TESZT" ServerIP="127.0.0.1" ServerPort="25564"/>
-        </ItemsControl>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Source={StaticResource vmJoin}, Path=ServerAddresses}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <join:ServerListItem ServerName="{Binding Name}" ServerIP="{Binding IP}" ServerPort="{Binding Port}" Margin="0, 10, 0, 0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*"/>
@@ -33,7 +44,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding ConnectCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform0" Angle="0"/>
@@ -65,7 +77,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding AddCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform1" Angle="0"/>
@@ -97,7 +110,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding EditCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform2" Angle="0"/>
@@ -129,7 +143,8 @@
                     Margin="5,0,5,0"
                     Height="50"
                     Style="{StaticResource RoundedGradientButton}"
-                    RenderTransformOrigin="0.5,0.5">
+                    RenderTransformOrigin="0.5,0.5"
+                    Command="{Binding RemoveCommand}">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <RotateTransform x:Name="rotateTransform3" Angle="0"/>

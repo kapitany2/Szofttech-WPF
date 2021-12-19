@@ -27,14 +27,14 @@ namespace Szofttech_WPF.View
         private InfoPanelGUI infoPanel;
         private Client Client;
         private Server Server;
-        private ChatViewModel ChatViewModel;
         private bool exitable = true;
+        private bool TEST_MODE_LOCAL = false;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
             Server = new Server(port);
-            ip.Text = String.Format("Host Address: {0}:{1}", Server.getLocalIP(),Settings.getPort());
-            ip.Visibility = Visibility.Visible;
+            ipListGrid.Visibility = Visibility.Visible;
+            IPListItemsControl.DataContext = Server.getLocalIPs();
         }
 
         public GameGUI(string ip, int port)
@@ -44,7 +44,6 @@ namespace Szofttech_WPF.View
             playerBoardGUI = new PlayerBoardGUI();
             enemyBoardGUI = new EnemyBoardGUI();
             selecter = new ShipSelecterGUI();
-            ChatViewModel = new ChatViewModel();
             chatGUI = new ChatGUI();
 
             Client = new Client(ip, port);
@@ -64,6 +63,7 @@ namespace Szofttech_WPF.View
             Grid.SetColumn(playerBoardGUI, 1);
 
             enemyBoardGUI.Visibility = Visibility.Hidden;
+            enemyBoardGUI.OnShot += EnemyBoardGUI_OnShot;
             grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
@@ -81,7 +81,6 @@ namespace Szofttech_WPF.View
             Grid.SetColumn(selecter, 1);
             Grid.SetColumnSpan(selecter, 5);
 
-            chatGUI.DataContext = ChatViewModel;
             chatGUI.Visibility = Visibility.Hidden;
             ((ChatViewModel)chatGUI.DataContext).OnSendMessage += ChatGUI_OnSendMessage;
             grid.Children.Add(chatGUI);
@@ -89,6 +88,26 @@ namespace Szofttech_WPF.View
             Grid.SetRowSpan(chatGUI, 1);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
+
+            infoPanel = new InfoPanelGUI();
+            infoPanel.Visibility = Visibility.Hidden;
+            grid.Children.Add(infoPanel);
+            Grid.SetRow(infoPanel, 3);
+            Grid.SetColumn(infoPanel, 3);
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
+
+
+            if (TEST_MODE_LOCAL)
+            {
+                Client_OnJoinedEnemy(null, null);
+                Client_OnYourTurn(null, null);
+            }
+        }
+
+        private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
+        {
+            Dispatcher.Invoke(() => ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false));
+            Client.sendMessage(new ShotData(Client.ID, e.I, e.J));
         }
 
         private void ChatGUI_OnSendMessage(object sender, SendMessageEventArgs e)
@@ -105,10 +124,14 @@ namespace Szofttech_WPF.View
         private void Client_OnJoinedEnemy(object sender, EventArgs e)
         {
             exitable = false;
-            waitingTitle.Visibility = Visibility.Hidden;
-            playerBoardGUI.Visibility = Visibility.Visible;
-            enemyBoardGUI.Visibility = Visibility.Visible;
-            selecter.Visibility = Visibility.Visible;
+            Dispatcher.Invoke(() =>
+            {
+                waitingTitle.Visibility = Visibility.Hidden;
+                ipListGrid.Visibility = Visibility.Hidden;
+                playerBoardGUI.Visibility = Visibility.Visible;
+                enemyBoardGUI.Visibility = Visibility.Visible;
+                selecter.Visibility = Visibility.Visible;
+            });
         }
 
         private void Client_OnMyHit(object sender, MyHitArgs e)
@@ -139,13 +162,14 @@ namespace Szofttech_WPF.View
                 default:
                     break;
             }
-            ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
+            Dispatcher.Invoke(() => ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage));
             exitable = true;
         }
 
         private void Client_OnYourTurn(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Dispatcher.Invoke(() => ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true));
+            enemyBoardGUI.setTurnEnabled(true);
         }
 
         private void Client_OnMessageReceived(object sender, MessageReceivedArgs e)
@@ -177,7 +201,12 @@ namespace Szofttech_WPF.View
         {
             playerBoardGUI.IsEnabled = false;
             chatGUI.Visibility = Visibility.Visible;
+            infoPanel.Visibility = Visibility.Visible;
             Client.sendMessage(new PlaceShipsData(Client.ID, playerBoardGUI.board));
+            if (TEST_MODE_LOCAL)
+            {
+                Client.sendMessage(new PlaceShipsData(Client.ID == 0 ? 1 : 0, playerBoardGUI.board));
+            }
         }
 
         private void Selecter_OnRanOutOfShips(object sender, EventArgs e)
@@ -224,6 +253,7 @@ namespace Szofttech_WPF.View
                 if (MessageBoxResult.Yes == Res)
                 {
                     exitable = true;
+                    Client.sendMessage(new DisconnectData(Client.ID));
                     CloseGUI();
                 }
             }
@@ -235,9 +265,14 @@ namespace Szofttech_WPF.View
 
             var Res = MessageBox.Show("Do you want to exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == Res)
+            {
+                Client.sendMessage(new DisconnectData(Client.ID));
                 return true;
+            }
 
             return false;
         }
+
+        private void ClickIPTextBlock(object sender, System.Windows.Input.MouseButtonEventArgs e) => Clipboard.SetText((sender as TextBlock).Text);
     }
 }
