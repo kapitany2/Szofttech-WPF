@@ -13,6 +13,7 @@ namespace Szofttech_WPF.Network
     public class Server
     {
         private object queueArrayLock = new object();
+        private object socketLock = new object();
         private int clientID = 0;
         private LinkedList<string>[] queueArray = new LinkedList<string>[2];
         private bool close = false;
@@ -21,11 +22,8 @@ namespace Szofttech_WPF.Network
 
         public void addMessageToQueue(string message, int ID)
         {
-            lock (queueArrayLock)
-            {
-                if (ID != -1)
-                    queueArray[ID].AddLast(message + "<EOF>");
-            }
+            if (ID != -1)
+                queueArray[ID].AddLast(message + "<EOF>");
         }
 
         public void Close()
@@ -106,8 +104,8 @@ namespace Szofttech_WPF.Network
                         int ownQueueID = (ID == 0) ? 0 : 1;
                         Console.WriteLine("Client " + ID + " joined the server.");
 
-                        byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
-                        socket.Send(message);
+                        //byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
+                        //socket.Send(Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>"));
 
                         ConnectionData cData = new ConnectionData(ID);
 
@@ -133,13 +131,10 @@ namespace Szofttech_WPF.Network
                             Thread.Sleep(10);
                             while (queueArray[ownQueueID].Count != 0)
                             {
-                                lock (queueArrayLock)
-                                {
-                                    string queueMsg = queueArray[ownQueueID].First.Value;
-                                    queueArray[ownQueueID].RemoveFirst();
-                                    byte[] bytes = Encoding.UTF8.GetBytes(queueMsg);
-                                    socket.Send(bytes);
-                                }
+                                string queueMsg = queueArray[ownQueueID].First.Value;
+                                queueArray[ownQueueID].RemoveFirst();
+                                byte[] bytes = Encoding.UTF8.GetBytes(queueMsg);
+                                socket.Send(bytes);
                             }
                         }
                     }
@@ -219,6 +214,7 @@ namespace Szofttech_WPF.Network
                         inMsg = inMsg.Replace("<EOF>", "");
                         break;
                     }
+                    
                 }
             }
             catch { Close(); }

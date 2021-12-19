@@ -5,7 +5,7 @@ namespace Szofttech_WPF.EventArguments.Join
 {
     public class ConnectArgs : EventArgs
     {
-        public ServerAddress ServerAddress;
+        public ServerAddress ServerAddress { get; set; }
 
         public ConnectArgs(ServerAddress serverAddress)
         {
