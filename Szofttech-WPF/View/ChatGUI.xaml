@@ -20,6 +20,7 @@
                  Text="{Binding ChatMessages}"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
+                 Foreground="{Binding ForegroundColor}"
                  Background="{Binding Source={StaticResource vmSettings}, Path=SelectedColor}"
                  IsReadOnly="True" 
                  VerticalScrollBarVisibility="Auto"

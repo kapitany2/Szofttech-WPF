@@ -27,9 +27,8 @@ namespace Szofttech_WPF.View
         private InfoPanelGUI infoPanel;
         private Client Client;
         private Server Server;
-        private ChatViewModel ChatViewModel;
         private bool exitable = true;
-        private bool TEST_MODE_LOCAL = true;
+        private bool TEST_MODE_LOCAL = false;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -45,7 +44,6 @@ namespace Szofttech_WPF.View
             playerBoardGUI = new PlayerBoardGUI();
             enemyBoardGUI = new EnemyBoardGUI();
             selecter = new ShipSelecterGUI();
-            ChatViewModel = new ChatViewModel();
             chatGUI = new ChatGUI();
 
             Client = new Client(ip, port);
@@ -83,7 +81,6 @@ namespace Szofttech_WPF.View
             Grid.SetColumn(selecter, 1);
             Grid.SetColumnSpan(selecter, 5);
 
-            chatGUI.DataContext = ChatViewModel;
             chatGUI.Visibility = Visibility.Hidden;
             ((ChatViewModel)chatGUI.DataContext).OnSendMessage += ChatGUI_OnSendMessage;
             grid.Children.Add(chatGUI);
@@ -96,7 +93,7 @@ namespace Szofttech_WPF.View
             grid.Children.Add(infoPanel);
             Grid.SetRow(infoPanel, 3);
             Grid.SetColumn(infoPanel, 3);
-            //((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true);
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true);
 
 
             if (TEST_MODE_LOCAL)
@@ -108,7 +105,7 @@ namespace Szofttech_WPF.View
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
         {
-            Console.WriteLine("SetTurnText FALSE");
+            Dispatcher.Invoke(() => ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false));
             Client.sendMessage(new ShotData(Client.ID, e.I, e.J));
         }
 
@@ -170,6 +167,7 @@ namespace Szofttech_WPF.View
 
         private void Client_OnYourTurn(object sender, EventArgs e)
         {
+            Dispatcher.Invoke(() => ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true));
             enemyBoardGUI.setTurnEnabled(true);
         }
 
