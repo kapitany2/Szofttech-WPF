@@ -10,7 +10,7 @@
         <viewmodel:InfoPanelGUIViewModel x:Key="vmVisibility" />
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=IsVisible, UpdateSourceTrigger=PropertyChanged}"/>
-        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=IsNotVisible, UpdateSourceTrigger=PropertyChanged}"/>
+        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=RedArrowVisibility, UpdateSourceTrigger=PropertyChanged}"/>
+        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=GreenArrowVisibility, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>
