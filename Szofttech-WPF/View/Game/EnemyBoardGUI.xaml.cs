@@ -13,7 +13,7 @@ namespace Szofttech_WPF.View.Game
     {
         private bool canTip;
         public event EventHandler<ShotArgs> OnShot;
-        private bool TEST_MODE = true;
+        private bool TEST_MODE = false;
         public EnemyBoardGUI()
         {
             InitializeComponent();

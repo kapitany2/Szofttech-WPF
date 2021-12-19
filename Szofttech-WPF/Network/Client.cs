@@ -69,11 +69,11 @@ namespace Szofttech_WPF.Network
                     {
                         Thread.Sleep(10);
                         string inMsg = getInMsg(socket);
-                        if (int.TryParse(inMsg, out int ID))
-                        {
-                            this.ID = ID;
-                            continue;
-                        }
+                        //if (int.TryParse(inMsg, out int ID))
+                        //{
+                        //    this.ID = ID;
+                        //    continue;
+                        //}
 
                         if (inMsg != null)
                         {
@@ -93,6 +93,7 @@ namespace Szofttech_WPF.Network
                                     //PlaceShipsData
                                     break;
                                 case "ConnectionData":
+                                    ID = data.ClientID;
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
