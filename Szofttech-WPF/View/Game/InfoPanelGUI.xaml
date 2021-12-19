@@ -7,11 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="60" d:DesignWidth="60">
     <UserControl.Resources>
-        <viewmodel:InfoPanelGUIViewModel x:Key="vmVisibility" />
         <converter:BoolToVisibilityConverter x:Key="cnvBoolToVisibility"/>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=RedArrowVisibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" Style="{StaticResource SmoothImage}"/>
-        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding Source={StaticResource vmVisibility}, Path=GreenArrowVisibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" Style="{StaticResource SmoothImage}"/>
+        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding RedArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
+        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding GreenArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
     </Grid>
 </UserControl>
