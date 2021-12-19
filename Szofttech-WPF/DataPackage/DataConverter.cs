@@ -10,8 +10,15 @@ namespace Szofttech_WPF.DataPackage
         public static Data decode(string message)
         {
             //Console.WriteLine(message);
-
-            Data data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+            Data data;
+            //try
+            //{
+                data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+            //}
+            //catch (Exception e)
+            //{
+            //    return new ChatData(-1, "Error\n" + e.Message);
+            //}
             return data;
         }
 

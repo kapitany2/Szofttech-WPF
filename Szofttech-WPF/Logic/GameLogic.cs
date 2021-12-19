@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Szofttech_WPF.DataPackage;
 
 namespace Szofttech_WPF.Logic
@@ -94,7 +95,8 @@ namespace Szofttech_WPF.Logic
 
         private void hitNear(int egyik, int masik, int i, int j)
         {
-            foreach (Coordinate nearShipPoint in players[masik].Board.nearShipPoints(i, j))
+            var tesztMiatt = players[masik].Board.nearShipPoints(i, j);
+            foreach (Coordinate nearShipPoint in tesztMiatt)
             {
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
                 cd.RecipientID = egyik;
@@ -102,6 +104,7 @@ namespace Szofttech_WPF.Logic
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
                 sd.RecipientID = masik;
                 messageQueue.Add(DataConverter.encode(sd));
+                Thread.Sleep(50);
             }
         }
 

@@ -13,6 +13,7 @@ namespace Szofttech_WPF.View.Game
     {
         private bool canTip;
         public event EventHandler<ShotArgs> OnShot;
+        private bool TEST_MODE = true;
         public EnemyBoardGUI()
         {
             InitializeComponent();
@@ -72,17 +73,17 @@ namespace Szofttech_WPF.View.Game
             if (cell.CellStatus == CellStatus.Empty)
             {
                 OnShot?.Invoke(null, new ShotArgs(cell.I, cell.J));
-                setTurnEnabled(false);
+                if (!TEST_MODE)
+                {
+                    setTurnEnabled(false);
+                }
                 cellExited(cell);
             }
         }
         public void setTurnEnabled(bool value)
         {
             canTip = value;
-            Dispatcher.Invoke(() =>
-            {
-                IsEnabled = value;
-            });
+            Dispatcher.Invoke(() => IsEnabled = value);
         }
     }
 }
