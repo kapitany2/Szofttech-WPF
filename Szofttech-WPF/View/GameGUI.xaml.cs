@@ -29,6 +29,7 @@ namespace Szofttech_WPF.View
         private Server Server;
         private ChatViewModel ChatViewModel;
         private bool exitable = true;
+        private bool TEST_MODE_LOCAL = true;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -90,6 +91,19 @@ namespace Szofttech_WPF.View
             Grid.SetRowSpan(chatGUI, 1);
             Grid.SetColumn(chatGUI, 1);
             Grid.SetColumnSpan(chatGUI, 5);
+
+            infoPanel = new InfoPanelGUI();
+            grid.Children.Add(infoPanel);
+            Grid.SetRow(infoPanel, 3);
+            Grid.SetColumn(infoPanel, 3);
+            //((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true);
+
+
+            if (TEST_MODE_LOCAL)
+            {
+                Client_OnJoinedEnemy(null, null);
+                Client_OnYourTurn(null, null);
+            }
         }
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
@@ -189,6 +203,10 @@ namespace Szofttech_WPF.View
             playerBoardGUI.IsEnabled = false;
             chatGUI.Visibility = Visibility.Visible;
             Client.sendMessage(new PlaceShipsData(Client.ID, playerBoardGUI.board));
+            if (TEST_MODE_LOCAL)
+            {
+                Client.sendMessage(new PlaceShipsData(Client.ID == 0 ? 1 : 0, playerBoardGUI.board));
+            }
         }
 
         private void Selecter_OnRanOutOfShips(object sender, EventArgs e)
