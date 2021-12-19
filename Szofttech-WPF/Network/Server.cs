@@ -51,7 +51,7 @@ namespace Szofttech_WPF.Network
                     Thread.Sleep(10);
                     while (gameLogic.messageQueue.Count != 0)
                     {
-                        lock (gameLogic.messageQueue)
+                        lock (gameLogic.queueLock)
                         {
                             string messageToClient = gameLogic.messageQueue.First.Value;
                             gameLogic.messageQueue.RemoveFirst();
