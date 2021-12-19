@@ -104,7 +104,11 @@ namespace Szofttech_WPF.Logic
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
                 sd.RecipientID = masik;
                 messageQueue.Add(DataConverter.encode(sd));
-                Thread.Sleep(50);
+
+                while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
+                {
+                    Thread.Sleep(50);
+                }
             }
         }
 
