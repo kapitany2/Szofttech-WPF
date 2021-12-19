@@ -50,20 +50,20 @@ namespace Szofttech_WPF.Network
             {
                 while (!close)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                     while (gameLogic.messageQueue.Count != 0)
                     {
-                        //lock (gameLogic.queueLock)
-                        //{
-                        string messageToClient = gameLogic.messageQueue[0];
-                        gameLogic.messageQueue.RemoveAt(0);
-                        if (messageToClient != null)
+                        lock (gameLogic.queueLock)
                         {
-                            Data decoded = DataConverter.decode(messageToClient);
-                            int recipient = decoded.RecipientID;
-                            addMessageToQueue(messageToClient, recipient);
+                            string messageToClient = gameLogic.messageQueue.First.Value;
+                            gameLogic.messageQueue.RemoveFirst();
+                            if (messageToClient != null)
+                            {
+                                Data decoded = DataConverter.decode(messageToClient);
+                                int recipient = decoded.RecipientID;
+                                addMessageToQueue(messageToClient, recipient);
+                            }
                         }
-                        //}
                     }
                 }
             });
