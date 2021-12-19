@@ -120,7 +120,7 @@ namespace Szofttech_WPF.Logic
 
                 while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
                 {
-                    Thread.Sleep(25);
+                    Thread.Sleep(50);
                 }
             }
         }
