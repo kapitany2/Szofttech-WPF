@@ -94,7 +94,7 @@ namespace Szofttech_WPF.Network
                                     //PlaceShipsData
                                     break;
                                 case "ConnectionData":
-                                    ID = data.ClientID;
+                                    ID = (data.ClientID == 0) ? 1 : 0;
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
