@@ -9,7 +9,7 @@ namespace Szofttech_WPF.ViewModel
 {
     internal class InfoPanelGUIViewModel : BaseViewModel
     {
-        private bool greenArrowVisibility;
+        private bool greenArrowVisibility = true;
 
         public bool GreenArrowVisibility { get => greenArrowVisibility; set { greenArrowVisibility = value; OnPropertyChanged(); } }
 
@@ -19,8 +19,8 @@ namespace Szofttech_WPF.ViewModel
 
         public void changeVisibility(bool enabled)
         {
-            greenArrowVisibility = enabled;
-            redArrowVisibility = !enabled;
+            GreenArrowVisibility = enabled;
+            RedArrowVisibility = !enabled;
         }
     }
 }
