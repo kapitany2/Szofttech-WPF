@@ -7,7 +7,7 @@ namespace Szofttech_WPF.Logic
 {
     public class GameLogic
     {
-        public object queueLock = new object();
+        public object queueLock;
         public LinkedList<string> messageQueue = new LinkedList<string>();
         private Random rnd = new Random();
         private Player[] players;

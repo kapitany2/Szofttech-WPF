@@ -12,6 +12,7 @@ namespace Szofttech_WPF.Network
 {
     public class Server
     {
+        private object queueArrayLock;
         private int clientID = 0;
         private LinkedList<string>[] queueArray = new LinkedList<string>[2];
         private bool close = false;
@@ -20,8 +21,11 @@ namespace Szofttech_WPF.Network
 
         public void addMessageToQueue(string message, int ID)
         {
-            if (ID != -1)
-                queueArray[ID].AddLast(message + "<EOF>");
+            lock (queueArrayLock)
+            {
+                if (ID != -1)
+                    queueArray[ID].AddLast(message + "<EOF>");
+            }
         }
 
         public void Close()
@@ -129,16 +133,18 @@ namespace Szofttech_WPF.Network
                             Thread.Sleep(10);
                             while (queueArray[ownQueueID].Count != 0)
                             {
-                                string queueMsg = queueArray[ownQueueID].First.Value;
-                                queueArray[ownQueueID].RemoveFirst();
-                                byte[] bytes = Encoding.UTF8.GetBytes(queueMsg);
-                                socket.Send(bytes);
+                                lock (queueArrayLock)
+                                {
+                                    string queueMsg = queueArray[ownQueueID].First.Value;
+                                    queueArray[ownQueueID].RemoveFirst();
+                                    byte[] bytes = Encoding.UTF8.GetBytes(queueMsg);
+                                    socket.Send(bytes);
+                                }
                             }
                         }
                     }
                 }
                 catch (Exception) { }
-
             });
             thread.Start();
         }
