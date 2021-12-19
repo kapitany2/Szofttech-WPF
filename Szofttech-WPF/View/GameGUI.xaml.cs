@@ -131,7 +131,6 @@ namespace Szofttech_WPF.View
                 playerBoardGUI.Visibility = Visibility.Visible;
                 enemyBoardGUI.Visibility = Visibility.Visible;
                 selecter.Visibility = Visibility.Visible;
-                infoPanel.Visibility = Visibility.Visible;
             });
         }
 
@@ -202,6 +201,7 @@ namespace Szofttech_WPF.View
         {
             playerBoardGUI.IsEnabled = false;
             chatGUI.Visibility = Visibility.Visible;
+            infoPanel.Visibility = Visibility.Visible;
             Client.sendMessage(new PlaceShipsData(Client.ID, playerBoardGUI.board));
             if (TEST_MODE_LOCAL)
             {
