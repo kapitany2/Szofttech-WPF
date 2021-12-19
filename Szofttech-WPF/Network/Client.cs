@@ -98,12 +98,10 @@ namespace Szofttech_WPF.Network
                                     OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
                                     break;
                                 case "ShotData":
-                                    Console.WriteLine("client Ship shot");
                                     if (((ShotData)data).RecipientID == ID)
                                         OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
                                     break;
                                 case "CellData":
-                                    Console.WriteLine("client Ship cell");
                                     OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
                                     break;
                                 case "TurnData":
