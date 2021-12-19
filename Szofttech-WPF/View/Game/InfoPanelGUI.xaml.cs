@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Szofttech_WPF.ViewModel;
 
 namespace Szofttech_WPF.View.Game
 {
@@ -23,6 +24,7 @@ namespace Szofttech_WPF.View.Game
         public InfoPanelGUI()
         {
             InitializeComponent();
+            DataContext = new InfoPanelGUIViewModel();
         }
     }
 }
