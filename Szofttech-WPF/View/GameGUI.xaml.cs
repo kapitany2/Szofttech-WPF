@@ -90,10 +90,11 @@ namespace Szofttech_WPF.View
             Grid.SetColumnSpan(chatGUI, 5);
 
             infoPanel = new InfoPanelGUI();
+            infoPanel.Visibility = Visibility.Hidden;
             grid.Children.Add(infoPanel);
             Grid.SetRow(infoPanel, 3);
             Grid.SetColumn(infoPanel, 3);
-            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(true);
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
 
 
             if (TEST_MODE_LOCAL)
@@ -130,6 +131,7 @@ namespace Szofttech_WPF.View
                 playerBoardGUI.Visibility = Visibility.Visible;
                 enemyBoardGUI.Visibility = Visibility.Visible;
                 selecter.Visibility = Visibility.Visible;
+                infoPanel.Visibility = Visibility.Visible;
             });
         }
 
