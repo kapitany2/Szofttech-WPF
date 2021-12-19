@@ -13,7 +13,7 @@ namespace Szofttech_WPF.View.Game
     {
         private bool canTip;
         public event EventHandler<ShotArgs> OnShot;
-        private bool TEST_MODE = false;
+        private bool TEST_MODE_LOCAL = false;
         public EnemyBoardGUI()
         {
             InitializeComponent();
@@ -38,6 +38,7 @@ namespace Szofttech_WPF.View.Game
                     //seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
                     {
+                        Console.WriteLine("Erre kattintottál: " + seged.CellStatus);
                         if (IsEnabled && canTip)
                             cellClick(seged);
                     };
@@ -73,9 +74,10 @@ namespace Szofttech_WPF.View.Game
             if (cell.CellStatus == CellStatus.Empty)
             {
                 OnShot?.Invoke(null, new ShotArgs(cell.I, cell.J));
-                if (!TEST_MODE)
+                setTurnEnabled(false);
+                if (TEST_MODE_LOCAL)
                 {
-                    setTurnEnabled(false);
+                    setTurnEnabled(true);
                 }
                 cellExited(cell);
             }
