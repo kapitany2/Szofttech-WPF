@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.EventArguments.Client;
@@ -77,46 +78,14 @@ namespace Szofttech_WPF.Network
 
                         if (inMsg != null)
                         {
-                            //process(inMsg);
-                            Data data = DataConverter.decode(inMsg, "client");
-                            if (data == null)
+                            if (Regex.Matches(inMsg, "}{").Count > 0)
                             {
-                                Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
-                                continue;
+                                Console.WriteLine("########## JAJJJJ " + Regex.Matches(inMsg, "}{").Count);
+                                processList(inMsg);
                             }
-                            //Console.WriteLine(data.GetType().Name);
-                            switch (data.GetType().Name)
+                            else
                             {
-                                case "ChatData":
-                                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
-                                    break;
-                                case "PlaceShipsData":
-                                    //PlaceShipsData
-                                    break;
-                                case "ConnectionData":
-                                    ID = (data.ClientID == 0) ? 1 : 0;
-                                    OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
-                                    break;
-                                case "ShotData":
-                                    if (((ShotData)data).RecipientID == ID)
-                                        OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
-                                    break;
-                                case "CellData":
-                                    OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
-                                    break;
-                                case "TurnData":
-                                    OnYourTurn(null, EventArgs.Empty);
-                                    break;
-                                case "GameEndedData":
-                                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
-                                    break;
-                                case "DisconnectData":
-                                    OnDisconnected(null, EventArgs.Empty);
-                                    break;
-                                default:
-                                    //NOT IMPLEMENTED
-                                    Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
-                                    break;
+                                process(inMsg);
                             }
                         }
                     }
@@ -157,7 +126,7 @@ namespace Szofttech_WPF.Network
 
         private string getInMsg(Socket socket)
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10240];
             string inMsg = null;
             try
             {
@@ -185,48 +154,66 @@ namespace Szofttech_WPF.Network
 
         private void process(string inMsg)
         {
-            List<Data> datas = DataConverter.tryDecode(inMsg);
-            Console.WriteLine("MÉRET: " + datas.Count);
-            foreach (var data in datas)
+            Data data = DataConverter.decode(inMsg);
+            if (data == null)
             {
-                if (data == null)
-                {
-                    Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
-                    continue;
-                }
-                //Console.WriteLine(data.GetType().Name);
-                switch (data.GetType().Name)
-                {
-                    case "ChatData":
-                        OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
-                        break;
-                    case "PlaceShipsData":
-                        //PlaceShipsData
-                        break;
-                    case "ConnectionData":
-                        OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
-                        break;
-                    case "ShotData":
-                        if (((ShotData)data).RecipientID == ID)
-                            OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
-                        break;
-                    case "CellData":
-                        OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
-                        break;
-                    case "TurnData":
-                        OnYourTurn(null, EventArgs.Empty);
-                        break;
-                    case "GameEndedData":
-                        OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
-                        break;
-                    case "DisconnectData":
-                        OnDisconnected(null, EventArgs.Empty);
-                        break;
-                    default:
-                        //NOT IMPLEMENTED
-                        Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
-                        break;
-                }
+                Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);
+                return;
+            }
+            //Console.WriteLine(data.GetType().Name);
+            switch (data.GetType().Name)
+            {
+                case "ChatData":
+                    OnMessageReceived?.Invoke(null, new MessageReceivedArgs(data.ClientID, ((ChatData)data).Message));
+                    break;
+                case "PlaceShipsData":
+                    //PlaceShipsData
+                    break;
+                case "ConnectionData":
+                    ID = (data.ClientID == 0) ? 1 : 0;
+                    OnJoinedEnemy?.Invoke(null, EventArgs.Empty);
+                    break;
+                case "ShotData":
+                    if (((ShotData)data).RecipientID == ID)
+                        OnEnemyHitMe(null, new EnemyHitMeArgs(((ShotData)data).I, ((ShotData)data).J));
+                    break;
+                case "CellData":
+                    OnMyHit(null, new MyHitArgs(((CellData)data).I, ((CellData)data).J, ((CellData)data).Status));
+                    break;
+                case "TurnData":
+                    OnYourTurn(null, EventArgs.Empty);
+                    break;
+                case "GameEndedData":
+                    OnGameEnded(null, new GameEndedArgs(((GameEndedData)data).Status));
+                    break;
+                case "DisconnectData":
+                    OnDisconnected(null, EventArgs.Empty);
+                    break;
+                default:
+                    //NOT IMPLEMENTED
+                    Console.WriteLine("Nincs implementálva a Client-ben az alábbi osztály: " + data.GetType().Name);
+                    break;
+            }
+        }
+
+        private void processList(string inMsg)
+        {
+            int charValue = 1;
+            char delimeter;
+            bool found = true;
+            do
+            {
+                delimeter = (char)charValue;
+                if (inMsg.Contains(delimeter + ""))
+                    ++charValue;
+                else
+                    found = false;
+            } while (found);
+            inMsg = inMsg.Replace("}{", "}" + delimeter + "{");
+            string[] inMsgs = inMsg.Split(delimeter);
+            foreach (var item in inMsgs)
+            {
+                process(item);
             }
         }
     }

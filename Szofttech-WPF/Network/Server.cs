@@ -55,16 +55,11 @@ namespace Szofttech_WPF.Network
                     {
                         while (gameLogic.messageQueue.Count != 0)
                         {
-
                             string messageToClient = gameLogic.messageQueue.First.Value;
                             gameLogic.messageQueue.RemoveFirst();
                             if (messageToClient != null)
                             {
-                                if (messageToClient.Length > 150)
-                                {
-                                    Console.WriteLine("ajaj több dolog jött át:(\n" + "\n###### START" + messageToClient + "\n###### END");
-                                }
-                                Data decoded = DataConverter.decode(messageToClient, "server constructor while");
+                                Data decoded = DataConverter.decode(messageToClient);
                                 int recipient = decoded.RecipientID;
                                 addMessageToQueue(messageToClient, recipient);
                             }
@@ -89,7 +84,7 @@ namespace Szofttech_WPF.Network
                     {
                         Socket socket = sSocket.Accept();
 
-                        byte[] buffer = new byte[1024];
+                        byte[] buffer = new byte[10240];
                         string inMsg = null;
                         bool isClient = false;
 
@@ -124,7 +119,7 @@ namespace Szofttech_WPF.Network
                                 try
                                 {
                                     inMsg = getInMsg(socket);
-                                    gameLogic.processMessage(DataConverter.decode(inMsg, "server serveclient while"));
+                                    gameLogic.processMessage(DataConverter.decode(inMsg));
                                 }
                                 catch (Exception) { }
                             }
@@ -205,7 +200,7 @@ namespace Szofttech_WPF.Network
 
         private string getInMsg(Socket socket)
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10240];
             string inMsg = null;
             try
             {

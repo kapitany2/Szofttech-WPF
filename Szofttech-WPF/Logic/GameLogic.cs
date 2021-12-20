@@ -117,16 +117,6 @@ namespace Szofttech_WPF.Logic
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
                 sd.RecipientID = masik;
                 addMessage(sd);
-
-                //int count;
-                //do
-                //{
-                //    lock (queueLock)
-                //    {
-                //        count = messageQueue.Count;
-                //    }
-                //    if (count>0) Thread.Sleep(1);                    
-                //} while (count > 0);
             }
         }
 
