@@ -22,9 +22,7 @@ namespace Szofttech_WPF.Logic
         private void Reset()
         {
             foreach (Player player in players)
-            {
                 player.Reset();
-            }
         }
 
         private void addMessage(Data data)
