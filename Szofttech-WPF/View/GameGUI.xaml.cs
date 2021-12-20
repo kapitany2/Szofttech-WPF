@@ -117,7 +117,7 @@ namespace Szofttech_WPF.View
 
         private void Client_OnDisconnected(object sender, EventArgs e)
         {
-            Client.sendMessage(new ChatData(-1, "Enemy left the game."));
+            Client_OnMessageReceived(null, new MessageReceivedArgs(-1, "Enemy left the game."));
             exitable = true;
         }
 
