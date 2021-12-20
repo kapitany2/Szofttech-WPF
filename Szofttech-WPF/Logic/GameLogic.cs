@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Szofttech_WPF.DataPackage;
 
 namespace Szofttech_WPF.Logic
@@ -8,7 +7,6 @@ namespace Szofttech_WPF.Logic
     public class GameLogic
     {
         public static readonly object queueLock = new object();
-        //public LinkedList<string> messageQueueVili = new LinkedList<string>();
         public LinkedList<string> messageQueue = new LinkedList<string>();
         private Random rnd = new Random();
         private Player[] players;
@@ -77,7 +75,6 @@ namespace Szofttech_WPF.Logic
 
             if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
-                Console.WriteLine("Gamelogic Ship");
                 players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {
@@ -122,7 +119,6 @@ namespace Szofttech_WPF.Logic
 
         private void setPlayerBoard(PlaceShipsData data)
         {
-            Console.WriteLine(data.Board);
             if (data.ClientID == 0)
             {
                 players[0].Identifier = data.ClientID;

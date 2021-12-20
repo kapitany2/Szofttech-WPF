@@ -79,14 +79,9 @@ namespace Szofttech_WPF.Network
                         if (inMsg != null)
                         {
                             if (Regex.Matches(inMsg, "}{").Count > 0)
-                            {
-                                Console.WriteLine("########## JAJJJJ " + Regex.Matches(inMsg, "}{").Count);
                                 processList(inMsg);
-                            }
                             else
-                            {
                                 process(inMsg);
-                            }
                         }
                     }
                 });
