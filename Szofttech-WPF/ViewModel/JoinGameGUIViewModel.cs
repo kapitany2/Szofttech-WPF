@@ -39,7 +39,7 @@ namespace Szofttech_WPF.ViewModel
         private void loadServers()
         {
             ServerAddresses.Clear();
-            SelectedServerAddress = new ServerAddress("Local", "127.0.0.1", 25564);
+            SelectedServerAddress = new ServerAddress("local", "127.0.0.1", 25564);
             foreach (ServerAddress item in ServerManager.GetServers())
             {
                 ServerAddresses.Add(item);

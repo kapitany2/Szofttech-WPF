@@ -20,7 +20,7 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Source={StaticResource vmJoin}, Path=ServerAddresses, Mode=TwoWay}" >
+            <ItemsControl ItemsSource="{Binding Path=ServerAddresses}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
