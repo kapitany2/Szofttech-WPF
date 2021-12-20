@@ -78,7 +78,7 @@ namespace Szofttech_WPF.Network
                         if (inMsg != null)
                         {
                             //process(inMsg);
-                            Data data = DataConverter.decode(inMsg);
+                            Data data = DataConverter.decode(inMsg, "client");
                             if (data == null)
                             {
                                 Console.WriteLine("Nem tudtam dekódolni a client osztályban:\n" + inMsg);

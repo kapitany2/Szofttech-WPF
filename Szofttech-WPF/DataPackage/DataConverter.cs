@@ -9,17 +9,17 @@ namespace Szofttech_WPF.DataPackage
     public class DataConverter
     {
         private static JsonSerializerSettings jsonsettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
-        public static Data decode(string message)
+        public static Data decode(string message, string tesztsender)
         {
             //Console.WriteLine(message);
             //Data data;
             //try
             //{
-                //data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+            //    data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
             //}
             //catch (Exception e)
             //{
-            //    return new ChatData(-1, "Error\n" + e.Message);
+            //    return tryDecode(message)[0];
             //}
             //return data;
             return (Data)JsonConvert.DeserializeObject(message, jsonsettings);
@@ -35,25 +35,25 @@ namespace Szofttech_WPF.DataPackage
             }
             for (int i = 0; i < messages.Length-1; i++)
             {
-                datas.Add(decode(messages[i]));
+                datas.Add(decode(messages[i],"dataconverter"));
             }
             return datas;
         }
 
         public static string encode(Data data)
         {
-            //string a = JsonConvert.SerializeObject(data, jsonsettings);
-            //int count = a.Count(f => f == '$');
-            //if (a.Length > 150 && !(data is PlaceShipsData))//normál esetben csak a placeshipdata küld ekkoránál nagyobbat, vagy a chatdata
-            //{
-            //    Console.WriteLine("nagyobb a message mint 150: " + a.Length + "\n" + a);
-            //}
-            //if (count > 1 && !(data is PlaceShipsData))//ha több típust serializál
-            //{
-            //    Console.WriteLine("Több típust serializáltam, ennyit: " + count);
-            //}
-            //return a;
-            return JsonConvert.SerializeObject(data, jsonsettings);
+            string a = JsonConvert.SerializeObject(data, jsonsettings);
+            int count = a.Count(f => f == '$');
+            if (a.Length > 150 && !(data is PlaceShipsData))//normál esetben csak a placeshipdata küld ekkoránál nagyobbat, vagy a chatdata
+            {
+                Console.WriteLine("nagyobb a message mint 150: " + a.Length + "\n" + a);
+            }
+            if (count > 1 && !(data is PlaceShipsData))//ha több típust serializál
+            {
+                Console.WriteLine("Több típust serializáltam, ennyit: " + count);
+            }
+            return a;
+            //return JsonConvert.SerializeObject(data, jsonsettings);
         }
     }
 }
