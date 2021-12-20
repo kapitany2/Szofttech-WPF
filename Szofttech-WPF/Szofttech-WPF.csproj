@@ -73,6 +73,7 @@
     <Compile Include="DataPackage\DisconnectData.cs" />
     <Compile Include="DataPackage\GameEndedData.cs" />
     <Compile Include="DataPackage\PlaceShipsData.cs" />
+    <Compile Include="DataPackage\RematchData.cs" />
     <Compile Include="DataPackage\ShotData.cs" />
     <Compile Include="DataPackage\TurnData.cs" />
     <Compile Include="EventArguments\Board\ShipSizeArgs.cs" />
