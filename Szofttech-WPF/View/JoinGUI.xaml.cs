@@ -21,6 +21,7 @@ namespace Szofttech_WPF.View
         {
             this.Visibility = Visibility.Hidden;
         }
+
         public bool ExitApplication()
         {
             return true;
