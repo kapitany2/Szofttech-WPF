@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Media;
+using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
 
 namespace Szofttech_WPF.ViewModel
@@ -19,7 +21,8 @@ namespace Szofttech_WPF.ViewModel
                 Settings.Save();
                 if (SelectedColorChanged != null)
                     SelectedColorChanged(null, EventArgs.Empty);
-            } 
+            }
         }
+
     }
 }

@@ -14,7 +14,7 @@
 
     <UserControl.InputBindings>
         <MouseBinding Gesture="LeftClick" Command="{Binding Source={StaticResource vmSListItem}, Path=SelectItem}"
-                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerAddress}"/>
+                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerAddress, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
     </UserControl.InputBindings>
 
     <StackPanel x:Name="panel" HorizontalAlignment="Stretch" Orientation="Vertical" Background="{Binding Source={StaticResource vmSListItem}, Path=SelectedColor, UpdateSourceTrigger=PropertyChanged}">
@@ -25,6 +25,5 @@
             <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerPort}" FontSize="20" Style="{StaticResource NiceText}"/>
         </StackPanel >
     </StackPanel>
-    
+
 </UserControl>
-<!--To="{Binding Source={StaticResource vmSListItem}, Path=DarkerColor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" -->
