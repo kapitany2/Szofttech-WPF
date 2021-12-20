@@ -17,7 +17,7 @@
                       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerAddress, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
     </UserControl.InputBindings>
 
-    <StackPanel x:Name="panel" HorizontalAlignment="Stretch" Orientation="Vertical" Background="{Binding Source={StaticResource vmSListItem}, Path=SelectedColor, UpdateSourceTrigger=PropertyChanged}">
+    <StackPanel x:Name="panel" HorizontalAlignment="Stretch" Orientation="Vertical" Background="{Binding Path=(viewmodel:StaticViewModel.SelectedColor)}">
         <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerName}" FontSize="24" Style="{StaticResource NiceText}"/>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerIP}" FontSize="20" Style="{StaticResource NiceText}"/>
@@ -25,5 +25,4 @@
             <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerListItem}}, Path=ServerPort}" FontSize="20" Style="{StaticResource NiceText}"/>
         </StackPanel >
     </StackPanel>
-
 </UserControl>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Media;
 using Szofttech_WPF.Commands;
 using Szofttech_WPF.Network;
