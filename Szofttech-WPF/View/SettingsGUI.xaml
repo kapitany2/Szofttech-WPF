@@ -38,7 +38,7 @@
             </TextBox.InputBindings>
         </TextBox>
         
-        <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                Margin="0, 0, 0, 50" Text="{Binding Source={StaticResource vmSettings}, Path=ResponseText, Mode=TwoWay}" Style="{StaticResource NiceText}"
                Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>
 
