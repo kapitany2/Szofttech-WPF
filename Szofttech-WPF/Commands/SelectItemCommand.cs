@@ -1,5 +1,4 @@
-﻿using System;
-using Szofttech_WPF.ViewModel;
+﻿using Szofttech_WPF.ViewModel;
 using Szofttech_WPF.ViewModel.Base;
 
 namespace Szofttech_WPF.Commands
@@ -8,7 +7,7 @@ namespace Szofttech_WPF.Commands
     {
         public override void Execute(object parameter)
         {
-            ServerListItemViewModel.DoSomething(parameter);
+            ServerListItemViewModel.SetSelectedServer(parameter);
         }
     }
 }

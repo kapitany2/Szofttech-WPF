@@ -14,7 +14,7 @@ namespace Szofttech_WPF.ViewModel
     public class JoinGameGUIViewModel : BaseViewModel
     {
         public List<ServerAddress> ServerAddresses { get; set; }
-        public ServerAddress SelectedServerAddress { get; set; }
+        public static ServerAddress SelectedServerAddress { get; set; }
         public RelayCommand ConnectCommand { get; }
         public RelayCommand AddCommand { get; }
         public RelayCommand EditCommand { get; }
@@ -35,10 +35,6 @@ namespace Szofttech_WPF.ViewModel
         {
             ServerAddresses.Clear();
             SelectedServerAddress = new ServerAddress("Local", "127.0.0.1", 25564);
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    ServerAddresses.Add(new ServerAddress(i + ". Name", "192.168.0." + i, 25564));
-            //}
             foreach (ServerAddress item in ServerManager.GetServers())
             {
                 ServerAddresses.Add(item);
