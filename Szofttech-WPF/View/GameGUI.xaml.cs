@@ -53,6 +53,7 @@ namespace Szofttech_WPF.View
             Client.OnMyHit += Client_OnMyHit;
             Client.OnJoinedEnemy += Client_OnJoinedEnemy;
             Client.OnDisconnected += Client_OnDisconnected;
+            Client.OnRematch += Client_OnRematch;
 
             playerBoardGUI.Visibility = Visibility.Hidden;
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
@@ -94,6 +95,28 @@ namespace Szofttech_WPF.View
             Grid.SetRow(infoPanel, 3);
             Grid.SetColumn(infoPanel, 3);
             ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
+        }
+
+        private void ReInit()
+        {
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
+
+            playerBoardGUI.IsEnabled = true;
+            chatGUI.Visibility = Visibility.Hidden;
+            infoPanel.Visibility = Visibility.Hidden;
+
+            selecter.Visibility = Visibility.Visible;
+            enemyBoardGUI.ReInit();
+            playerBoardGUI.ReInit();
+            selecter.ReInit();
+            Selecter_OnClearBoard(null, null);
+            Selecter_OnPlaceRandomShips(null, null);
+        }
+
+        private void Client_OnRematch(object sender, EventArgs e)
+        {
+            Console.WriteLine("REMATCH");
+            Dispatcher.Invoke(() => ReInit());
         }
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
