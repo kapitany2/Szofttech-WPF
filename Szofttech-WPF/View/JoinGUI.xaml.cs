@@ -20,7 +20,9 @@ namespace Szofttech_WPF.View
         public void CloseGUI()
         {
             this.Visibility = Visibility.Hidden;
+            JoinGameGUIViewModel.SelectedServerAddress = null;
         }
+
         public bool ExitApplication()
         {
             return true;

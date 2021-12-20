@@ -11,7 +11,6 @@ namespace Szofttech_WPF.View.Game
     public partial class ShipSelecterGUI : UserControl
     {
         private const int shipTypeNumbers = 4;
-        private int selectedShipSize;
         private bool shipPlaceHorizontal;
         ShipInfoPanelGUI[] shipInfoPanels;
         public event EventHandler<SelectShipArgs> OnSelectShip;
@@ -50,8 +49,11 @@ namespace Szofttech_WPF.View.Game
                 OnDone?.Invoke(send, null);
                 Visibility = Visibility.Hidden;
             };
+            Init();
+        }
 
-            selectedShipSize = shipTypeNumbers;
+        private void Init()
+        {
             shipPlaceHorizontal = true;
             shipInfoPanels = new ShipInfoPanelGUI[shipTypeNumbers];
 
@@ -71,6 +73,16 @@ namespace Szofttech_WPF.View.Game
                 shipInfoPanels[i] = infoPanel;
             }
         }
+
+        public void ReInit()
+        {
+            foreach (var item in shipInfoPanels)
+            {
+                grid.Children.Remove(item);
+            }
+            Init();
+        }
+
 
         public void CanDone(bool value)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Szofttech_WPF.EventArguments.Board;
@@ -13,7 +14,6 @@ namespace Szofttech_WPF.View.Game
     {
         private bool canTip;
         public event EventHandler<ShotArgs> OnShot;
-        private bool TEST_MODE_LOCAL = false;
         public EnemyBoardGUI()
         {
             InitializeComponent();
@@ -35,10 +35,8 @@ namespace Szofttech_WPF.View.Game
                     grid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Auto) });
                     CellGUI seged = new CellGUI(i, j);
                     seged.Width = seged.Height = szelesseg;
-                    //seged.Margin = new Thickness(i * szelesseg, j * szelesseg, szelesseg, szelesseg);
                     seged.PreviewMouseLeftButtonDown += (send, args) =>
                     {
-                        Console.WriteLine("Erre kattintottál: " + seged.CellStatus);
                         if (IsEnabled && canTip)
                             cellClick(seged);
                     };
@@ -58,6 +56,17 @@ namespace Szofttech_WPF.View.Game
                 }
             }
         }
+        public void ReInit()
+        {
+            for (int i = 0; i < board.getNLength(); i++)
+            {
+                for (int j = 0; j < board.getNLength(); j++)
+                {
+                    grid.Children.Remove(cells[i, j]);
+                }
+            }
+            Init();
+        }
 
         private void cellExited(CellGUI cell)
         {
@@ -75,10 +84,6 @@ namespace Szofttech_WPF.View.Game
             {
                 OnShot?.Invoke(null, new ShotArgs(cell.I, cell.J));
                 setTurnEnabled(false);
-                if (TEST_MODE_LOCAL)
-                {
-                    setTurnEnabled(true);
-                }
                 cellExited(cell);
             }
         }

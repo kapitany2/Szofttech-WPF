@@ -42,7 +42,7 @@ namespace Szofttech_WPF.View.Game
             selectedShipSize = 4;
             selectedCells = new List<CellGUI>();
             cells = new CellGUI[board.getNLength(), board.getNLength()];
-
+            
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
             for (int i = 0; i < board.getNLength(); i++)
             {
@@ -75,6 +75,18 @@ namespace Szofttech_WPF.View.Game
                     Grid.SetColumn(seged, j);
                 }
             }
+        }
+
+        public void ReInit()
+        {
+            for (int i = 0; i < board.getNLength(); i++)
+            {
+                for (int j = 0; j < board.getNLength(); j++)
+                {
+                    grid.Children.Remove(cells[i, j]);
+                }
+            }
+            Init();
         }
 
         private void cellExited(CellGUI cel)

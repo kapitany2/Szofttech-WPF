@@ -28,7 +28,6 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private bool exitable = true;
-        private bool TEST_MODE_LOCAL = false;
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -54,6 +53,7 @@ namespace Szofttech_WPF.View
             Client.OnMyHit += Client_OnMyHit;
             Client.OnJoinedEnemy += Client_OnJoinedEnemy;
             Client.OnDisconnected += Client_OnDisconnected;
+            Client.OnRematch += Client_OnRematch;
 
             playerBoardGUI.Visibility = Visibility.Hidden;
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
@@ -95,13 +95,28 @@ namespace Szofttech_WPF.View
             Grid.SetRow(infoPanel, 3);
             Grid.SetColumn(infoPanel, 3);
             ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
+        }
 
+        private void ReInit()
+        {
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
 
-            if (TEST_MODE_LOCAL)
-            {
-                Client_OnJoinedEnemy(null, null);
-                Client_OnYourTurn(null, null);
-            }
+            playerBoardGUI.IsEnabled = true;
+            chatGUI.Visibility = Visibility.Hidden;
+            infoPanel.Visibility = Visibility.Hidden;
+
+            selecter.Visibility = Visibility.Visible;
+            enemyBoardGUI.ReInit();
+            playerBoardGUI.ReInit();
+            selecter.ReInit();
+            Selecter_OnClearBoard(null, null);
+            Selecter_OnPlaceRandomShips(null, null);
+        }
+
+        private void Client_OnRematch(object sender, EventArgs e)
+        {
+            Console.WriteLine("REMATCH");
+            Dispatcher.Invoke(() => ReInit());
         }
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
@@ -117,7 +132,7 @@ namespace Szofttech_WPF.View
 
         private void Client_OnDisconnected(object sender, EventArgs e)
         {
-            Client.sendMessage(new ChatData(-1, "Enemy left the game."));
+            Client_OnMessageReceived(null, new MessageReceivedArgs(-1, "Enemy left the game."));
             exitable = true;
         }
 
@@ -162,7 +177,11 @@ namespace Szofttech_WPF.View
                 default:
                     break;
             }
-            Dispatcher.Invoke(() => ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage));
+            Dispatcher.Invoke(() =>
+            {
+                ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
+                infoPanel.Visibility = Visibility.Hidden;
+            });
             exitable = true;
         }
 
@@ -203,10 +222,6 @@ namespace Szofttech_WPF.View
             chatGUI.Visibility = Visibility.Visible;
             infoPanel.Visibility = Visibility.Visible;
             Client.sendMessage(new PlaceShipsData(Client.ID, playerBoardGUI.board));
-            if (TEST_MODE_LOCAL)
-            {
-                Client.sendMessage(new PlaceShipsData(Client.ID == 0 ? 1 : 0, playerBoardGUI.board));
-            }
         }
 
         private void Selecter_OnRanOutOfShips(object sender, EventArgs e)

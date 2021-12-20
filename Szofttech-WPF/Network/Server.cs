@@ -50,10 +50,10 @@ namespace Szofttech_WPF.Network
             {
                 while (!close)
                 {
-                    Thread.Sleep(1);
-                    while (gameLogic.messageQueue.Count != 0)
+                    Thread.Sleep(10);
+                    lock (GameLogic.queueLock)
                     {
-                        lock (gameLogic.queueLock)
+                        while (gameLogic.messageQueue.Count != 0)
                         {
                             string messageToClient = gameLogic.messageQueue.First.Value;
                             gameLogic.messageQueue.RemoveFirst();
@@ -84,7 +84,7 @@ namespace Szofttech_WPF.Network
                     {
                         Socket socket = sSocket.Accept();
 
-                        byte[] buffer = new byte[1024];
+                        byte[] buffer = new byte[10240];
                         string inMsg = null;
                         bool isClient = false;
 
@@ -200,7 +200,7 @@ namespace Szofttech_WPF.Network
 
         private string getInMsg(Socket socket)
         {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[10240];
             string inMsg = null;
             try
             {

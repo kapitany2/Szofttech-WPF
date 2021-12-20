@@ -7,8 +7,7 @@ namespace Szofttech_WPF.Logic
 {
     public class GameLogic
     {
-        public object queueLock = new object();
-        //public LinkedList<string> messageQueueVili = new LinkedList<string>();
+        public static readonly object queueLock = new object();
         public LinkedList<string> messageQueue = new LinkedList<string>();
         private Random rnd = new Random();
         private Player[] players;
@@ -20,10 +19,27 @@ namespace Szofttech_WPF.Logic
             players[1] = new Player();
         }
 
+        private void Reset()
+        {
+            foreach (Player player in players)
+                player.Reset();
+        }
+
         private void addMessage(Data data)
         {
             lock (queueLock)
             {
+                messageQueue.AddLast(DataConverter.encode(data));
+            }
+        }
+
+        private void addMessageToAll(Data data)
+        {
+            lock (queueLock)
+            {
+                data.RecipientID = 0;
+                messageQueue.AddLast(DataConverter.encode(data));
+                data.RecipientID = 1;
                 messageQueue.AddLast(DataConverter.encode(data));
             }
         }
@@ -37,10 +53,7 @@ namespace Szofttech_WPF.Logic
             switch (data.GetType().Name)
             {
                 case "ChatData":
-                    data.RecipientID = 0;
-                    addMessage((ChatData)data);
-                    data.RecipientID = 1;
-                    addMessage((ChatData)data);
+                    processChatData((ChatData)data);
                     break;
                 case "PlaceShipsData":
                     setPlayerBoard((PlaceShipsData)data);
@@ -61,6 +74,64 @@ namespace Szofttech_WPF.Logic
             }
         }
 
+        private void processChatData(ChatData data)
+        {
+            if (data.Message[0] == '/')//ha parancs
+            {
+                data.Message = data.Message.Substring(1);
+                ChatData msg = new ChatData();
+                msg.ClientID = -1;
+                switch (data.Message)
+                {
+                    case "help":
+                        msg.RecipientID = data.ClientID;
+                        msg.Message = "Available commands:" +
+                            "\n/help\t  Show all commands." +
+                            "\n/rematch\t  Request rematch." +
+                            "\n/score\t  Show score.";
+                        addMessage(msg);
+                        break;
+                    case "rematch":
+                        players[data.ClientID].wantRematch = true;
+
+                        msg.Message = "The enemy wants to start a new game.";
+                        msg.RecipientID = data.ClientID == 0 ? 1 : 0;
+                        addMessage(msg);
+                        msg.Message = "You want to start a new game.";
+                        msg.RecipientID = data.ClientID;
+                        addMessage(msg);
+
+                        if (players[0].wantRematch == true && players[1].wantRematch == true)
+                        {
+                            msg.Message = "Rematch begins.";
+                            addMessageToAll(msg);
+
+                            Thread.Sleep(200);
+                            RematchData rd = new RematchData();
+                            rd.ClientID = -1;
+                            addMessageToAll(rd);
+
+                            Reset();
+                        }
+                        break;
+                    case "score":
+                        msg.RecipientID = data.ClientID;
+                        msg.Message = String.Format("You won {0} times, and lost {1} times.", players[data.ClientID].Win, players[data.ClientID].Lose);
+                        addMessage(msg);
+                        break;
+                    default:
+                        msg.RecipientID = data.ClientID;
+                        msg.Message = "Unknown command. Use /help to show available commands.";
+                        addMessage(msg);
+                        break;
+                }
+            }
+            else //ha sima üzenet
+            {
+                addMessageToAll(data);
+            }
+        }
+
         private void calcShot(ShotData data)
         {
 
@@ -77,7 +148,6 @@ namespace Szofttech_WPF.Logic
 
             if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
             {
-                Console.WriteLine("Gamelogic Ship");
                 players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {
@@ -85,6 +155,8 @@ namespace Szofttech_WPF.Logic
                 }
                 if (isWin(players[masik]))
                 {
+                    ++players[egyik].Win;
+                    ++players[masik].Lose;
                     addMessage(new GameEndedData(GameEndedStatus.Win, egyik));
                     addMessage(new GameEndedData(GameEndedStatus.Defeat, masik));
                 }
@@ -117,17 +189,11 @@ namespace Szofttech_WPF.Logic
                 ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
                 sd.RecipientID = masik;
                 addMessage(sd);
-
-                while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
-                {
-                    Thread.Sleep(50);
-                }
             }
         }
 
         private void setPlayerBoard(PlaceShipsData data)
         {
-            Console.WriteLine(data.Board);
             if (data.ClientID == 0)
             {
                 players[0].Identifier = data.ClientID;
