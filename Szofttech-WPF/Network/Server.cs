@@ -50,16 +50,21 @@ namespace Szofttech_WPF.Network
             {
                 while (!close)
                 {
-                    Thread.Sleep(1);
-                    while (gameLogic.messageQueue.Count != 0)
+                    Thread.Sleep(10);
+                    lock (GameLogic.queueLock)
                     {
-                        lock (gameLogic.queueLock)
+                        while (gameLogic.messageQueue.Count != 0)
                         {
+
                             string messageToClient = gameLogic.messageQueue.First.Value;
                             gameLogic.messageQueue.RemoveFirst();
                             if (messageToClient != null)
                             {
-                                Data decoded = DataConverter.decode(messageToClient);
+                                if (messageToClient.Length > 150)
+                                {
+                                    Console.WriteLine("ajaj több dolog jött át:(\n" + "\n###### START" + messageToClient + "\n###### END");
+                                }
+                                Data decoded = DataConverter.decode(messageToClient, "server constructor while");
                                 int recipient = decoded.RecipientID;
                                 addMessageToQueue(messageToClient, recipient);
                             }
@@ -119,7 +124,7 @@ namespace Szofttech_WPF.Network
                                 try
                                 {
                                     inMsg = getInMsg(socket);
-                                    gameLogic.processMessage(DataConverter.decode(inMsg));
+                                    gameLogic.processMessage(DataConverter.decode(inMsg, "server serveclient while"));
                                 }
                                 catch (Exception) { }
                             }

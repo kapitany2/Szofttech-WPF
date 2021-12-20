@@ -7,7 +7,7 @@ namespace Szofttech_WPF.Logic
 {
     public class GameLogic
     {
-        public object queueLock = new object();
+        public static readonly object queueLock = new object();
         //public LinkedList<string> messageQueueVili = new LinkedList<string>();
         public LinkedList<string> messageQueue = new LinkedList<string>();
         private Random rnd = new Random();
@@ -118,10 +118,15 @@ namespace Szofttech_WPF.Logic
                 sd.RecipientID = masik;
                 addMessage(sd);
 
-                while (messageQueue.Count > 0) //valamiért ezzel így nem bugos
-                {
-                    Thread.Sleep(50);
-                }
+                //int count;
+                //do
+                //{
+                //    lock (queueLock)
+                //    {
+                //        count = messageQueue.Count;
+                //    }
+                //    if (count>0) Thread.Sleep(1);                    
+                //} while (count > 0);
             }
         }
 
