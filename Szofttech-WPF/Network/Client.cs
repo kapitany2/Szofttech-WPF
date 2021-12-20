@@ -23,7 +23,7 @@ namespace Szofttech_WPF.Network
         public event EventHandler<GameEndedArgs> OnGameEnded;
         public event EventHandler<EnemyHitMeArgs> OnEnemyHitMe;
         public event EventHandler<MyHitArgs> OnMyHit;
-        public event EventHandler OnYourTurn, OnJoinedEnemy, OnDisconnected;
+        public event EventHandler OnYourTurn, OnJoinedEnemy, OnDisconnected, OnRematch;
 
         public Client(string ip, int port)
         {
@@ -183,6 +183,9 @@ namespace Szofttech_WPF.Network
                     break;
                 case "DisconnectData":
                     OnDisconnected(null, EventArgs.Empty);
+                    break;
+                case "RematchData":
+                    OnRematch(null, EventArgs.Empty);
                     break;
                 default:
                     //NOT IMPLEMENTED
