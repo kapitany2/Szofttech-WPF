@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Szofttech_WPF.EventArguments.Board;
@@ -54,6 +55,17 @@ namespace Szofttech_WPF.View.Game
                     Grid.SetColumn(seged, j);
                 }
             }
+        }
+        public void ReInit()
+        {
+            for (int i = 0; i < board.getNLength(); i++)
+            {
+                for (int j = 0; j < board.getNLength(); j++)
+                {
+                    grid.Children.Remove(cells[i, j]);
+                }
+            }
+            Init();
         }
 
         private void cellExited(CellGUI cell)
