@@ -7,7 +7,7 @@ namespace Szofttech_WPF.View
 {
     public class BoardGUI : UserControl
     {
-        public Board board { get; protected set; }
+        public Board board { get; set; }
         protected CellGUI[,] cells;
         public BoardGUI()
         {
