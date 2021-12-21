@@ -41,9 +41,10 @@ namespace Szofttech_WPF.ViewModel
             //    item.SelectedColor = item.DarkerColor;
             //}
 
+            SolidColorBrush backColor = new SolidColorBrush(Settings.getBackgroundColor());
             for (int i = 0; i < slistItems.Count; ++i)
             {
-                slistItems[i].SelectedColor = new SolidColorBrush(Settings.getBackgroundColor());
+                slistItems[i].SelectedColor = backColor;
             }
             slistItems[JoinGameGUIViewModel.SelectedServerAddress.ID].SelectedColor = new SolidColorBrush(ColorChanger.DarkeningColor(StaticViewModel.SelectedColor, -32));
         }
