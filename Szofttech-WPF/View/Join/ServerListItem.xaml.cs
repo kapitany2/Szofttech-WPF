@@ -1,11 +1,7 @@
 ﻿#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +11,8 @@ namespace Szofttech_WPF.View.Join
 {
     public partial class ServerListItem : UserControl, INotifyPropertyChanged
     {
+        public static int Global_ID = 0;
+
         public static readonly DependencyProperty ServerNameProperty = DependencyProperty.Register("ServerName", typeof(string), typeof(ServerListItem));
         public static readonly DependencyProperty ServerIPProperty = DependencyProperty.Register("ServerIP", typeof(string), typeof(ServerListItem));
         public static readonly DependencyProperty ServerPortProperty = DependencyProperty.Register("ServerPort", typeof(int), typeof(ServerListItem));
@@ -46,14 +44,13 @@ namespace Szofttech_WPF.View.Join
         public ServerListItem()
         {
             InitializeComponent();
-            SetServerAddress();
+            SetServerAddress(Global_ID++);
         }
         
-        //Erre jobb megoldást nem találtam, de szerintem fantasztikus
-        private async Task SetServerAddress()
+        private async Task SetServerAddress(int id)
         {
             await Task.Delay(100);
-            ServerAddress = new ServerAddress(ServerName, ServerIP, ServerPort);
+            ServerAddress = new ServerAddress(ServerName, ServerIP, ServerPort, id);
         }
 
         private void OnPropertyChanged(string name)

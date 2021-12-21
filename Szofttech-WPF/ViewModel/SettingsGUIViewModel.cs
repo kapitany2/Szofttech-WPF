@@ -18,7 +18,15 @@ namespace Szofttech_WPF.ViewModel
         public string ResponseText { get => responseText; set { responseText = value; OnPropertyChanged(); } }
 
         private bool visibility;
-        public bool Visibility { get => visibility; set { visibility = value; OnPropertyChanged(); } }
+        public bool Visibility 
+        { 
+            get => visibility; 
+            set
+            {
+                visibility = value;
+                OnPropertyChanged();
+            }
+        }
 
         private List<Color> colors = new List<Color>()
         {
