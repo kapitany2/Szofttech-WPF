@@ -82,13 +82,6 @@ namespace Szofttech_WPF.Network
 
         public static void AddServer(ServerAddress sAddress)
         {
-            for (int i = 0; i < serverList.Count; ++i)
-            {
-                if(sAddress.Name == serverList[i].Name)
-                {
-                    throw new Exception("SZERVER NÉV MÁR LÉTEZIK!");
-                }
-            }
             serverList.Add(sAddress);
             WriteSavedServersToFile();
         }

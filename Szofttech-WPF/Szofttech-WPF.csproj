@@ -64,6 +64,7 @@
     <Compile Include="Commands\SelectItemCommand.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Converters\IntStringConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\PortConverter.cs" />
     <Compile Include="DataPackage\CellData.cs" />

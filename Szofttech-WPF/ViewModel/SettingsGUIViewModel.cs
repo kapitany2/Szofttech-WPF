@@ -76,6 +76,8 @@ namespace Szofttech_WPF.ViewModel
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(text) || text.Length > 5)
                 text = text.Remove(text.Length - 1);
+            if (regex.IsMatch(text) || text.Length > 5)
+                text = text.Remove(0);
             return text;
         }
     }

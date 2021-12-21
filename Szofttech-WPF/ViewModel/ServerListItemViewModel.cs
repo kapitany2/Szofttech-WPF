@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 using System.Windows.Media;
 using Szofttech_WPF.Commands;
 using Szofttech_WPF.Network;
@@ -35,11 +33,6 @@ namespace Szofttech_WPF.ViewModel
         {
             Console.WriteLine((ServerAddress)parameter);
             JoinGameGUIViewModel.SelectedServerAddress = (ServerAddress)parameter;
-
-            //foreach (ServerListItemViewModel item in slistItems)
-            //{
-            //    item.SelectedColor = item.DarkerColor;
-            //}
 
             SolidColorBrush backColor = new SolidColorBrush(Settings.getBackgroundColor());
             for (int i = 0; i < slistItems.Count; ++i)

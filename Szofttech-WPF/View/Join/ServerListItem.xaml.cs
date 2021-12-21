@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,19 +19,19 @@ namespace Szofttech_WPF.View.Join
         public string ServerName
         {
             get => (string)GetValue(ServerNameProperty);
-            set => SetValue(ServerNameProperty, value);
+            set { SetValue(ServerNameProperty, value); ServerAddress.Name = ServerName; ServerAddress.IP = ServerIP; ServerAddress.Port = ServerPort; }
         }
 
         public string ServerIP
         {
             get => (string)GetValue(ServerIPProperty);
-            set => SetValue(ServerIPProperty, value);
+            set { SetValue(ServerIPProperty, value); ServerAddress.Name = ServerName; ServerAddress.IP = ServerIP; ServerAddress.Port = ServerPort; }
         }
 
         public int ServerPort
         {
             get => (int)GetValue(ServerPortProperty);
-            set => SetValue(ServerPortProperty, value);
+            set { SetValue(ServerPortProperty, value); ServerAddress.Name = ServerName; ServerAddress.IP = ServerIP; ServerAddress.Port = ServerPort; }
         }
 
         private ServerAddress serverAddress;
