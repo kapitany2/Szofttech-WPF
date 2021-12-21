@@ -61,43 +61,43 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\SelectItemCommand.cs" />
-    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\ColorConverter.cs" />
-    <Compile Include="Converters\IntStringConverter.cs" />
-    <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\PortConverter.cs" />
-    <Compile Include="DataPackage\CellData.cs" />
-    <Compile Include="DataPackage\ChatData.cs" />
-    <Compile Include="DataPackage\ConnectionData.cs" />
-    <Compile Include="DataPackage\Data.cs" />
-    <Compile Include="DataPackage\DataConverter.cs" />
-    <Compile Include="DataPackage\DisconnectData.cs" />
-    <Compile Include="DataPackage\GameEndedData.cs" />
-    <Compile Include="DataPackage\PlaceShipsData.cs" />
-    <Compile Include="DataPackage\RematchData.cs" />
-    <Compile Include="DataPackage\ShotData.cs" />
-    <Compile Include="DataPackage\TurnData.cs" />
-    <Compile Include="EventArguments\Board\ShipSizeArgs.cs" />
-    <Compile Include="EventArguments\Board\ShotArgs.cs" />
-    <Compile Include="EventArguments\Chat\SendMessageEventArgs.cs" />
-    <Compile Include="EventArguments\Client\EnemyHitMeArgs.cs" />
-    <Compile Include="EventArguments\Client\GameEndedArgs.cs" />
-    <Compile Include="EventArguments\Client\MessageReceivedArgs.cs" />
-    <Compile Include="EventArguments\Client\MyHitArgs.cs" />
-    <Compile Include="EventArguments\Join\ConnectArgs.cs" />
-    <Compile Include="EventArguments\ShipSelecter\SelectShipArgs.cs" />
-    <Compile Include="EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />
-    <Compile Include="Interfaces\IExitableGUI.cs" />
-    <Compile Include="Logic\Board.cs" />
-    <Compile Include="Logic\CellStatus.cs" />
-    <Compile Include="Logic\Coordinate.cs" />
-    <Compile Include="Logic\GameLogic.cs" />
-    <Compile Include="Logic\Player.cs" />
-    <Compile Include="Network\ServerAddress.cs" />
-    <Compile Include="Network\ServerManager.cs" />
-    <Compile Include="Utils\ColorChanger.cs" />
-    <Compile Include="Utils\Settings.cs" />
+    <Compile Include="ViewModel\Commands\SelectItemCommand.cs" />
+    <Compile Include="ViewModel\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\Converters\ColorConverter.cs" />
+    <Compile Include="ViewModel\Converters\IntStringConverter.cs" />
+    <Compile Include="ViewModel\Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="ViewModel\Converters\PortConverter.cs" />
+    <Compile Include="Model\DataPackage\CellData.cs" />
+    <Compile Include="Model\DataPackage\ChatData.cs" />
+    <Compile Include="Model\DataPackage\ConnectionData.cs" />
+    <Compile Include="Model\DataPackage\Data.cs" />
+    <Compile Include="Model\DataPackage\DataConverter.cs" />
+    <Compile Include="Model\DataPackage\DisconnectData.cs" />
+    <Compile Include="Model\DataPackage\GameEndedData.cs" />
+    <Compile Include="Model\DataPackage\PlaceShipsData.cs" />
+    <Compile Include="Model\DataPackage\RematchData.cs" />
+    <Compile Include="Model\DataPackage\ShotData.cs" />
+    <Compile Include="Model\DataPackage\TurnData.cs" />
+    <Compile Include="Model\EventArguments\Board\ShipSizeArgs.cs" />
+    <Compile Include="Model\EventArguments\Board\ShotArgs.cs" />
+    <Compile Include="Model\EventArguments\Chat\SendMessageEventArgs.cs" />
+    <Compile Include="Model\EventArguments\Client\EnemyHitMeArgs.cs" />
+    <Compile Include="Model\EventArguments\Client\GameEndedArgs.cs" />
+    <Compile Include="Model\EventArguments\Client\MessageReceivedArgs.cs" />
+    <Compile Include="Model\EventArguments\Client\MyHitArgs.cs" />
+    <Compile Include="Model\EventArguments\Join\ConnectArgs.cs" />
+    <Compile Include="Model\EventArguments\ShipSelecter\SelectShipArgs.cs" />
+    <Compile Include="Model\EventArguments\ShipSelecter\SelectShipDirectionArgs.cs" />
+    <Compile Include="Model\Interfaces\IExitableGUI.cs" />
+    <Compile Include="Model\Logic\Board.cs" />
+    <Compile Include="Model\Logic\CellStatus.cs" />
+    <Compile Include="Model\Logic\Coordinate.cs" />
+    <Compile Include="Model\Logic\GameLogic.cs" />
+    <Compile Include="Model\Logic\Player.cs" />
+    <Compile Include="Model\Network\ServerAddress.cs" />
+    <Compile Include="Model\Network\ServerManager.cs" />
+    <Compile Include="Model\Utils\ColorChanger.cs" />
+    <Compile Include="Model\Utils\Settings.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\CommandBase.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
@@ -156,7 +156,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Resources\DefaultStyle.xaml">
+    <Page Include="View\Resources\DefaultStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,8 +210,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\Client.cs" />
-    <Compile Include="Network\Server.cs" />
+    <Compile Include="Model\Network\Client.cs" />
+    <Compile Include="Model\Network\Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -238,20 +238,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Resource Include="View\Resources\x_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\x_red.png" />
+    <Resource Include="View\Resources\back_hover_icon.png" />
+    <Resource Include="View\Resources\back_icon.png" />
+    <Resource Include="View\Resources\exit_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\back_hover_icon.png" />
-    <Resource Include="Resources\back_icon.png" />
-    <Resource Include="Resources\exit_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\arrow_left.png" />
-    <Resource Include="Resources\arrow_right.png" />
+    <Resource Include="View\Resources\arrow_left.png" />
+    <Resource Include="View\Resources\arrow_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

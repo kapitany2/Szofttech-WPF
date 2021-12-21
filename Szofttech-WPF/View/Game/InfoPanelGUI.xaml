@@ -10,7 +10,7 @@
         <converter:BoolToVisibilityConverter x:Key="cnvBoolToVisibility"/>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Image Source="../../Resources/arrow_left.png" Visibility="{Binding RedArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
-        <Image Source="../../Resources/arrow_right.png" Visibility="{Binding GreenArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
+        <Image Source="../../View/Resources/arrow_left.png" Visibility="{Binding RedArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
+        <Image Source="../../View/Resources/arrow_right.png" Visibility="{Binding GreenArrowVisibility, Converter={StaticResource cnvBoolToVisibility}}" Style="{StaticResource SmoothImage}"/>
     </Grid>
 </UserControl>
