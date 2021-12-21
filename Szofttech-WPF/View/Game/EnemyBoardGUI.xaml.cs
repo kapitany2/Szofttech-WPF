@@ -58,14 +58,15 @@ namespace Szofttech_WPF.View.Game
         }
         public void ReInit()
         {
+            canTip = true;
+            IsEnabled = false;
             for (int i = 0; i < board.getNLength(); i++)
             {
                 for (int j = 0; j < board.getNLength(); j++)
                 {
-                    grid.Children.Remove(cells[i, j]);
+                    cells[i, j].setCell(CellStatus.Empty);
                 }
             }
-            Init();
         }
 
         private void cellExited(CellGUI cell)

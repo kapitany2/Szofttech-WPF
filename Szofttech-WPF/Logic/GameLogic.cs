@@ -159,6 +159,10 @@ namespace Szofttech_WPF.Logic
                     ++players[masik].Lose;
                     addMessage(new GameEndedData(GameEndedStatus.Win, egyik));
                     addMessage(new GameEndedData(GameEndedStatus.Defeat, masik));
+                    ChatData msg = new ChatData();
+                    msg.ClientID = -1;
+                    msg.Message = "Use /rematch to play again.";
+                    addMessageToAll(msg);
                 }
                 else
                 {
