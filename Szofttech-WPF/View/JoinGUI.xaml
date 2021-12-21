@@ -13,6 +13,7 @@
         <viewmodel:JoinGameGUIViewModel x:Key="vmJoin"/>
         <converter:BoolToVisibilityConverter x:Key="cnvVisibility"/>
         <converter:NullToVisibilityConverter x:Key="cnvNull"/>
+        <converter:IntStringConverter x:Key="cnvIntString"/>
     </UserControl.Resources>
 
     <Grid>
@@ -33,8 +34,8 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <!-- ADD / EDIT -->
-        <Grid Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityAddEdit, Converter={StaticResource cnvVisibility}}">
+        <!-- ADD -->
+        <Grid Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityAdd, Converter={StaticResource cnvVisibility}}">
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
@@ -61,9 +62,9 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" Text="IP:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Style="{StaticResource NiceText}"/>
                 <TextBlock Grid.Row="3" Grid.Column="1" Text="Port:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Style="{StaticResource NiceText}"/>
 
-                <TextBox Grid.Row="1" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
-                <TextBox Grid.Row="2" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
-                <TextBox Grid.Row="3" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+                <TextBox Grid.Row="1" Text="{Binding Path=TextBoxName, Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+                <TextBox Grid.Row="2" Text="{Binding Path=TextBoxIP,   Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+                <TextBox Grid.Row="3" Text="{Binding Path=TextBoxPort, Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -76,12 +77,63 @@
                     <ColumnDefinition Width="0.25*"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="2" Content="Save" FontSize="20" Padding="10,0,10,0" Margin="5,0,5,0" Height="50"
-                    Style="{StaticResource RoundedGradientButton}" RenderTransformOrigin="0.5,0.5" Command="{Binding SaveCommand}"/>
+                    Style="{StaticResource RoundedGradientButton}" RenderTransformOrigin="0.5,0.5" Command="{Binding SaveAddCommand}"/>
                 <Button Grid.Column="3" Content="Cancel" FontSize="20" Padding="10,0,10,0" Margin="5,0,5,0" Height="50"
                     Style="{StaticResource RoundedGradientButton}" RenderTransformOrigin="0.5,0.5" Command="{Binding CancelCommand}"/>
             </Grid>
         </Grid>
-        <!-- ADD / EDIT -->
+        <!-- ADD -->
+
+        <!-- EDIT -->
+        <Grid Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding Path=VisibilityEdit, Converter={StaticResource cnvVisibility}}">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="0.25*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Name:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Style="{StaticResource NiceText}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="IP:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Style="{StaticResource NiceText}"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="Port:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Style="{StaticResource NiceText}"/>
+
+                <TextBox Grid.Row="1" Text="{Binding Path=TextBoxName, Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+                <TextBox Grid.Row="2" Text="{Binding Path=TextBoxIP,   Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+                <TextBox Grid.Row="3" Text="{Binding Path=TextBoxPort, Mode=TwoWay}" Grid.Column="3" Margin="0, 5, 0 , 5" TextAlignment="Center" MaxLines="1" FontSize="32"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="2" Content="Save" FontSize="20" Padding="10,0,10,0" Margin="5,0,5,0" Height="50"
+                    Style="{StaticResource RoundedGradientButton}" RenderTransformOrigin="0.5,0.5" Command="{Binding SaveEditCommand}"/>
+                <Button Grid.Column="3" Content="Cancel" FontSize="20" Padding="10,0,10,0" Margin="5,0,5,0" Height="50"
+                    Style="{StaticResource RoundedGradientButton}" RenderTransformOrigin="0.5,0.5" Command="{Binding CancelCommand}"/>
+            </Grid>
+        </Grid>
+        
+        <!-- EDIT -->
 
         <Grid Grid.Row="1" Visibility="{Binding Path=VisibilityList, Converter={StaticResource cnvVisibility}}">
             <Grid.ColumnDefinitions>

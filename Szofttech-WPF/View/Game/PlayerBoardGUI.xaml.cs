@@ -79,14 +79,17 @@ namespace Szofttech_WPF.View.Game
 
         public void ReInit()
         {
+            canPlace = true;
+            shipPlaceHorizontal = true;
+            selectedShipSize = 4;
+            selectedCells.Clear();
             for (int i = 0; i < board.getNLength(); i++)
             {
                 for (int j = 0; j < board.getNLength(); j++)
                 {
-                    grid.Children.Remove(cells[i, j]);
+                    cells[i, j].setCell(CellStatus.Empty);
                 }
             }
-            Init();
         }
 
         private void cellExited(CellGUI cel)

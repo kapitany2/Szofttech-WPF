@@ -18,7 +18,15 @@ namespace Szofttech_WPF.ViewModel
         public string ResponseText { get => responseText; set { responseText = value; OnPropertyChanged(); } }
 
         private bool visibility;
-        public bool Visibility { get => visibility; set { visibility = value; OnPropertyChanged(); } }
+        public bool Visibility 
+        { 
+            get => visibility; 
+            set
+            {
+                visibility = value;
+                OnPropertyChanged();
+            }
+        }
 
         private List<Color> colors = new List<Color>()
         {
@@ -68,6 +76,8 @@ namespace Szofttech_WPF.ViewModel
             Regex regex = new Regex("[^0-9]+");
             if (regex.IsMatch(text) || text.Length > 5)
                 text = text.Remove(text.Length - 1);
+            if (regex.IsMatch(text) || text.Length > 5)
+                text = text.Remove(0);
             return text;
         }
     }

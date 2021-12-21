@@ -12,8 +12,6 @@ namespace Szofttech_WPF.Network
 {
     public class Server
     {
-        private object queueArrayLock = new object();
-        private object socketLock = new object();
         private int clientID = 0;
         private LinkedList<string>[] queueArray = new LinkedList<string>[2];
         private bool close = false;
