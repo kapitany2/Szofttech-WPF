@@ -286,6 +286,7 @@ namespace Szofttech_WPF.View.Game
                 for (int j = 0; j < 10; j++)
                 {
                     cells[i, j].setCell(board.getCellstatus()[i, j]);
+                    board.cellstatus[i, j] = CellStatus.Empty;
                 }
             }
             selectedCells.Clear();
