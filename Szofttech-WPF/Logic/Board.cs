@@ -17,6 +17,15 @@ namespace Szofttech_WPF.Logic
         new Coordinate(1, 1)
         };
 
+        private static Coordinate[] relativeCoordsVertical = {
+            new Coordinate(-1, 0),
+            new Coordinate(1, 0)
+        };
+        private static Coordinate[] relativeCoordsHorizontal = {
+            new Coordinate(0, -1),
+            new Coordinate(0, 1)
+        };
+
         public CellStatus[,] cellstatus = new CellStatus[10, 10];
 
         /// <summary>
@@ -237,15 +246,7 @@ namespace Szofttech_WPF.Logic
 
         private List<Coordinate> ShipCoords(int i, int j)
         {
-            List<Coordinate> shipsCoords = new List<Coordinate>();
-            Coordinate[] relativeCoordsVertical = {
-            new Coordinate(-1, 0),
-            new Coordinate(1, 0)
-        };
-            Coordinate[] relativeCoordsHorizontal = {
-            new Coordinate(0, -1),
-            new Coordinate(0, 1)
-        };
+            List<Coordinate> shipsCoords = new List<Coordinate>();            
             bool horizontal = false;
             foreach (Coordinate point in relativeCoordsHorizontal)
             {
