@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -54,8 +55,11 @@ namespace Szofttech_WPF.ViewModel
         private void loadServers()
         {
             ServerAddresses.Clear();
+            //int Global_ID = 0;
             foreach (ServerAddress item in ServerManager.GetServers())
             {
+                //item.ID = Global_ID++;
+                //Console.WriteLine(Global_ID);
                 ServerAddresses.Add(item);
             }
         }

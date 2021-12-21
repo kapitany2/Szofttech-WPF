@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Media;
 using Szofttech_WPF.Commands;
 using Szofttech_WPF.Network;
@@ -11,6 +12,8 @@ namespace Szofttech_WPF.ViewModel
 {
     public class ServerListItemViewModel : BaseViewModel
     {
+        public static List<ServerListItemViewModel> slistItems = new List<ServerListItemViewModel>();
+
         private SolidColorBrush selectedColor;
         public SolidColorBrush SelectedColor { get => selectedColor; set { selectedColor = value; OnPropertyChanged(); } }
 
@@ -22,6 +25,8 @@ namespace Szofttech_WPF.ViewModel
             SelectedColor = new SolidColorBrush(Settings.getBackgroundColor());
             DarkerColor = new SolidColorBrush(ColorChanger.DarkeningColor(StaticViewModel.SelectedColor, -16));
             SelectItem = new SelectItemCommand();
+
+            slistItems.Add(this);
         }
 
         public SelectItemCommand SelectItem { get; set; }
@@ -30,6 +35,17 @@ namespace Szofttech_WPF.ViewModel
         {
             Console.WriteLine((ServerAddress)parameter);
             JoinGameGUIViewModel.SelectedServerAddress = (ServerAddress)parameter;
+
+            //foreach (ServerListItemViewModel item in slistItems)
+            //{
+            //    item.SelectedColor = item.DarkerColor;
+            //}
+
+            for (int i = 0; i < slistItems.Count; ++i)
+            {
+                slistItems[i].SelectedColor = new SolidColorBrush(Settings.getBackgroundColor());
+            }
+            slistItems[JoinGameGUIViewModel.SelectedServerAddress.ID].SelectedColor = new SolidColorBrush(ColorChanger.DarkeningColor(StaticViewModel.SelectedColor, -32));
         }
     }
 }
