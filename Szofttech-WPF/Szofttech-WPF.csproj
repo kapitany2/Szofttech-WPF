@@ -64,6 +64,7 @@
     <Compile Include="Commands\SelectItemCommand.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ColorConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\PortConverter.cs" />
     <Compile Include="DataPackage\CellData.cs" />
     <Compile Include="DataPackage\ChatData.cs" />
@@ -132,9 +133,6 @@
     <Compile Include="View\JoinGUI.xaml.cs">
       <DependentUpon>JoinGUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Join\AddEditServer.xaml.cs">
-      <DependentUpon>AddEditServer.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\Join\ServerListItem.xaml.cs">
       <DependentUpon>ServerListItem.xaml</DependentUpon>
     </Compile>
@@ -194,10 +192,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\JoinGUI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\Join\AddEditServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
