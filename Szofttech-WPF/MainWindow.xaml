@@ -20,7 +20,7 @@
         <TextBlock x:Name="header" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" PreviewMouseLeftButtonDown="drawWindow" />
         <Button x:Name="backButton" HorizontalAlignment="Left" Width="40" Height="40" Visibility="Hidden" Style="{StaticResource backButton}">
             <Button.Background>
-                <ImageBrush ImageSource="Resources/back_icon.png" Stretch="Fill" />
+                <ImageBrush ImageSource="View/Resources/back_icon.png" Stretch="Fill" />
             </Button.Background>
             <Button.ToolTip>
                 <ToolTip>
@@ -30,7 +30,7 @@
         </Button>
         <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="40" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
             <Button.Background>
-                <ImageBrush ImageSource="Resources/exit_icon.png" Stretch="None" />
+                <ImageBrush ImageSource="View/Resources/exit_icon.png" Stretch="None" />
             </Button.Background>
             <Button.ToolTip>
                 <ToolTip>
