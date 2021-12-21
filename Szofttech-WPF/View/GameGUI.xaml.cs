@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Szofttech_WPF.DataPackage;
@@ -239,7 +240,6 @@ namespace Szofttech_WPF.View
 
         private void Selecter_OnClearBoard(object sender, EventArgs e)
         {
-            playerBoardGUI.board = new Board();
             playerBoardGUI.ClearBoard();
             playerBoardGUI.canPlace = true;
             selecter.CanDone(false);

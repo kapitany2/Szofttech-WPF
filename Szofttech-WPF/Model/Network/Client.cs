@@ -99,12 +99,6 @@ namespace Szofttech_WPF.Network
                 }
                 try
                 {
-                    DisconnectData dcData = new DisconnectData(ID)
-                    {
-                        RecipientID = -1
-                    };
-                    string json = DataConverter.encode(dcData);
-                    socket.Send(Encoding.UTF8.GetBytes(json + "<EOF>"));
                     socket.Close();
                 }
                 catch (Exception ex)
