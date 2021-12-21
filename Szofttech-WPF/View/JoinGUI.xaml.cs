@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Szofttech_WPF.Interfaces;
+using Szofttech_WPF.Utils;
 using Szofttech_WPF.ViewModel;
 
 namespace Szofttech_WPF.View
