@@ -18,6 +18,8 @@ namespace Szofttech_WPF.Network
         private GameLogic gameLogic = null;
         private Socket sSocket = null;
 
+        private List<Socket> socketsList = new List<Socket>(2);
+
         public void addMessageToQueue(string message, int ID)
         {
             if (ID != -1)
@@ -26,6 +28,17 @@ namespace Szofttech_WPF.Network
 
         public void Close()
         {
+            string finalMessage = DataConverter.encode(new ChatData { RecipientID = 1, ClientID = -1, Message = "Enemy left the game." });
+            byte[] message = Encoding.UTF8.GetBytes(finalMessage + "<EOF>");
+
+            try
+            {
+                if (socketsList.Count > 1)
+                    socketsList[1].Send(message);
+            }
+            catch (Exception) { }
+                
+
             close = true;
             if (sSocket != null)
                 sSocket.Close();
@@ -75,12 +88,13 @@ namespace Szofttech_WPF.Network
         {
             Thread thread = new Thread(() =>
             {
+                Socket socket = null;
                 try
                 {
-
                     while (!close)
                     {
-                        Socket socket = sSocket.Accept();
+                        socket = sSocket.Accept();
+                        socketsList.Add(socket);
 
                         byte[] buffer = new byte[10240];
                         string inMsg = null;
@@ -101,9 +115,6 @@ namespace Szofttech_WPF.Network
                         int otherQueueID = (ID == 0) ? 1 : 0;
                         int ownQueueID = (ID == 0) ? 0 : 1;
                         Console.WriteLine("Client " + ID + " joined the server.");
-
-                        //byte[] message = Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>");
-                        //socket.Send(Encoding.UTF8.GetBytes(ID.ToString() + "<EOF>"));
 
                         ConnectionData cData = new ConnectionData(ID);
 
@@ -216,7 +227,6 @@ namespace Szofttech_WPF.Network
             }
             catch { Close(); }
 
-            //Console.WriteLine(inMsg);
             return inMsg;
         }
     }
