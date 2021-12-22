@@ -30,7 +30,8 @@
                  Text="{Binding ChatInput, UpdateSourceTrigger=PropertyChanged}"
                  VerticalContentAlignment="Center"
                  HorizontalAlignment="Stretch" 
-                 VerticalAlignment="Stretch">
+                 VerticalAlignment="Stretch"
+                 MaxLength="128">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
             </TextBox.InputBindings>
