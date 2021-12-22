@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DataPackage\DummyData.cs" />
     <Compile Include="ViewModel\Commands\SelectItemCommand.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\Converters\ColorConverter.cs" />

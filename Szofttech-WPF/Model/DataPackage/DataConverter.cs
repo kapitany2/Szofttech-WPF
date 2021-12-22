@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Szofttech_WPF.Logic;
+using Szofttech_WPF.Model.DataPackage;
 
 namespace Szofttech_WPF.DataPackage
 {
@@ -11,17 +9,16 @@ namespace Szofttech_WPF.DataPackage
         private static JsonSerializerSettings jsonsettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
         public static Data decode(string message)
         {
-            Data data = new ChatData(-1, "Exception handled");
+            Data data;
             try
             {
                 data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
             }
             catch (Exception)
             {
-                Console.WriteLine("MAJDNEM LEFAGYTUNK DESZERIALIZÁLÁS KÖZBEN");
+                data = new DummyData(-1);
             }
-            return data;
-            
+            return data;            
         }
 
         public static string encode(Data data)
@@ -33,8 +30,7 @@ namespace Szofttech_WPF.DataPackage
             }
             catch (Exception)
             {
-                Console.WriteLine("MAJDNEM LEFAGYTUNK SZERIALIZÁLÁS KÖZBEN");
-                msg = JsonConvert.SerializeObject(new ChatData(-1, "Exception handled"), jsonsettings);
+                msg = JsonConvert.SerializeObject(new DummyData(-1), jsonsettings);
             }
             return msg;
 
