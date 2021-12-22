@@ -118,6 +118,8 @@ namespace Szofttech_WPF.View
         {
             Console.WriteLine("REMATCH");
             Dispatcher.Invoke(() => ReInit());
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)

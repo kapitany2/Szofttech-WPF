@@ -20,6 +20,7 @@ namespace Szofttech_WPF
         private JoinGUI joinGUI;
         private SettingsGUI settingsGUI;
         private ChatGUI chatGUI;
+        private GameGUI gameGUI;
         public MainWindow()
         {
             InitializeComponent();
@@ -105,7 +106,6 @@ namespace Szofttech_WPF
 
         private void CreateGameGUI(ServerAddress sa)
         {
-            GameGUI gameGUI;
             if (sa != null)
             {
                 joinGUI.Visibility = Visibility.Hidden;
@@ -125,6 +125,9 @@ namespace Szofttech_WPF
                 {
                     menuGUI.Visibility = Visibility.Visible;
                     windowGrid.Children.Remove(gameGUI);
+                    gameGUI = null;
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
                 }
             };
             windowGrid.Children.Add(gameGUI);
