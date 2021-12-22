@@ -14,6 +14,7 @@ namespace Szofttech_WPF.Network
     {
         public int ID;
 
+        private object messageQueueLock = new object();
         private LinkedList<string> messageQueue = new LinkedList<string>();
         private string ip;
         private int port;
@@ -45,7 +46,11 @@ namespace Szofttech_WPF.Network
         {
             string message = DataConverter.encode(data);
             //Console.WriteLine(message);
-            messageQueue.AddLast(message + "<EOF>");
+            lock (messageQueueLock)
+            {
+                messageQueue.AddLast(message + "<EOF>");
+            }
+            
         }
 
         public void Close()
@@ -90,11 +95,15 @@ namespace Szofttech_WPF.Network
                 while (!close)
                 {
                     Thread.Sleep(10);
-                    while (messageQueue.Count != 0)
+                    lock (messageQueueLock)
                     {
-                        string message = messageQueue.First.Value;
-                        messageQueue.RemoveFirst();
-                        socket.Send(Encoding.UTF8.GetBytes(message));
+                        while (messageQueue.Count != 0)
+                        {
+
+                            string message = messageQueue.First.Value;
+                            messageQueue.RemoveFirst();
+                            socket.Send(Encoding.UTF8.GetBytes(message));
+                        }
                     }
                 }
                 try
