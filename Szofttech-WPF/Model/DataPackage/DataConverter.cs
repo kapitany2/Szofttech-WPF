@@ -11,12 +11,33 @@ namespace Szofttech_WPF.DataPackage
         private static JsonSerializerSettings jsonsettings = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };
         public static Data decode(string message)
         {
-            return (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+            Data data = new ChatData(-1, "Exception handled");
+            try
+            {
+                data = (Data)JsonConvert.DeserializeObject(message, jsonsettings);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("MAJDNEM LEFAGYTUNK DESZERIALIZÁLÁS KÖZBEN");
+            }
+            return data;
+            
         }
 
         public static string encode(Data data)
         {
-            return JsonConvert.SerializeObject(data, jsonsettings);
+            string msg;
+            try
+            {
+                msg = JsonConvert.SerializeObject(data, jsonsettings);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("MAJDNEM LEFAGYTUNK SZERIALIZÁLÁS KÖZBEN");
+                msg = JsonConvert.SerializeObject(new ChatData(-1, "Exception handled"), jsonsettings);
+            }
+            return msg;
+
         }
     }
 }
