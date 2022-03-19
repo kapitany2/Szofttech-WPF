@@ -42,7 +42,7 @@ namespace Szofttech_WPF.View.Game
             selectedShipSize = 4;
             selectedCells = new List<CellGUI>();
             cells = new CellGUI[board.getNLength(), board.getNLength()];
-            
+
             int szelesseg = int.Parse("" + Math.Floor(Width / board.getNLength()));
             for (int i = 0; i < board.getNLength(); i++)
             {
@@ -70,6 +70,14 @@ namespace Szofttech_WPF.View.Game
                     };
                     cells[i, j] = seged;
                     seged.setCell(board.getCellstatus()[i, j]);
+                    seged.ChangedToShip += (sender, args) =>
+                    {
+                        LoadCellGUIImage(((CellGUI)sender));
+                    };
+                    seged.ChangedToSunk += (sender, args) =>
+                    {
+                        LoadCellGUIImage(((CellGUI)sender));
+                    };
                     grid.Children.Add(seged);
                     Grid.SetRow(seged, i);
                     Grid.SetColumn(seged, j);
@@ -209,6 +217,7 @@ namespace Szofttech_WPF.View.Game
                     if (cells[cellI, cellJ + i].CellStatus == CellStatus.Ship)
                     {
                         cells[cellI, cellJ + i].setCell(CellStatus.Empty);
+                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
                         ++pickupShipSize;
                     }
                     else
@@ -224,6 +233,7 @@ namespace Szofttech_WPF.View.Game
                     if (cells[cellI, cellJ + i].CellStatus == CellStatus.Ship)
                     {
                         cells[cellI, cellJ + i].setCell(CellStatus.Empty);
+                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
                         ++pickupShipSize;
                     }
                     else
@@ -239,6 +249,7 @@ namespace Szofttech_WPF.View.Game
                     if (cells[cellI + i, cellJ].CellStatus == CellStatus.Ship)
                     {
                         cells[cellI + i, cellJ].setCell(CellStatus.Empty);
+                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
                         ++pickupShipSize;
                     }
                     else
@@ -254,6 +265,7 @@ namespace Szofttech_WPF.View.Game
                     if (cells[cellI + i, cellJ].CellStatus == CellStatus.Ship)
                     {
                         cells[cellI + i, cellJ].setCell(CellStatus.Empty);
+                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
                         ++pickupShipSize;
                     }
                     else
@@ -265,6 +277,8 @@ namespace Szofttech_WPF.View.Game
                 OnPickUp?.Invoke(null, new ShipSizeArgs(pickupShipSize));
                 cellEntered(cell); //Kijelölve legyen, amit levettünk
             }
+
+            Console.WriteLine(board);
         }
 
         public void ClearBoard()
@@ -274,9 +288,11 @@ namespace Szofttech_WPF.View.Game
                 for (int j = 0; j < board.getNLength(); j++)
                 {
                     cells[i, j].setCell(CellStatus.Empty);
+                    cells[i, j].setInfo(false, 1, 1);
                     board.cellstatus[i, j] = CellStatus.Empty;
                 }
             }
+            Console.WriteLine(board);
         }
 
         public void RandomPlace()
@@ -289,8 +305,21 @@ namespace Szofttech_WPF.View.Game
                     cells[i, j].setCell(board.getCellstatus()[i, j]);
                 }
             }
+            Console.WriteLine(board);
             selectedCells.Clear();
         }
 
+        private void LoadCellGUIImage(CellGUI cellGUI)
+        {
+            int i = cellGUI.I;
+            int j = cellGUI.J;
+            bool horizontal = board.IsHorizontal(i,j);
+            List<Coordinate> coordinates = board.ShipCoords(i, j);
+            coordinates.Reverse();
+            for (int x = 0; x < coordinates.Count; x++)
+            {
+                cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x+1);
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Szofttech_WPF.Logic;
 using Szofttech_WPF.Utils;
 
@@ -17,7 +19,11 @@ namespace Szofttech_WPF.View.Game
         private Color shipColor;
         public readonly int I;
         public readonly int J;
+        public bool isHorizontal { get; private set; }
+        public int pieceCounter { get; private set; } = 1;
+        public int shipPiece { get; private set; } = 1;
         public CellStatus CellStatus { get; private set; }
+        public event EventHandler ChangedToShip, ChangedToSunk;
 
         public CellGUI(int i, int j)
         {
@@ -32,7 +38,12 @@ namespace Szofttech_WPF.View.Game
             CellStatus = CellStatus.Empty;
             Background = new SolidColorBrush(BackGroundColor);
         }
-
+        public void setInfo(bool horizontal, int pieces, int counter)
+        {
+            isHorizontal = horizontal;
+            shipPiece = pieces;
+            pieceCounter = counter;
+        }
         public void select()
         {
             if (CellStatus == CellStatus.Empty)
@@ -48,8 +59,6 @@ namespace Szofttech_WPF.View.Game
         private void setColorSelected() => Background = new SolidColorBrush(ColorChanger.DarkeningColor(shipColor, 32));
 
         private void SetColorUnSelected() => Background = new SolidColorBrush(BackGroundColor);
-
-
 
         public void setCell(CellStatus cell)
         {
@@ -67,10 +76,12 @@ namespace Szofttech_WPF.View.Game
                         break;
                     case CellStatus.Ship:
                         Background = new SolidColorBrush(shipColor);
+                        ChangedToShip?.Invoke(this, EventArgs.Empty);
                         break;
                     case CellStatus.ShipHit:
                         break;
                     case CellStatus.ShipSunk:
+                        ChangedToSunk?.Invoke(this, EventArgs.Empty);
                         break;
                     default:
                         break;
@@ -116,6 +127,23 @@ namespace Szofttech_WPF.View.Game
                 case CellStatus.NearShip:
                     break;
                 case CellStatus.Ship:
+                    try
+                    {
+                        ImageBrush img = new ImageBrush();
+                        img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs" + shipPiece + "_" + pieceCounter + (isHorizontal ? "_horizontal" : "_vertical") + ".png"));
+                        Background = img;
+                    }
+                    catch (Exception)
+                    {
+                        if (shipPiece>4 || pieceCounter > 4)
+                        {
+                            Console.WriteLine("túlcsordult, benne maradt egy régi hajó darab");
+                        }
+                        else
+                        {
+                            Console.WriteLine("valami hiba a hajó kirajzolásánál");
+                        }
+                    }
                     break;
                 case CellStatus.ShipHit:
                     //háttér
