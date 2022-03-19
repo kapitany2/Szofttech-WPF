@@ -102,7 +102,7 @@ namespace Szofttech_WPF.Logic
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    a += cellstatus[j, i].ToString()[0] == 'S' ? "▓ " : "░ ";
+                    a += cellstatus[i, j].ToString()[0] == 'S' ? "▓ " : "░ ";
                 }
                 a += "\n";
             }
@@ -244,9 +244,9 @@ namespace Szofttech_WPF.Logic
             return false;
         }
 
-        private List<Coordinate> ShipCoords(int i, int j)
+
+        public bool IsHorizontal(int i, int j)
         {
-            List<Coordinate> shipsCoords = new List<Coordinate>();            
             bool horizontal = false;
             foreach (Coordinate point in relativeCoordsHorizontal)
             {
@@ -261,10 +261,16 @@ namespace Szofttech_WPF.Logic
                     }
                 }
             }
+            return horizontal;
+        }
+
+        public List<Coordinate> ShipCoords(int i, int j)
+        {
+            List<Coordinate> shipsCoords = new List<Coordinate>();
 
             shipsCoords.Add(new Coordinate(i, j));
 
-            if (horizontal)
+            if (IsHorizontal(i, j))
             {
                 CellStatus cs;
                 int x, y;
