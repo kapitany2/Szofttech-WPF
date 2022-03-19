@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8031C3BC-2D7A-4143-B070-DF865D9A1DAF}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Szofttech_WPF</RootNamespace>
     <AssemblyName>Szofttech-WPF</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -43,6 +43,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -229,6 +230,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -239,7 +241,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="View\Resources\x_red.png" />
   </ItemGroup>
@@ -251,6 +252,28 @@
   <ItemGroup>
     <Resource Include="View\Resources\arrow_left.png" />
     <Resource Include="View\Resources\arrow_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs1_1_horizontal.png" />
+    <Resource Include="View\Resources\bs1_1_vertical.png" />
+    <Resource Include="View\Resources\bs2_1_horizontal.png" />
+    <Resource Include="View\Resources\bs2_1_vertical.png" />
+    <Resource Include="View\Resources\bs2_2_horizontal.png" />
+    <Resource Include="View\Resources\bs2_2_vertical.png" />
+    <Resource Include="View\Resources\bs3_1_horizontal.png" />
+    <Resource Include="View\Resources\bs3_1_vertical.png" />
+    <Resource Include="View\Resources\bs3_2_horizontal.png" />
+    <Resource Include="View\Resources\bs3_2_vertical.png" />
+    <Resource Include="View\Resources\bs3_3_horizontal.png" />
+    <Resource Include="View\Resources\bs3_3_vertical.png" />
+    <Resource Include="View\Resources\bs4_1_horizontal.png" />
+    <Resource Include="View\Resources\bs4_1_vertical.png" />
+    <Resource Include="View\Resources\bs4_2_horizontal.png" />
+    <Resource Include="View\Resources\bs4_2_vertical.png" />
+    <Resource Include="View\Resources\bs4_3_horizontal.png" />
+    <Resource Include="View\Resources\bs4_3_vertical.png" />
+    <Resource Include="View\Resources\bs4_4_horizontal.png" />
+    <Resource Include="View\Resources\bs4_4_vertical.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
