@@ -207,74 +207,15 @@ namespace Szofttech_WPF.View.Game
                 }
             }
             else if (cell.CellStatus == CellStatus.Ship)
-            { //Ha felszedi
-                int cellI = cell.I, cellJ = cell.J;
-                int i = 1;
-                int pickupShipSize = 0;
-                //LE
-                while (cellI >= 0 && cellI <= 9 && cellJ + i >= 0 && cellJ + i <= 9)
+            {
+                ////Ha felszedi
+                var shipCoords = board.ShipCoords(cell.I, cell.J);
+                foreach (var coord in shipCoords)
                 {
-                    if (cells[cellI, cellJ + i].CellStatus == CellStatus.Ship)
-                    {
-                        cells[cellI, cellJ + i].setCell(CellStatus.Empty);
-                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
-                        ++pickupShipSize;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    ++i;
+                    cells[coord.X, coord.Y].setCell(CellStatus.Empty);
+                    board.setCell(coord.X, coord.Y, CellStatus.Empty);
                 }
-                i = 0;
-                //FEL
-                while (cellI >= 0 && cellI <= 9 && cellJ + i >= 0 && cellJ + i <= 9)
-                {
-                    if (cells[cellI, cellJ + i].CellStatus == CellStatus.Ship)
-                    {
-                        cells[cellI, cellJ + i].setCell(CellStatus.Empty);
-                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
-                        ++pickupShipSize;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    --i;
-                }
-                i = 1;
-                //JOBBRA
-                while (cellI + i >= 0 && cellI + i <= 9 && cellJ >= 0 && cellJ <= 9)
-                {
-                    if (cells[cellI + i, cellJ].CellStatus == CellStatus.Ship)
-                    {
-                        cells[cellI + i, cellJ].setCell(CellStatus.Empty);
-                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
-                        ++pickupShipSize;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    ++i;
-                }
-                i = -1;
-                //BALRA
-                while (cellI + i >= 0 && cellI + i <= 9 && cellJ >= 0 && cellJ <= 9)
-                {
-                    if (cells[cellI + i, cellJ].CellStatus == CellStatus.Ship)
-                    {
-                        cells[cellI + i, cellJ].setCell(CellStatus.Empty);
-                        board.setCell(cellI, cellJ + i, CellStatus.Empty);
-                        ++pickupShipSize;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                    --i;
-                }
-                OnPickUp?.Invoke(null, new ShipSizeArgs(pickupShipSize));
+                OnPickUp?.Invoke(null, new ShipSizeArgs(shipCoords.Count));
                 cellEntered(cell); //Kijelölve legyen, amit levettünk
             }
 
@@ -313,12 +254,12 @@ namespace Szofttech_WPF.View.Game
         {
             int i = cellGUI.I;
             int j = cellGUI.J;
-            bool horizontal = board.IsHorizontal(i,j);
+            bool horizontal = board.IsHorizontal(i, j);
             List<Coordinate> coordinates = board.ShipCoords(i, j);
             coordinates.Reverse();
             for (int x = 0; x < coordinates.Count; x++)
             {
-                cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x+1);
+                cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x + 1);
             }
         }
     }
