@@ -61,7 +61,7 @@ namespace Szofttech_WPF.Logic
                 case "ConnectionData":
                     break;
                 case "ShotData":
-                    calcShot((ShotData)data);
+                    calcShot2((ShotData)data);
                     break;
                 case "DisconnectData":
                     data.RecipientID = data.ClientID == 1 ? 0 : 1;
@@ -131,7 +131,45 @@ namespace Szofttech_WPF.Logic
                 addMessageToAll(data);
             }
         }
+        private void calcShot2(ShotData data)
+        {
+            int egyik = data.ClientID;            
+            int masik = egyik == 1 ? 0 : 1;
+            
+            //Ez megy a playerboard táblához
+            addMessage(new ShotData(data.ClientID, data.I, data.J) { RecipientID = masik });
+            //lövés
+            players[masik].Board.Hit(data.I, data.J);
+            addMessage(new CellData(-1, data.I, data.J, players[masik].Board.cellstatus[data.I, data.J]) { RecipientID = egyik });
 
+            //ha talált hajó
+            if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.ShipHit)
+            {
+                if (players[masik].Board.isSunk(data.I, data.J))
+                {
+                    hitNear(egyik, masik, data.I, data.J);
+                }
+                if (isWin(players[masik]))
+                {
+                    showLeftShips(players[egyik], players[masik]);
+                    ++players[egyik].Win;
+                    ++players[masik].Lose;
+                    addMessage(new GameEndedData(GameEndedStatus.Win, egyik));
+                    addMessage(new GameEndedData(GameEndedStatus.Defeat, masik));
+                    ChatData msg = new ChatData(-1, "Use /rematch to play again....");
+                    addMessageToAll(msg);
+                }
+                else
+                {
+                    addMessage(new TurnData(egyik));
+                }
+            }
+            else
+            {
+                addMessage(new TurnData(masik));
+            }
+
+        }
         private void calcShot(ShotData data)
         {
 
@@ -142,19 +180,20 @@ namespace Szofttech_WPF.Logic
             sd.RecipientID = masik;
             addMessage(sd);
 
+            players[masik].Board.Hit(data.I, data.J);
             CellData cd = new CellData(-1, data.I, data.J, players[masik].Board.cellstatus[data.I, data.J]);
             cd.RecipientID = egyik;
             addMessage(cd);
 
-            if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.Ship)
+            if (players[masik].Board.cellstatus[data.I, data.J] == CellStatus.ShipHit)
             {
-                players[masik].Board.cellstatus[data.I, data.J] = CellStatus.ShipHit;
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {
                     hitNear(egyik, masik, data.I, data.J);
                 }
                 if (isWin(players[masik]))
                 {
+                    showLeftShips(players[egyik], players[masik]);
                     ++players[egyik].Win;
                     ++players[masik].Lose;
                     addMessage(new GameEndedData(GameEndedStatus.Win, egyik));
@@ -174,7 +213,15 @@ namespace Szofttech_WPF.Logic
                 addMessage(new TurnData(masik));
             }
         }
-
+        private void showLeftShips(Player egyik, Player masik)
+        {
+            foreach (Coordinate coordinate in egyik.Board.getCoordinates(CellStatus.Ship))
+            {
+                CellData cd = new CellData(-1, coordinate.X, coordinate.Y, egyik.Board.cellstatus[coordinate.X, coordinate.Y]);
+                cd.RecipientID = masik.Identifier;
+                addMessage(cd);
+            }
+        }
         private bool isWin(Player player)
         {
             if (player.Board.hasCellStatus(CellStatus.Ship))
@@ -187,6 +234,9 @@ namespace Szofttech_WPF.Logic
         {
             foreach (Coordinate nearShipPoint in players[masik].Board.nearShipPoints(i, j))
             {
+                //ütés
+                players[masik].Board.Hit(nearShipPoint.X, nearShipPoint.Y);
+
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
                 cd.RecipientID = egyik;
                 addMessage(cd);
