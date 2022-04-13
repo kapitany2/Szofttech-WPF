@@ -275,5 +275,17 @@
     <Resource Include="View\Resources\bs4_4_horizontal.png" />
     <Resource Include="View\Resources\bs4_4_vertical.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs_table.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs_water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs_default.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
