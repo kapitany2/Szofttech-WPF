@@ -17,10 +17,25 @@ namespace Szofttech_WPF.ViewModel
 
         public bool RedArrowVisibility { get => redArrowVisibility; set { redArrowVisibility = value; OnPropertyChanged(); } }
 
+        private bool rematchVisibility = false;
+        public bool RematchVisibility { get => rematchVisibility; set { rematchVisibility = value; OnPropertyChanged(); } }
         public void changeVisibility(bool enabled)
         {
             GreenArrowVisibility = enabled;
             RedArrowVisibility = !enabled;
+        }
+        public RelayCommand RematchCommand { get; set; }
+
+        public event EventHandler OnRematch;
+
+        public InfoPanelGUIViewModel()
+        {
+            RematchCommand = new RelayCommand(Rematch);
+        }
+
+        private void Rematch()
+        {
+            OnRematch?.Invoke(null, EventArgs.Empty);
         }
     }
 }
