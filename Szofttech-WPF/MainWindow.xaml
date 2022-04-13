@@ -7,11 +7,13 @@
         xmlns:viewmodel="clr-namespace:Szofttech_WPF.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
-
+    <Window.Background>
+        <ImageBrush ImageSource="View/Resources/bs_background.png"/>
+    </Window.Background>
     <Grid x:Name="windowGrid">
-        <Grid.Background>
+        <!--<Grid.Background>
             <SolidColorBrush Color="{Binding Path=(viewmodel:StaticViewModel.SelectedColor), Mode=OneWay}"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
