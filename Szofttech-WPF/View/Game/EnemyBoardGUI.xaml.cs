@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.Logic;
 
@@ -17,6 +20,11 @@ namespace Szofttech_WPF.View.Game
         public EnemyBoardGUI()
         {
             InitializeComponent();
+            ImageBrush img = new ImageBrush();
+            img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs_table.png"));
+            Background = img;
+            Background = null;
+            //Background = new SolidColorBrush(Color.FromArgb(191, 141, 80, 5));
             Init();
         }
 
@@ -92,6 +100,18 @@ namespace Szofttech_WPF.View.Game
         {
             canTip = value;
             Dispatcher.Invoke(() => IsEnabled = value);
+        }
+        public void LoadCellGUIImage(int i, int j)
+        {
+            Console.Write("Enemy's board: ");
+            Console.WriteLine(board);
+            bool horizontal = board.IsHorizontal(i, j);
+            List<Coordinate> coordinates = board.ShipCoords(i, j);
+            coordinates.Reverse();
+            for (int x = 0; x < coordinates.Count; x++)
+            {
+                cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x + 1);
+            }
         }
     }
 }
