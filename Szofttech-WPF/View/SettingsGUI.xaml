@@ -31,18 +31,20 @@
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="1" Grid.Column="1" FontSize="60" Text="Port:" Style="{StaticResource NiceText}"/>
-        <TextBox Grid.Row="1" Grid.Column="3" MaxLines="1" TextAlignment="Center" FontSize="32"
+        <TextBox Grid.Row="1" Grid.Column="3" MaxLines="1" TextAlignment="Center"
+                 FontSize="40"
+                 Background="Transparent" Foreground="#fff"
                  Text="{Binding Source={StaticResource vmSettings}, Path=PortText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding Source={StaticResource vmSettings}, Path=ModifyPortCommand}" Key="Return"/>
             </TextBox.InputBindings>
         </TextBox>
         
-        <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+        <!--<TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                Margin="0, 0, 0, 50" Text="{Binding Source={StaticResource vmSettings}, Path=ResponseText, Mode=TwoWay}" Style="{StaticResource NiceText}"
-               Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>
+               Visibility="{Binding Source={StaticResource vmSettings}, Path=Visibility, Converter={StaticResource cnvBoolToVisibility}, Mode=OneWay}" FontSize="25"/>-->
 
-        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="60" Text="Theme:" Style="{StaticResource NiceText}"/>
+        <!--<TextBlock Grid.Row="3" Grid.Column="1" FontSize="60" Text="Theme:" Style="{StaticResource NiceText}"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource vmSettings}, Path=Colors}" SelectedItem="{Binding Path=(viewmodel:StaticViewModel.SelectedColor)}"
                   Grid.Row="3" Grid.Column="3" FontSize="32" VerticalAlignment="Center" Margin="3" HorizontalContentAlignment="Center">
             <ComboBox.ItemTemplate>
@@ -50,6 +52,6 @@
                     <TextBlock Text="{Binding Converter={StaticResource cnvColor}}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ComboBox>
+        </ComboBox>-->
     </Grid>
 </UserControl>
