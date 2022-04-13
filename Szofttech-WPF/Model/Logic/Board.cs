@@ -388,5 +388,34 @@ namespace Szofttech_WPF.Logic
             }
             return nearShipPoints;
         }
+        public void Hit(int i, int j)
+        {
+            switch (cellstatus[i, j])
+            {
+                case CellStatus.Empty:
+                    cellstatus[i, j] = CellStatus.EmptyHit;
+                    break;
+                case CellStatus.Ship:
+                    cellstatus[i, j] = CellStatus.ShipHit;
+                    break;
+                default:
+                    break;
+            }
+        }
+        public List<Coordinate> getCoordinates(CellStatus cellStatus)
+        {
+            List<Coordinate> coordinates = new List<Coordinate>();
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    if (cellstatus[i, j] == cellStatus)
+                    {
+                        coordinates.Add(new Coordinate(i, j));
+                    }
+                }
+            }
+            return coordinates;
+        }
     }
 }
