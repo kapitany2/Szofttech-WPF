@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -96,6 +97,19 @@ namespace Szofttech_WPF.View
             Grid.SetRow(infoPanel, 3);
             Grid.SetColumn(infoPanel, 3);
             ((InfoPanelGUIViewModel)infoPanel.DataContext).changeVisibility(false);
+            ((InfoPanelGUIViewModel)infoPanel.DataContext).OnRematch += InfoPanelGUI_OnRematch;
+            foreach (DictionaryEntry item in App.Current.Resources)
+            {
+                if (item.Key.ToString() == "infoVM")
+                {
+                    ((InfoPanelGUIViewModel)item.Value).OnRematch += InfoPanelGUI_OnRematch;
+                }
+            }
+        }
+
+        private void InfoPanelGUI_OnRematch(object sender, EventArgs e)
+        {
+            Client.sendMessage(new ChatData(Client.ID, "/rematch"));
         }
 
         private void ReInit()
@@ -155,6 +169,7 @@ namespace Szofttech_WPF.View
         private void Client_OnMyHit(object sender, MyHitArgs e)
         {
             enemyBoardGUI.Hit(e.I, e.J, e.Status);
+            enemyBoardGUI.LoadCellGUIImage(e.I, e.J);
         }
 
         private void Client_OnEnemyHitMe(object sender, EnemyHitMeArgs e)
@@ -183,7 +198,10 @@ namespace Szofttech_WPF.View
             Dispatcher.Invoke(() =>
             {
                 ((ChatViewModel)chatGUI.DataContext).addMessage("System", endMessage);
-                infoPanel.Visibility = Visibility.Hidden;
+                //infoPanel.Visibility = Visibility.Hidden;
+                ((InfoPanelGUIViewModel)infoPanel.DataContext).RematchVisibility = true;
+                ((InfoPanelGUIViewModel)infoPanel.DataContext).GreenArrowVisibility = false;
+                ((InfoPanelGUIViewModel)infoPanel.DataContext).RedArrowVisibility = false;
             });
             exitable = true;
         }
