@@ -36,29 +36,14 @@ namespace Szofttech_WPF.View
                 default:
                     break;
             }
+
+            board.cellstatus[i, j] = cells[i, j].CellStatus;
         }
 
         public void Hit(int i, int j, CellStatus status)
         {
-            switch (status)
-            {
-                case CellStatus.Empty:
-                    cells[i,j].setCell(CellStatus.EmptyHit);
-                    break;
-                case CellStatus.EmptyHit:
-                    break;
-                case CellStatus.NearShip:
-                    break;
-                case CellStatus.Ship:
-                    cells[i,j].setCell(CellStatus.ShipHit);
-                    break;
-                case CellStatus.ShipHit:
-                    break;
-                case CellStatus.ShipSunk:
-                    break;
-                default:
-                    break;
-            }
+            cells[i, j].setCell(status);
+            board.cellstatus[i, j] = status;
         }
     }
 }
