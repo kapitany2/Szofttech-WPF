@@ -134,6 +134,7 @@ namespace Szofttech_WPF.View
             Dispatcher.Invoke(() => ReInit());
             GC.Collect();
             GC.WaitForPendingFinalizers();
+            Dispatcher.Invoke(() => ReInit());//valamiért még egyszer kell újrainicializálni
         }
 
         private void EnemyBoardGUI_OnShot(object sender, ShotArgs e)
