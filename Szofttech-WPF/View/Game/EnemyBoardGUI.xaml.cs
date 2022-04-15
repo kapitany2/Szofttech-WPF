@@ -23,8 +23,6 @@ namespace Szofttech_WPF.View.Game
             ImageBrush img = new ImageBrush();
             img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs_table.png"));
             Background = img;
-            Background = null;
-            //Background = new SolidColorBrush(Color.FromArgb(191, 141, 80, 5));
             Init();
         }
 
