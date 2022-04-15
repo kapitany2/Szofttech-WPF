@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
         <Viewbox Stretch="Uniform" Grid.Row="1">
             <Button Content="Rematch"
+                    Visibility="{Binding RematchVisibility, Converter={StaticResource cnvBoolToVisibility}}"
                     Command="{Binding Source={StaticResource infoVM}, Path=RematchCommand}"
                     Style="{StaticResource RoundedGradientButton}"/>
         </Viewbox>
