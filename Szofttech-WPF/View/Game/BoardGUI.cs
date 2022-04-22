@@ -1,6 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Media;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Model.EventArguments.Board;
 using Szofttech_WPF.View.Game;
 
 namespace Szofttech_WPF.View
@@ -9,6 +11,7 @@ namespace Szofttech_WPF.View
     {
         public Board board { get; set; }
         protected CellGUI[,] cells;
+        public event EventHandler OnPlaySound;
         public BoardGUI()
         {
             board = new Board();
@@ -21,6 +24,7 @@ namespace Szofttech_WPF.View
             {
                 case CellStatus.Empty:
                     cells[i, j].setCell(CellStatus.EmptyHit);
+                    OnPlaySound?.Invoke(null, new SoundArgs(SoundType.Splash));
                     break;
                 case CellStatus.EmptyHit:
                     break;
@@ -28,6 +32,7 @@ namespace Szofttech_WPF.View
                     break;
                 case CellStatus.Ship:
                     cells[i, j].setCell(CellStatus.ShipHit);
+                    OnPlaySound?.Invoke(null, new SoundArgs(SoundType.Hit));
                     break;
                 case CellStatus.ShipHit:
                     break;

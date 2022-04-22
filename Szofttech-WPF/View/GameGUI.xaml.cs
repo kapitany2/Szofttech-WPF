@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Szofttech_WPF.DataPackage;
 using Szofttech_WPF.EventArguments.Board;
 using Szofttech_WPF.EventArguments.Chat;
@@ -10,6 +12,7 @@ using Szofttech_WPF.EventArguments.Client;
 using Szofttech_WPF.EventArguments.ShipSelecter;
 using Szofttech_WPF.Interfaces;
 using Szofttech_WPF.Logic;
+using Szofttech_WPF.Model.EventArguments.Board;
 using Szofttech_WPF.Network;
 using Szofttech_WPF.Utils;
 using Szofttech_WPF.View.Game;
@@ -30,6 +33,9 @@ namespace Szofttech_WPF.View
         private Client Client;
         private Server Server;
         private bool exitable = true;
+        private MediaPlayer mediaPlayerBackground = new MediaPlayer();
+        private MediaPlayer mediaPlayerHit = new MediaPlayer();
+        private MediaPlayer mediaPlayerWater = new MediaPlayer();
 
         public GameGUI(int port) : this(Settings.getIP(), port)
         {
@@ -60,12 +66,14 @@ namespace Szofttech_WPF.View
             playerBoardGUI.Visibility = Visibility.Hidden;
             playerBoardGUI.OnPlace += PlayerBoardGUI_OnPlace;
             playerBoardGUI.OnPickUp += PlayerBoardGUI_OnPickUp;
+            playerBoardGUI.OnPlaySound += PlaySound;
             grid.Children.Add(playerBoardGUI);
             Grid.SetRow(playerBoardGUI, 3);
             Grid.SetColumn(playerBoardGUI, 1);
 
             enemyBoardGUI.Visibility = Visibility.Hidden;
             enemyBoardGUI.OnShot += EnemyBoardGUI_OnShot;
+            enemyBoardGUI.OnPlaySound += PlaySound;
             grid.Children.Add(enemyBoardGUI);
             Grid.SetRow(enemyBoardGUI, 3);
             Grid.SetColumn(enemyBoardGUI, 5);
@@ -105,8 +113,40 @@ namespace Szofttech_WPF.View
                     ((InfoPanelGUIViewModel)item.Value).OnRematch += InfoPanelGUI_OnRematch;
                 }
             }
+            mediaPlayerBackground.Open(new Uri(Directory.GetCurrentDirectory() + "/backgroundwind.mp3"));
+            mediaPlayerBackground.MediaEnded += (send, args) =>
+            {
+                mediaPlayerBackground.Position = TimeSpan.Zero;
+                mediaPlayerBackground.Play();
+            };
+            mediaPlayerBackground.MediaFailed += (send, args) =>
+            {
+                Console.WriteLine("Sikertelen megnyitás");
+            };
+            mediaPlayerBackground.Volume = 0.2;
+            mediaPlayerBackground.Play();
         }
-
+        private void PlaySound(object sender, EventArgs e)
+        {
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            switch (((SoundArgs)e).SoundType)
+            {
+                case SoundType.Splash:
+                    mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/splash.m4a"));
+                    break;
+                case SoundType.Hit:
+                    mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/explosion.wav"));
+                    break;
+                default:
+                    return;
+            }
+            mediaPlayer.MediaFailed += (sende, args) =>
+            {
+                Console.WriteLine("Sikertelen megnyitás");
+            };
+            mediaPlayer.Volume = 0.5;
+            mediaPlayer.Play();
+        }
         private void InfoPanelGUI_OnRematch(object sender, EventArgs e)
         {
             Client.sendMessage(new ChatData(Client.ID, "/rematch"));
@@ -280,6 +320,9 @@ namespace Szofttech_WPF.View
         {
             if (exitable)
             {
+                mediaPlayerBackground.Stop();
+                mediaPlayerHit.Stop();
+                mediaPlayerWater.Stop();
                 this.Visibility = Visibility.Hidden;
                 Server?.Close();
                 Client?.Close();
