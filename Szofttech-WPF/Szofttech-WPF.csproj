@@ -63,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\DataPackage\DummyData.cs" />
+    <Compile Include="Model\EventArguments\Board\SoundArgs.cs" />
     <Compile Include="ViewModel\Commands\SelectItemCommand.cs" />
     <Compile Include="ViewModel\Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\Converters\ColorConverter.cs" />
@@ -286,6 +287,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\bs_shiphit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="View\Resources\backgroundwind.mp3" />
+    <Content Include="View\Resources\explosion.wav" />
+    <Content Include="View\Resources\splash.m4a" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
