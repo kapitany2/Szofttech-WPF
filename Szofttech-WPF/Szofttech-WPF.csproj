@@ -255,26 +255,16 @@
     <Resource Include="View\Resources\arrow_right.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="View\Resources\bs1_1_horizontal.png" />
-    <Resource Include="View\Resources\bs1_1_vertical.png" />
-    <Resource Include="View\Resources\bs2_1_horizontal.png" />
-    <Resource Include="View\Resources\bs2_1_vertical.png" />
-    <Resource Include="View\Resources\bs2_2_horizontal.png" />
-    <Resource Include="View\Resources\bs2_2_vertical.png" />
-    <Resource Include="View\Resources\bs3_1_horizontal.png" />
-    <Resource Include="View\Resources\bs3_1_vertical.png" />
-    <Resource Include="View\Resources\bs3_2_horizontal.png" />
-    <Resource Include="View\Resources\bs3_2_vertical.png" />
-    <Resource Include="View\Resources\bs3_3_horizontal.png" />
-    <Resource Include="View\Resources\bs3_3_vertical.png" />
-    <Resource Include="View\Resources\bs4_1_horizontal.png" />
-    <Resource Include="View\Resources\bs4_1_vertical.png" />
-    <Resource Include="View\Resources\bs4_2_horizontal.png" />
-    <Resource Include="View\Resources\bs4_2_vertical.png" />
-    <Resource Include="View\Resources\bs4_3_horizontal.png" />
-    <Resource Include="View\Resources\bs4_3_vertical.png" />
-    <Resource Include="View\Resources\bs4_4_horizontal.png" />
-    <Resource Include="View\Resources\bs4_4_vertical.png" />
+    <Resource Include="View\Resources\bs1_1.png" />
+    <Resource Include="View\Resources\bs2_1.png" />
+    <Resource Include="View\Resources\bs2_2.png" />
+    <Resource Include="View\Resources\bs3_1.png" />
+    <Resource Include="View\Resources\bs3_2.png" />
+    <Resource Include="View\Resources\bs3_3.png" />
+    <Resource Include="View\Resources\bs4_1.png" />
+    <Resource Include="View\Resources\bs4_2.png" />
+    <Resource Include="View\Resources\bs4_3.png" />
+    <Resource Include="View\Resources\bs4_4.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="View\Resources\bs_table.png" />
@@ -289,9 +279,21 @@
     <Resource Include="View\Resources\bs_shiphit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="View\Resources\backgroundwind.mp3" />
-    <Content Include="View\Resources\explosion.wav" />
-    <Content Include="View\Resources\splash.m4a" />
+    <EmbeddedResource Include="View\Resources\backgroundwind.mp3" />
+    <EmbeddedResource Include="View\Resources\explosion.wav" />
+    <EmbeddedResource Include="View\Resources\splash.m4a" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="View\Resources\bs1_1_sunk.png" />
+    <Resource Include="View\Resources\bs2_1_sunk.png" />
+    <Resource Include="View\Resources\bs2_2_sunk.png" />
+    <Resource Include="View\Resources\bs3_1_sunk.png" />
+    <Resource Include="View\Resources\bs3_2_sunk.png" />
+    <Resource Include="View\Resources\bs3_3_sunk.png" />
+    <Resource Include="View\Resources\bs4_1_sunk.png" />
+    <Resource Include="View\Resources\bs4_2_sunk.png" />
+    <Resource Include="View\Resources\bs4_3_sunk.png" />
+    <Resource Include="View\Resources\bs4_4_sunk.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
