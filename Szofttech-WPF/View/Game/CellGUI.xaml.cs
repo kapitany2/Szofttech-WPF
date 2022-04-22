@@ -47,7 +47,7 @@ namespace Szofttech_WPF.View.Game
         }
 
         private void setColorSelected() => Background = new SolidColorBrush(Colors.Orange);
-        
+
         private void SetColorUnSelected() => Background = null;
 
         public void setCell(CellStatus cell)
@@ -74,6 +74,10 @@ namespace Szofttech_WPF.View.Game
         {
             base.OnRender(drawingContext);
             ImageBrush img;
+            RotateTransform rotate = new RotateTransform();
+            rotate.CenterX = 0.5;
+            rotate.CenterY = 0.5;
+            rotate.Angle = 270;
             switch (CellStatus)
             {
                 case CellStatus.Empty:
@@ -90,7 +94,9 @@ namespace Szofttech_WPF.View.Game
                     try
                     {
                         img = new ImageBrush();
-                        img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs" + shipPiece + "_" + pieceCounter + (isHorizontal ? "_horizontal" : "_vertical") + ".png"));
+                        img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs" + shipPiece + "_" + pieceCounter + ".png"));
+                        if (isHorizontal)
+                            img.RelativeTransform = rotate;
                         Background = img;
                     }
                     catch (Exception)
@@ -114,8 +120,9 @@ namespace Szofttech_WPF.View.Game
                     try
                     {
                         img = new ImageBrush();
-                        img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs" + shipPiece + "_" + pieceCounter + (isHorizontal ? "_horizontal" : "_vertical") + "_sunk.png"));
-                        Background = img;
+                        img.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/View/Resources/bs" + shipPiece + "_" + pieceCounter + "_sunk.png"));
+                        if (isHorizontal)
+                            img.RelativeTransform = rotate; Background = img;
                     }
                     catch (Exception)
                     {
@@ -127,7 +134,7 @@ namespace Szofttech_WPF.View.Game
                         {
                             Console.WriteLine("valami hiba a hajó kirajzolásánál");
                         }
-                        Background = new SolidColorBrush(Colors.Orange);
+                        Background = new SolidColorBrush(Colors.Red);
                     }
                     break;
                 default:
