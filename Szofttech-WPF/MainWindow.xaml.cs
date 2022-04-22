@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -102,6 +104,36 @@ namespace Szofttech_WPF
             windowGrid.Children.Add(menuGUI);
             Grid.SetRow(menuGUI, 1);
             #endregion
+
+            CheckDefaultFiles();
+        }
+
+        private void CheckDefaultFiles()
+        {
+            string[] files = { "/explosion.wav", "/splash.m4a", "/backgroundwind.mp3" };
+            foreach (var file in files)
+                if (!File.Exists(Settings.GetPath() + file))
+                    CreateDefaultFiles(file);
+        }
+        private void CreateDefaultFiles(string filename)
+        {
+            try
+            {
+                if (!Directory.Exists(Settings.GetPath()))
+                    Directory.CreateDirectory(Settings.GetPath());
+            }
+            catch { }
+            try
+            {
+                using (FileStream fileStream = File.Create(Settings.GetPath() + filename))
+                {
+                    var a = Assembly.GetExecutingAssembly();
+                    var y = "Szofttech_WPF.View.Resources." + filename.Substring(1);
+                    var b = a.GetManifestResourceStream(y);
+                    b.CopyTo(fileStream);
+                }
+            }
+            catch { }
         }
 
         private void CreateGameGUI(ServerAddress sa)
