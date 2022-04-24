@@ -32,7 +32,7 @@
         </Button>
         <Button x:Name="exitButton" HorizontalAlignment="Right" Width="40" Height="40" Visibility="Hidden" Click="exitButton_Click" Style="{StaticResource exitButton}" >
             <Button.Background>
-                <ImageBrush ImageSource="View/Resources/exit_icon.png" Stretch="None" />
+                <ImageBrush ImageSource="View/Resources/exit_icon.png" Stretch="Fill" />
             </Button.Background>
             <Button.ToolTip>
                 <ToolTip>
