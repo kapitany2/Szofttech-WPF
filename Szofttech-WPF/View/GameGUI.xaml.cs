@@ -132,10 +132,10 @@ namespace Szofttech_WPF.View
             switch (((SoundArgs)e).SoundType)
             {
                 case SoundType.Splash:
-                    mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/splash.m4a"));
+                    mediaPlayer.Open(new Uri(Settings.GetPath() + "/splash.m4a"));
                     break;
                 case SoundType.Hit:
-                    mediaPlayer.Open(new Uri(Directory.GetCurrentDirectory() + "/explosion.wav"));
+                    mediaPlayer.Open(new Uri(Settings.GetPath() + "/explosion.wav"));
                     break;
                 default:
                     return;
