@@ -65,7 +65,7 @@ namespace Szofttech_WPF.Utils
             {
                 if (int.TryParse(line.Split(' ')[1], out int parsed))
                     variable.SetValue(null, parsed);
-                else 
+                else
                     variable.SetValue(null, line.Split(' ')[1]);
                 ++lineCount;
             }
@@ -116,6 +116,11 @@ namespace Szofttech_WPF.Utils
         public static void setBackgroundColor(Color color)
         {
             BackgroundColor = color.ToString();
+        }
+
+        public static string GetPath()
+        {
+            return Directory.GetCurrentDirectory() + "/BattleShip";
         }
     }
 }
