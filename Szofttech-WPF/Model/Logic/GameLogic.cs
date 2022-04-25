@@ -148,6 +148,8 @@ namespace Szofttech_WPF.Logic
                 if (players[masik].Board.isSunk(data.I, data.J))
                 {
                     hitNear(egyik, masik, data.I, data.J);
+                    players[masik].Board.setSunk(data.I, data.J);
+                    sendSunk(egyik, masik, data.I, data.J);
                 }
                 if (isWin(players[masik]))
                 {
@@ -237,6 +239,19 @@ namespace Szofttech_WPF.Logic
                 //ütés
                 players[masik].Board.Hit(nearShipPoint.X, nearShipPoint.Y);
 
+                CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
+                cd.RecipientID = egyik;
+                addMessage(cd);
+                ShotData sd = new ShotData(egyik, nearShipPoint.X, nearShipPoint.Y);
+                sd.RecipientID = masik;
+                addMessage(sd);
+            }
+        }
+
+        private void sendSunk(int egyik, int masik, int i, int j)
+        {
+            foreach (Coordinate nearShipPoint in players[masik].Board.ShipCoords(i, j))
+            {
                 CellData cd = new CellData(-1, nearShipPoint.X, nearShipPoint.Y, players[masik].Board.cellstatus[nearShipPoint.X, nearShipPoint.Y]);
                 cd.RecipientID = egyik;
                 addMessage(cd);
