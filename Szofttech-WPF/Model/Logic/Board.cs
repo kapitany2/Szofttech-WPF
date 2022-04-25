@@ -268,6 +268,11 @@ namespace Szofttech_WPF.Logic
         {
             List<Coordinate> shipsCoords = new List<Coordinate>();
 
+            if (cellstatus[i, j] != CellStatus.Ship && cellstatus[i, j] != CellStatus.ShipHit && cellstatus[i, j] != CellStatus.ShipSunk)
+            {
+                return shipsCoords;
+            }
+
             shipsCoords.Add(new Coordinate(i, j));
 
             if (IsHorizontal(i, j))
@@ -361,6 +366,14 @@ namespace Szofttech_WPF.Logic
                 }
             }
             return true;
+        }
+
+        public void setSunk(int i, int j)
+        {
+            foreach (var shipCoord in ShipCoords(i, j))
+            {
+                cellstatus[shipCoord.X, shipCoord.Y] = CellStatus.ShipSunk;
+            }
         }
 
         public List<Coordinate> nearShipPoints(int i, int j)
