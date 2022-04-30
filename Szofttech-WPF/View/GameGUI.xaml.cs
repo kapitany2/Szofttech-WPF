@@ -210,7 +210,6 @@ namespace Szofttech_WPF.View
         private void Client_OnMyHit(object sender, MyHitArgs e)
         {
             enemyBoardGUI.Hit(e.I, e.J, e.Status);
-            enemyBoardGUI.LoadCellGUIImage(e.I, e.J);
         }
 
         private void Client_OnEnemyHitMe(object sender, EnemyHitMeArgs e)
