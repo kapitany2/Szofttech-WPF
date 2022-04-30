@@ -16,5 +16,10 @@ namespace Szofttech_WPF.Logic
             this.X = x;
             this.Y = y;
         }
+
+        public override string ToString()
+        {
+            return String.Format("X: {0} Y: {1}", X, Y);
+        }
     }
 }
