@@ -351,7 +351,43 @@ namespace Szofttech_WPF.Logic
                     } while (existShip);
                 }
             }
-            return shipsCoords;
+            
+            return OrderList(shipsCoords, IsHorizontal(i, j));
+        }
+
+        private List<Coordinate> OrderList(List<Coordinate> coordinates, bool horizontal)
+        {
+            if (horizontal)
+            {
+                for (int i = 0; i < coordinates.Count; i++)
+                {
+                    for (int j = 0; j < coordinates.Count; j++)
+                    {
+                        if (coordinates[i].Y < coordinates[j].Y)
+                        {
+                            Coordinate t = coordinates[i];
+                            coordinates[i] = coordinates[j];
+                            coordinates[j] = t;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < coordinates.Count; i++)
+                {
+                    for (int j = 0; j < coordinates.Count; j++)
+                    {
+                        if (coordinates[i].X < coordinates[j].X)
+                        {
+                            Coordinate t = coordinates[i];
+                            coordinates[i] = coordinates[j];
+                            coordinates[j] = t;
+                        }
+                    }
+                }
+            }
+            return coordinates;
         }
 
         public bool isSunk(int i, int j)
