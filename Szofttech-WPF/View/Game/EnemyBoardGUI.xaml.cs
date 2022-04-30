@@ -56,6 +56,14 @@ namespace Szofttech_WPF.View.Game
                     };
                     cells[i, j] = seged;
                     seged.setCell(board.getCellstatus()[i, j]);
+                    seged.ChangedToShip += (sender, args) =>
+                    {
+                        LoadCellGUIImage(((CellGUI)sender));
+                    };
+                    seged.ChangedToSunk += (sender, args) =>
+                    {
+                        LoadCellGUIImage(((CellGUI)sender));
+                    };
                     grid.Children.Add(seged);
                     Grid.SetRow(seged, i);
                     Grid.SetColumn(seged, j);
@@ -101,13 +109,13 @@ namespace Szofttech_WPF.View.Game
             canTip = value;
             Dispatcher.Invoke(() => IsEnabled = value);
         }
-        public void LoadCellGUIImage(int i, int j)
+
+        private void LoadCellGUIImage(CellGUI cellGUI)
         {
-            Console.Write("Enemy's board: ");
-            Console.WriteLine(board);
+            int i = cellGUI.I;
+            int j = cellGUI.J;
             bool horizontal = board.IsHorizontal(i, j);
             List<Coordinate> coordinates = board.ShipCoords(i, j);
-            coordinates.Reverse();
             for (int x = 0; x < coordinates.Count; x++)
             {
                 cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x + 1);
