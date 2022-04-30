@@ -262,7 +262,6 @@ namespace Szofttech_WPF.View.Game
             int j = cellGUI.J;
             bool horizontal = board.IsHorizontal(i, j);
             List<Coordinate> coordinates = board.ShipCoords(i, j);
-            coordinates.Reverse();
             for (int x = 0; x < coordinates.Count; x++)
             {
                 cells[coordinates[x].X, coordinates[x].Y].setInfo(horizontal, coordinates.Count, x + 1);
