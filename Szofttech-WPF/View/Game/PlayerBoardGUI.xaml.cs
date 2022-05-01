@@ -207,6 +207,7 @@ namespace Szofttech_WPF.View.Game
                     foreach (var selectedCell in selectedCells)
                     {
                         selectedCell.setCell(CellStatus.Ship);
+                        cells[selectedCell.I, selectedCell.J].setCell(CellStatus.Ship);
                         board.setCell(selectedCell.I, selectedCell.J, selectedCell.CellStatus);
                     }
                     OnPlace?.Invoke(null, new ShipSizeArgs(selectedShipSize));
